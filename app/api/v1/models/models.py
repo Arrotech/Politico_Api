@@ -18,6 +18,11 @@ class ElectionsModel():
 		self.entries.append(new_party)
 		return self.entries
 
+	def get_all_parties(self):
+		"""Fetch all the existing parties."""
+
+		return self.entries
+
 
 
 

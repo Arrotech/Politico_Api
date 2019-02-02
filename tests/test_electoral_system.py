@@ -1,9 +1,9 @@
 import unittest
 from app import electoral_app
 import json
-from app.api.v1.views.views import Elections
+from app.api.v1.views.views import Elections, GetParties
 from app.api.v1.models.models import ElectionsModel
-from utils.dummy import create_party
+from utils.dummy import create_party, empty_parties
 
 
 class TestDataParcel(unittest.TestCase):
@@ -22,6 +22,15 @@ class TestDataParcel(unittest.TestCase):
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'], 'party created successfully!')
 		assert response.status_code == 201
+
+	def test_get(self):
+
+		response = self.client.get(
+			'/api/v1/parties', data=json.dumps(create_party), content_type='application/json')
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'],
+			"success")
+		assert response.status_code == 200
 
 	def test_wrong_url(self):
 		response = self.client.get(
