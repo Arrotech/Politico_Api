@@ -25,3 +25,21 @@ class Elections(Resource):
             }),201)
 
 
+class GetParties(Resource):
+    """Fetch all parties."""
+
+    def get(self):
+        """Fetch all the existing parties."""
+
+        parties = {}
+        parties = ElectionsModel().get_all_parties()
+        if parties:
+            return make_response(jsonify({
+            "message": "success",
+            "parties": parties
+            }),200)
+        return make_response(jsonify({
+            "message": "unavailable parties",
+            "parties": parties
+        }), 200)
+        

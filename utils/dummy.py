@@ -3,3 +3,5 @@ create_party = {
 "hqAddress": "KICC, Nairobi",
 "logoUrl": "arrotech.com"
 }
+
+empty_parties = {}
