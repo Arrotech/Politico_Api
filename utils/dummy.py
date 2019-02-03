@@ -4,6 +4,13 @@ create_party = {
 "logoUrl": "arrotech.com"
 }
 
+party = {
+"party_id": "1",
+"name": "People's Party",
+"hqAddress": "KICC, Nairobi",
+"logoUrl": "arrotech.com"
+}
+
 get_party = {
 "name": "People's Party",
 "hqAddress": "KICC, Nairobi",
@@ -11,6 +18,12 @@ get_party = {
 }
 
 create_office = {
+"category": "Executive",
+"name": "Presidential"
+}
+
+office = {
+"office_id": "1",
 "category": "Executive",
 "name": "Presidential"
 }
