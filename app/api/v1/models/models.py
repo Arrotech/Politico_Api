@@ -33,6 +33,7 @@ class PartiesModel():
 			for party in self.entries:
 				if party.get('party_id') == party_id:
 					return party
+					
 
 class OfficesModel():         
 
