@@ -1,10 +1,10 @@
 from flask_restful import Resource
 import json
 from flask import make_response, jsonify, request, abort, Blueprint
-from app.api.v1.models.models import ElectionsModel
-from utils.validations import raise_error, check_party_keys
+from app.api.v1.models.models import PartiesModel, OfficesModel
+from utils.validations import raise_error, check_party_keys, check_office_keys
 
-class Elections(Resource):
+class CreateParty(Resource):
     """Creates a new political party."""
 
     def post(self):
@@ -19,7 +19,7 @@ class Elections(Resource):
         hqAddress = details['hqAddress']
         logoUrl = details['logoUrl']
         
-        res = ElectionsModel().save(name, hqAddress, logoUrl)
+        res = PartiesModel().save(name, hqAddress, logoUrl)
         return make_response(jsonify({
                 "message" : "party created successfully!"
             }),201)
@@ -32,7 +32,7 @@ class GetParties(Resource):
         """Fetch all the existing parties."""
 
         parties = {}
-        parties = ElectionsModel().get_all_parties()
+        parties = PartiesModel().get_all_parties()
         if parties:
             return make_response(jsonify({
             "message": "success",
@@ -49,7 +49,7 @@ class GetParty(Resource):
     def get(self, party_id):
         """Fetch a specific political party."""
 
-        party = ElectionsModel().get_party_by_id(party_id)
+        party = PartiesModel().get_party_by_id(party_id)
         if party:
             return make_response(jsonify({
             "message": "success",
@@ -58,4 +58,23 @@ class GetParty(Resource):
         return make_response(jsonify({
             "status": "not found"
             }),404)
+
+class CreateOffice(Resource):
+    """Creates a new government office."""
+
+    def post(self):
+        """Create a new government office."""
+
+        details = request.get_json()
+        errors = check_office_keys(request)
+        if errors:
+            return raise_error(400,"Invalid {} key".format(', '.join(errors)))
+
+        category = details['category']
+        name = details['name']
+        
+        res = OfficesModel().save(category, name)
+        return make_response(jsonify({
+                "message" : "office created successfully!"
+            }),201)
         

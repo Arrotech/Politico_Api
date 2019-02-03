@@ -9,3 +9,13 @@ get_party = {
 "hqAddress": "KICC, Nairobi",
 "logoUrl": "arrotech.com"	
 }
+
+create_office = {
+"category": "Executive",
+"name": "Presidential"
+}
+
+office_keys = {
+"catry": "Executive",
+"name": "Presidential"
+}
