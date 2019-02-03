@@ -1,8 +1,11 @@
 parties = []
+offices = []
 
-class ElectionsModel():         
+class PartiesModel():         
 
 	def __init__(self):
+		"""Initialization."""
+		
 		self.entries = parties
 
 	def save(self, name, hqAddress, logoUrl):
@@ -31,6 +34,24 @@ class ElectionsModel():
 				if party.get('party_id') == party_id:
 					return party
 
+class OfficesModel():         
+
+	def __init__(self):
+		"""Initialization."""
+		
+		self.entries = offices
+
+	def save(self, category, name):
+		"""Save a new party that has been created."""
+
+		new_office = {
+		"office_id" : len(self.entries)+1,
+		"category" : category,
+		"name" : name,
+		
+		}
+		self.entries.append(new_office)
+		return self.entries
 
 
 
