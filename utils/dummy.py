@@ -5,13 +5,20 @@ create_party = {
 }
 
 party = {
-"party_id": "1",
+"party_id": 1,
 "name": "People's Party",
 "hqAddress": "KICC, Nairobi",
 "logoUrl": "arrotech.com"
 }
 
+party_keys = {
+"na": "People's Party",
+"hqAddress": "KICC, Nairobi",
+"logoUrl": "arrotech.com"
+}
+
 get_party = {
+"party_id": 1,
 "name": "People's Party",
 "hqAddress": "KICC, Nairobi",
 "logoUrl": "arrotech.com"	
@@ -22,8 +29,8 @@ create_office = {
 "name": "Presidential"
 }
 
-office = {
-"office_id": "1",
+get_office = {
+"office_id": 1,
 "category": "Executive",
 "name": "Presidential"
 }

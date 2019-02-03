@@ -95,3 +95,19 @@ class GetOffices(Resource):
             "message": "success",
             "offices": empty_offices
             }),200)
+
+class GetOffice(Resource):
+    """Fetch a specific office."""
+
+    def get(self, office_id):
+        """Fetch a specific political office."""
+
+        office = OfficesModel().get_office_by_id(office_id)
+        if office:
+            return make_response(jsonify({
+            "message": "success",
+            "office" : office
+            }),200)
+        return make_response(jsonify({
+            "status": "not found"
+            }),404)
