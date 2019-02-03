@@ -3,7 +3,7 @@ from app import electoral_app
 import json
 from app.api.v1.views.views import CreateParty, GetParties, CreateOffice
 from app.api.v1.models.models import PartiesModel
-from utils.dummy import create_party, get_party, create_office, office_keys
+from utils.dummy import create_party, get_party, create_office, office_keys, office, party
 
 
 class TestDataParcel(unittest.TestCase):
@@ -26,7 +26,7 @@ class TestDataParcel(unittest.TestCase):
 	def test_get(self):
 
 		response = self.client.get(
-			'/api/v1/parties', data=json.dumps(create_party), content_type='application/json')
+			'/api/v1/parties', data=json.dumps(party), content_type='application/json')
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'],
 			"success")
@@ -80,3 +80,14 @@ class TestDataParcel(unittest.TestCase):
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'], 'Invalid category key')
 		assert response.status_code == 400
+
+	def test_get(self):
+
+		response = self.client.get(
+			'/api/v1/offices', data=json.dumps(office), content_type='application/json')
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'],
+			"success")
+		assert response.status_code == 200
+
+

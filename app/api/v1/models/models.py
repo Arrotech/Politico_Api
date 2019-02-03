@@ -53,7 +53,9 @@ class OfficesModel():
 		self.entries.append(new_office)
 		return self.entries
 
+	def get_all_offices(self):
+		"""Fetch all the existing offices."""
 
-
+		return self.entries
 
 

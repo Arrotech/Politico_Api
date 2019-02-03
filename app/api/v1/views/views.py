@@ -78,3 +78,20 @@ class CreateOffice(Resource):
                 "message" : "office created successfully!"
             }),201)
         
+class GetOffices(Resource):
+    '''Fetch all offices.'''
+
+    def get(self):
+        '''Fetch all the existing offices.'''
+
+        empty_offices = {}
+        offices = OfficesModel().get_all_offices()
+        if offices:
+            return make_response(jsonify({
+            "message": "success",
+            "offices": offices
+            }),200)
+        return make_response(jsonify({
+            "message": "success",
+            "offices": empty_offices
+            }),200)
