@@ -3,7 +3,7 @@ from app import electoral_app
 import json
 from app.api.v1.views.views import CreateParty, GetParties, CreateOffice
 from app.api.v1.models.models import PartiesModel
-from utils.dummy import create_party, get_party, create_office, office_keys, office, party
+from utils.dummy import create_party, get_party, create_office, office_keys, get_office, party, party_keys
 
 
 class TestDataParcel(unittest.TestCase):
@@ -57,6 +57,14 @@ class TestDataParcel(unittest.TestCase):
 		assert response.status_code == 404
 		assert result['status'] == "not found"
 
+	def test_party_keys(self):
+
+		response = self.client.post(
+			'/api/v1/parties', data=json.dumps(party_keys), content_type='application/json')
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'], 'Invalid name key')
+		assert response.status_code == 400
+
 	def test_create_office(self):
 
 		response = self.client.post(
@@ -84,10 +92,27 @@ class TestDataParcel(unittest.TestCase):
 	def test_get(self):
 
 		response = self.client.get(
-			'/api/v1/offices', data=json.dumps(office), content_type='application/json')
+			'/api/v1/offices', data=json.dumps(get_office), content_type='application/json')
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'],
 			"success")
 		assert response.status_code == 200
+
+	def test_get_office_by_id(self):
+
+		response = self.client.get(
+			'/api/v1/offices/1', data=json.dumps(get_office), content_type='application/json')
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'],
+			"success")
+		assert response.status_code == 200
+
+	def test_unexisting_office(self):
+
+		response = self.client.get(
+			'/api/v1/offices/5')
+		result = json.loads(response.data.decode())
+		assert response.status_code == 404
+		assert result['status'] == "not found"
 
 

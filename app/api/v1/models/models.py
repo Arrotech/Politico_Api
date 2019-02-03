@@ -58,4 +58,12 @@ class OfficesModel():
 
 		return self.entries
 
+	def get_office_by_id(self, office_id):
+		"""Fetch a specific political office."""
+
+		if self.entries:
+			for office in self.entries:
+				if office.get('office_id') == office_id:
+					return office
+
 
