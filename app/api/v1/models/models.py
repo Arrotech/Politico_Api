@@ -23,6 +23,14 @@ class ElectionsModel():
 
 		return self.entries
 
+	def get_party_by_id(self, party_id):
+		"""Fetch a specific political party."""
+
+		if self.entries:
+			for party in self.entries:
+				if party.get('party_id') == party_id:
+					return party
+
 
 
 

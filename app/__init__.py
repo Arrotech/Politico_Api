@@ -1,6 +1,6 @@
 from flask import Flask, Blueprint, request, jsonify, make_response
 from flask_restful import Api, Resource
-from app.api.v1.views.views import Elections, GetParties
+from app.api.v1.views.views import Elections, GetParties, GetParty
 
 def page_not_found(e):
 	"""Capture Not Found error."""
@@ -18,6 +18,7 @@ def electoral_app():
 
 	api.add_resource(Elections, '/api/v1/parties')
 	api.add_resource(GetParties, '/api/v1/parties')
+	api.add_resource(GetParty, '/api/v1/parties/<int:party_id>')
 	app.register_error_handler(404, page_not_found)
 	
 	return app
