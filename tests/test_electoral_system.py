@@ -3,7 +3,7 @@ from app import electoral_app
 import json
 from app.api.v1.views.views import Elections, GetParties
 from app.api.v1.models.models import ElectionsModel
-from utils.dummy import create_party, empty_parties
+from utils.dummy import create_party, get_party
 
 
 class TestDataParcel(unittest.TestCase):
@@ -33,8 +33,26 @@ class TestDataParcel(unittest.TestCase):
 		assert response.status_code == 200
 
 	def test_wrong_url(self):
+
 		response = self.client.get(
 			'/api/v1/party')
+		result = json.loads(response.data.decode())
+		assert response.status_code == 404
+		assert result['status'] == "not found"
+
+	def test_get_party_by_id(self):
+
+		response = self.client.get(
+			'/api/v1/parties/1', data=json.dumps(get_party), content_type='application/json')
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'],
+			"success")
+		assert response.status_code == 200
+
+	def test_unexisting_party(self):
+
+		response = self.client.get(
+			'/api/v1/parties/5')
 		result = json.loads(response.data.decode())
 		assert response.status_code == 404
 		assert result['status'] == "not found"

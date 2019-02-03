@@ -42,4 +42,20 @@ class GetParties(Resource):
             "message": "unavailable parties",
             "parties": parties
         }), 200)
+
+class GetParty(Resource):
+    """Fetch a specific party."""
+
+    def get(self, party_id):
+        """Fetch a specific political party."""
+
+        party = ElectionsModel().get_party_by_id(party_id)
+        if party:
+            return make_response(jsonify({
+            "message": "success",
+            "party" : party
+            }),200)
+        return make_response(jsonify({
+            "status": "not found"
+            }),404)
         

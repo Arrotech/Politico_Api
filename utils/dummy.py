@@ -4,4 +4,8 @@ create_party = {
 "logoUrl": "arrotech.com"
 }
 
-empty_parties = {}
+get_party = {
+"name": "People's Party",
+"hqAddress": "KICC, Nairobi",
+"logoUrl": "arrotech.com"	
+}
