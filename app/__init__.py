@@ -1,7 +1,6 @@
 from flask import Flask, Blueprint, request, jsonify, make_response
-from flask_restful import Api, Resource
-from app.api.v1.views.party_views import CreateParty, GetParties, GetParty, DeleteParty
-from app.api.v1.views.office_views import CreateOffice, GetOffices, GetOffice, DeleteOffice
+from app.api.v1.views.party_views import party_v1 as v1
+from app.api.v1.views.office_views import office_v2 as v2
 
 def page_not_found(e):
 	"""Capture Not Found error."""
@@ -15,16 +14,8 @@ def electoral_app():
 	"""Create app."""
 
 	app = Flask(__name__)
-	api = Api(app)
-
-	api.add_resource(CreateParty, '/api/v1/parties')
-	api.add_resource(GetParties, '/api/v1/parties')
-	api.add_resource(GetParty, '/api/v1/parties/<int:party_id>')
-	api.add_resource(DeleteParty, '/api/v1/parties/<int:party_id>/delete')
-	api.add_resource(CreateOffice, '/api/v1/offices')
-	api.add_resource(GetOffices, '/api/v1/offices')
-	api.add_resource(GetOffice, '/api/v1/offices/<int:office_id>')
-	api.add_resource(DeleteOffice, '/api/v1/offices/<int:office_id>/delete')
+	app.register_blueprint(v1, url_prefix='/api/v1/')
+	app.register_blueprint(v2, url_prefix='/api/v2/')
 	app.register_error_handler(404, page_not_found)
 	
 	return app
