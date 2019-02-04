@@ -15,7 +15,6 @@ class OfficesModel():
 		"category" : category,
 		"name" : name,
 		}
-		
 		self.entries.append(new_office)
 		return self.entries
 
@@ -24,7 +23,7 @@ class OfficesModel():
 
 		return self.entries
 
-	def get_office_by_id(self, office_id):
+	def get_an_office(self, office_id):
 		"""Fetch a specific political office."""
 
 		if self.entries:

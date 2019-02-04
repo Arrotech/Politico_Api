@@ -24,9 +24,9 @@ class Office:
         if not request.json:
             abort(400)
         if details['category'].isalpha()== False:
-            return make_response(jsonify({"message": "category is in wrong format"}),400)
+            return raise_error(400,"category is in wrong format")
         if details['name'].isalpha()== False:
-            return make_response(jsonify({"message": "name is in wrong format"}),400)
+            return raise_error(400,"name is in wrong format")
         
         res = OfficesModel().save(category, name)
         return make_response(jsonify({
@@ -53,7 +53,7 @@ class Office:
     def get_office(office_id):
         """Fetch a specific political office."""
 
-        office = OfficesModel().get_office_by_id(office_id)
+        office = OfficesModel().get_an_office(office_id)
         if office:
             return make_response(jsonify({
             "message": "success",
@@ -67,7 +67,7 @@ class Office:
     def delete(office_id):
         """Delete a specific office."""
 
-        office = OfficesModel().get_office_by_id(office_id)
+        office = OfficesModel().get_an_office(office_id)
         if office:
             offices.remove(office)
             return make_response(jsonify({
