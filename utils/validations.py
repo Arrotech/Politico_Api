@@ -1,11 +1,20 @@
 import re
 from flask import jsonify, make_response
 
-
 def check_party_keys(request):
     """Check if the key values are correct."""
 
     res_keys = ['name', 'hqAddress', 'logoUrl']
+    errors = []
+    for key in res_keys:
+        if not key in request.json:
+            errors.append(key)
+    return errors
+
+def check_register_keys(request):
+    """Check if the key values are correct."""
+
+    res_keys = ['firstname', 'lastname', 'othername', 'email', 'phoneNumber', 'passportUrl', 'role']
     errors = []
     for key in res_keys:
         if not key in request.json:
@@ -29,3 +38,4 @@ def raise_error(status, msg):
             "status": "error",
             "message": msg
         }), status)
+

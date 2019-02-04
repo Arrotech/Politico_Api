@@ -68,3 +68,23 @@ office_keys = {
 "catry": "Executive",
 "name": "Presidential"
 }
+
+create_account = {
+"firstname" : "firstname",
+"lastname" : "lastname",
+"othername" : "othername",
+"email" : "email",
+"phoneNumber" : "phoneNumber",
+"passportUrl" : "passportUrl",
+"role" : "role"
+}
+
+account_keys = {
+"fiame" : "firstname",
+"lastname" : "lastname",
+"othername" : "othername",
+"email" : "email",
+"phoneNumber" : "phoneNumber",
+"passportUrl" : "passportUrl",
+"role" : "role"
+}

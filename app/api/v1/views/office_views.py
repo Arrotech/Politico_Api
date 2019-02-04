@@ -16,7 +16,6 @@ class Office:
         errors = check_office_keys(request)
         if errors:
             return raise_error(400,"Invalid {} key".format(', '.join(errors)))
-
         details = request.get_json()
         category = details['category']
         name = details['name']
@@ -37,7 +36,7 @@ class Office:
     def get_offices():
         '''Fetch all the existing offices.'''
 
-        empty_offices = {}
+        offices = {}
         offices = OfficesModel().get_all_offices()
         if offices:
             return make_response(jsonify({
@@ -46,7 +45,7 @@ class Office:
             }),200)
         return make_response(jsonify({
             "message": "success",
-            "offices": empty_offices
+            "offices": offices
             }),200)
 
     @office_v2.route('/offices/<int:office_id>',methods=['GET'])
