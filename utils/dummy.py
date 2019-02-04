@@ -24,6 +24,7 @@ get_party = {
 "logoUrl": "arrotech.com"	
 }
 
+
 create_office = {
 "category": "Executive",
 "name": "Presidential"

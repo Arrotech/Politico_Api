@@ -46,7 +46,7 @@ class TestDataParcel(unittest.TestCase):
 			'/api/v1/parties/1', data=json.dumps(get_party), content_type='application/json')
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'],
-			"success")
+			'success')
 		assert response.status_code == 200
 
 	def test_unexisting_party(self):
@@ -104,7 +104,7 @@ class TestDataParcel(unittest.TestCase):
 			'/api/v1/offices/1', data=json.dumps(get_office), content_type='application/json')
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'],
-			"success")
+			'success')
 		assert response.status_code == 200
 
 	def test_unexisting_office(self):

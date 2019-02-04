@@ -1,7 +1,7 @@
 from flask_restful import Resource
 import json
 from flask import make_response, jsonify, request, abort, Blueprint
-from app.api.v1.models.models import PartiesModel, OfficesModel, parties
+from app.api.v1.models.models import PartiesModel, OfficesModel, parties, offices
 from utils.validations import raise_error, check_party_keys, check_office_keys
 
 class CreateParty(Resource):
@@ -124,6 +124,22 @@ class GetOffice(Resource):
             "message": "success",
             "office" : office
             }),200)
+        return make_response(jsonify({
+            "status": "not found"
+            }),404)
+
+class DeleteOffice(Resource):
+    """Delete a specific office."""
+
+    def delete(self, office_id):
+        """Delete a specific office."""
+
+        office = OfficesModel().get_office_by_id(office_id)
+        if office:
+            offices.remove(office)
+            return make_response(jsonify({
+                "message": "office deleted"
+                }),200)
         return make_response(jsonify({
             "status": "not found"
             }),404)
