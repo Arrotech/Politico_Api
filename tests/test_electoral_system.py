@@ -1,8 +1,8 @@
 import unittest
 from app import electoral_app
 import json
-from app.api.v1.views.party_views import CreateParty, GetParties, GetParty, DeleteParty
-from app.api.v1.views.office_views import CreateOffice, GetOffices, GetOffice, DeleteOffice
+from app.api.v1.views.party_views import Party
+from app.api.v1.views.office_views import Office
 from app.api.v1.models.parties_model import PartiesModel
 from app.api.v1.models.offices_model import OfficesModel
 from utils.dummy import create_party, get_party, create_office, office_keys, get_office, party, party_keys
@@ -70,7 +70,7 @@ class TestDataParcel(unittest.TestCase):
 	def test_create_office(self):
 
 		response = self.client.post(
-			'/api/v1/offices', data=json.dumps(create_office), content_type='application/json')
+			'/api/v2/offices', data=json.dumps(create_office), content_type='application/json')
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'], 'office created successfully!')
 		assert response.status_code == 201
@@ -78,7 +78,7 @@ class TestDataParcel(unittest.TestCase):
 	def test_office_wrong_url(self):
 
 		response = self.client.get(
-			'/api/v1/office')
+			'/api/v2/office')
 		result = json.loads(response.data.decode())
 		assert response.status_code == 404
 		assert result['status'] == "not found"
@@ -86,7 +86,7 @@ class TestDataParcel(unittest.TestCase):
 	def test_office_keys(self):
 
 		response = self.client.post(
-			'/api/v1/offices', data=json.dumps(office_keys), content_type='application/json')
+			'/api/v2/offices', data=json.dumps(office_keys), content_type='application/json')
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'], 'Invalid category key')
 		assert response.status_code == 400
@@ -94,7 +94,7 @@ class TestDataParcel(unittest.TestCase):
 	def test_get(self):
 
 		response = self.client.get(
-			'/api/v1/offices', data=json.dumps(get_office), content_type='application/json')
+			'/api/v2/offices', data=json.dumps(get_office), content_type='application/json')
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'],
 			"success")
@@ -103,7 +103,7 @@ class TestDataParcel(unittest.TestCase):
 	def test_get_office(self):
 
 		response = self.client.get(
-			'/api/v1/offices/1', data=json.dumps(get_office), content_type='application/json')
+			'/api/v2/offices/1', data=json.dumps(get_office), content_type='application/json')
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'],
 			'success')
@@ -112,7 +112,7 @@ class TestDataParcel(unittest.TestCase):
 	def test_unexisting_office(self):
 
 		response = self.client.get(
-			'/api/v1/offices/5')
+			'/api/v2/offices/5')
 		result = json.loads(response.data.decode())
 		assert response.status_code == 404
 		assert result['status'] == "not found"

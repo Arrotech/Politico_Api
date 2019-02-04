@@ -1,13 +1,16 @@
-from flask_restful import Resource
-import json
+
 from flask import make_response, jsonify, request, abort, Blueprint
 from app.api.v1.models.offices_model import OfficesModel, offices
 from utils.validations import raise_error, check_office_keys
+import json
 
-class CreateOffice(Resource):
+office_v2 = Blueprint('v2',__name__, url_prefix='/api/v2/')
+
+class Office:
     """Creates a new government office."""
 
-    def post(self):
+    @office_v2.route('/offices',methods=['POST'])
+    def post():
         """Create a new government office."""
 
         errors = check_office_keys(request)
@@ -30,10 +33,8 @@ class CreateOffice(Resource):
                 "message" : "office created successfully!"
             }),201)
         
-class GetOffices(Resource):
-    '''Fetch all offices.'''
-
-    def get(self):
+    @office_v2.route('/offices',methods=['GET'])
+    def get_offices():
         '''Fetch all the existing offices.'''
 
         empty_offices = {}
@@ -48,10 +49,8 @@ class GetOffices(Resource):
             "offices": empty_offices
             }),200)
 
-class GetOffice(Resource):
-    """Fetch a specific office."""
-
-    def get(self, office_id):
+    @office_v2.route('/offices/<int:office_id>',methods=['GET'])
+    def get_office(office_id):
         """Fetch a specific political office."""
 
         office = OfficesModel().get_office_by_id(office_id)
@@ -64,10 +63,8 @@ class GetOffice(Resource):
             "status": "not found"
             }),404)
 
-class DeleteOffice(Resource):
-    """Delete a specific office."""
-
-    def delete(self, office_id):
+    @office_v2.route('/offices/<int:office_id>/delete',methods=['DELETE'])
+    def delete(office_id):
         """Delete a specific office."""
 
         office = OfficesModel().get_office_by_id(office_id)
