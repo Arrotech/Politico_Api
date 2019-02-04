@@ -1,7 +1,11 @@
   language: 
     - python
+    
   python:
     - "3.6"
+
+  env:
+    - CODECOV_TOKEN="4e6258c9-b1ec-437c-98a3-68da6a3c2d07"
 
   install:
     - pip install codecov
