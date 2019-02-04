@@ -1,6 +1,8 @@
 from flask import Flask, Blueprint, request, jsonify, make_response
 from app.api.v1.views.party_views import party_v1 as v1
 from app.api.v1.views.office_views import office_v2 as v2
+from app.api.v1.views.user_views import user_v3 as v3
+
 
 def page_not_found(e):
 	"""Capture Not Found error."""
@@ -16,6 +18,7 @@ def electoral_app():
 	app = Flask(__name__)
 	app.register_blueprint(v1, url_prefix='/api/v1/')
 	app.register_blueprint(v2, url_prefix='/api/v2/')
+	app.register_blueprint(v3, url_prefix='/api/v3/')
 	app.register_error_handler(404, page_not_found)
 	
 	return app
