@@ -1,6 +1,7 @@
 from flask import Flask, Blueprint, request, jsonify, make_response
 from flask_restful import Api, Resource
-from app.api.v1.views.views import CreateParty, GetParties, GetParty, CreateOffice, GetOffices, GetOffice, DeleteParty, DeleteOffice
+from app.api.v1.views.party_views import CreateParty, GetParties, GetParty, DeleteParty
+from app.api.v1.views.office_views import CreateOffice, GetOffices, GetOffice, DeleteOffice
 
 def page_not_found(e):
 	"""Capture Not Found error."""
