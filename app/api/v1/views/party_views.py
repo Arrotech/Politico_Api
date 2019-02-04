@@ -24,13 +24,12 @@ class Party:
         if not request.json:
             abort(400)
         if details['name'].isalpha()== False:
-            return make_response(jsonify({"message": "name is in wrong format"}),400)
+            return raise_error(400,"name is in wrong format")
         if details['hqAddress'].isalpha()== False:
-            return make_response(jsonify({"message": "hqAddress is in wrong format"}),400)
+            return raise_error(400,"hqAddress is in wrong format")
         if details['logoUrl'].isalpha()== False:
-            return make_response(jsonify({"message": "logoUrl is in wrong format"}),400)
+            return raise_error(400,"logoUrl is in wrong format")
 
-        
         res = PartiesModel().save(name, hqAddress, logoUrl)
         return make_response(jsonify({
                 "message" : "party created successfully!"
@@ -56,7 +55,7 @@ class Party:
     def get_party(party_id):
         """Fetch a specific political party."""
 
-        party = PartiesModel().get_party_by_id(party_id)
+        party = PartiesModel().get_a_party(party_id)
         if party:
             return make_response(jsonify({
             "message": "success",
@@ -70,7 +69,7 @@ class Party:
     def delete_party(party_id):
         """Delete a specific party."""
 
-        party = PartiesModel().get_party_by_id(party_id)
+        party = PartiesModel().get_a_party(party_id)
         if party:
             parties.remove(party)
             return make_response(jsonify({

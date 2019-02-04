@@ -5,7 +5,7 @@ from app.api.v1.views.party_views import Party
 from app.api.v1.views.office_views import Office
 from app.api.v1.models.parties_model import PartiesModel
 from app.api.v1.models.offices_model import OfficesModel
-from utils.dummy import create_party, get_party, create_office, office_keys, get_office, party, party_keys
+from utils.dummy import create_party, get_party, create_office, office_keys, get_office, party, party_keys, office_category, office_name, party_name, party_hqAddress, party_logoUrl
 
 
 class TestDataParcel(unittest.TestCase):
@@ -25,7 +25,7 @@ class TestDataParcel(unittest.TestCase):
 		self.assertEqual(result['message'], 'party created successfully!')
 		assert response.status_code == 201
 
-	def test_get(self):
+	def test_get_parties(self):
 
 		response = self.client.get(
 			'/api/v1/parties', data=json.dumps(party), content_type='application/json')
@@ -34,7 +34,7 @@ class TestDataParcel(unittest.TestCase):
 			"success")
 		assert response.status_code == 200
 
-	def test_party_wrong_url(self):
+	def test_unexisting_partyUrl(self):
 
 		response = self.client.get(
 			'/api/v1/party')
@@ -67,6 +67,30 @@ class TestDataParcel(unittest.TestCase):
 		self.assertEqual(result['message'], 'Invalid name key')
 		assert response.status_code == 400
 
+	def test_office_nameValue(self):
+
+		response = self.client.post(
+			'/api/v1/parties', data=json.dumps(party_name), content_type='application/json')
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'], 'name is in wrong format')
+		assert response.status_code == 400
+
+	def test_office_hqAddressValue(self):
+
+		response = self.client.post(
+			'/api/v1/parties', data=json.dumps(party_hqAddress), content_type='application/json')
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'], 'hqAddress is in wrong format')
+		assert response.status_code == 400
+
+	def test_office_logoUrlValue(self):
+
+		response = self.client.post(
+			'/api/v1/parties', data=json.dumps(party_logoUrl), content_type='application/json')
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'], 'logoUrl is in wrong format')
+		assert response.status_code == 400
+
 	def test_create_office(self):
 
 		response = self.client.post(
@@ -75,7 +99,7 @@ class TestDataParcel(unittest.TestCase):
 		self.assertEqual(result['message'], 'office created successfully!')
 		assert response.status_code == 201
 
-	def test_office_wrong_url(self):
+	def test_unexisting_officeUrl(self):
 
 		response = self.client.get(
 			'/api/v2/office')
@@ -91,7 +115,7 @@ class TestDataParcel(unittest.TestCase):
 		self.assertEqual(result['message'], 'Invalid category key')
 		assert response.status_code == 400
 
-	def test_get(self):
+	def test_get_offices(self):
 
 		response = self.client.get(
 			'/api/v2/offices', data=json.dumps(get_office), content_type='application/json')
@@ -116,5 +140,21 @@ class TestDataParcel(unittest.TestCase):
 		result = json.loads(response.data.decode())
 		assert response.status_code == 404
 		assert result['status'] == "not found"
+
+	def test_office_categoryValue(self):
+
+		response = self.client.post(
+			'/api/v2/offices', data=json.dumps(office_category), content_type='application/json')
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'], 'category is in wrong format')
+		assert response.status_code == 400
+
+	def test_office_nameValue(self):
+
+		response = self.client.post(
+			'/api/v2/offices', data=json.dumps(office_name), content_type='application/json')
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'], 'name is in wrong format')
+		assert response.status_code == 400
 
 

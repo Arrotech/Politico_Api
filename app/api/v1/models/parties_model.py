@@ -24,7 +24,7 @@ class PartiesModel():
 
 		return self.entries
 
-	def get_party_by_id(self, party_id):
+	def get_a_party(self, party_id):
 		"""Fetch a specific political party."""
 
 		if self.entries:
