@@ -4,6 +4,7 @@
     - "3.6"
 
   install:
+    - pip install codecov
     - pip install -r requirements.txt
     - pip install nose
     - pip install coverage
@@ -14,6 +15,8 @@
  
   script:
     - nosetests --with-coverage --cover-package=app
+    - pytest --cov=app tests/
 
   after_success:
     - coveralls
+    - codecov
