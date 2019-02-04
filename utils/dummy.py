@@ -88,3 +88,15 @@ account_keys = {
 "passportUrl" : "passportUrl",
 "role" : "role"
 }
+
+new_candidate = {
+"office" : "office",
+"party" : "party",
+"candidate" : "candidate"
+}
+
+candidate_keys = {
+"office" : "office",
+"prty" : "party",
+"candidate" : "candidate"
+}
