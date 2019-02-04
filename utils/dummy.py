@@ -1,27 +1,27 @@
 create_party = {
-"name": "People's Party",
-"hqAddress": "KICC, Nairobi",
-"logoUrl": "arrotech.com"
+"name": "ODM",
+"hqAddress": "KICC",
+"logoUrl": "arrotech"
 }
 
 party = {
 "party_id": 1,
-"name": "People's Party",
-"hqAddress": "KICC, Nairobi",
-"logoUrl": "arrotech.com"
+"name": "ODM",
+"hqAddress": "KICC",
+"logoUrl": "arrotech"
 }
 
 party_keys = {
-"na": "People's Party",
-"hqAddress": "KICC, Nairobi",
-"logoUrl": "arrotech.com"
+"na": "ODM",
+"hqAddress": "KICC",
+"logoUrl": "arrotech"
 }
 
 get_party = {
 "party_id": 1,
-"name": "People's Party",
-"hqAddress": "KICC, Nairobi",
-"logoUrl": "arrotech.com"	
+"name": "ODM",
+"hqAddress": "KICC",
+"logoUrl": "arrotech"	
 }
 
 

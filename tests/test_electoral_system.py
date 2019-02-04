@@ -1,8 +1,10 @@
 import unittest
 from app import electoral_app
 import json
-from app.api.v1.views.views import CreateParty, GetParties, CreateOffice
-from app.api.v1.models.models import PartiesModel
+from app.api.v1.views.party_views import CreateParty, GetParties, GetParty, DeleteParty
+from app.api.v1.views.office_views import CreateOffice, GetOffices, GetOffice, DeleteOffice
+from app.api.v1.models.parties_model import PartiesModel
+from app.api.v1.models.offices_model import OfficesModel
 from utils.dummy import create_party, get_party, create_office, office_keys, get_office, party, party_keys
 
 
@@ -40,13 +42,13 @@ class TestDataParcel(unittest.TestCase):
 		assert response.status_code == 404
 		assert result['status'] == "not found"
 
-	def test_get_party_by_id(self):
+	def test_get_party(self):
 
 		response = self.client.get(
 			'/api/v1/parties/1', data=json.dumps(get_party), content_type='application/json')
 		result = json.loads(response.data.decode())
-		self.assertEqual(result['message'],
-			'success')
+		self.assertEqual(result["message"],
+			"success")
 		assert response.status_code == 200
 
 	def test_unexisting_party(self):
@@ -98,7 +100,7 @@ class TestDataParcel(unittest.TestCase):
 			"success")
 		assert response.status_code == 200
 
-	def test_get_office_by_id(self):
+	def test_get_office(self):
 
 		response = self.client.get(
 			'/api/v1/offices/1', data=json.dumps(get_office), content_type='application/json')
