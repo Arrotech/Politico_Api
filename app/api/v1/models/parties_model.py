@@ -1,3 +1,5 @@
+import json
+
 parties = []
 
 class PartiesModel():         
@@ -31,8 +33,14 @@ class PartiesModel():
 			for party in self.entries:
 				if party.get('party_id') == party_id:
 					return party
-					
 
+	def update_party(self, name, hqAddress, logoUrl):
+		"""Returns a tuple as dictionary."""
 
+		party = {
+		"name" : name,
+		"hqAddress" : hqAddress,
+		"logoUrl" : logoUrl,
+		}
 
-
+		return party
