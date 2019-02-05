@@ -114,3 +114,17 @@ vote_keys = {
 "office" : "office",
 "cadate" : "candidate"
 }
+
+new_petition = {
+"createdOn" : "createdOn",
+"createdBy" : "createdBy",
+"office" : "office",
+"body" : "body"
+}
+
+petition_keys = {
+"credOn" : "createdOn",
+"createdBy" : "createdBy",
+"office" : "office",
+"body" : "body"
+}
