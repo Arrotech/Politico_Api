@@ -34,6 +34,15 @@ class TestDataParcel(unittest.TestCase):
 			"success")
 		assert response.status_code == 200
 
+	def test_edit_party(self):
+
+		response = self.client.put(
+			'/api/v1/parties/1/edit', data=json.dumps(party), content_type='application/json')
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'],
+			"party updated successfully")
+		assert response.status_code == 200
+
 	def test_unexisting_partyUrl(self):
 
 		response = self.client.get(
