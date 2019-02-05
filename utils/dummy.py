@@ -100,3 +100,17 @@ candidate_keys = {
 "prty" : "party",
 "candidate" : "candidate"
 }
+
+new_vote = {
+"createdOn" : "createdOn",
+"createdBy" : "createdBy",
+"office" : "office",
+"candidate" : "candidate"
+}
+
+vote_keys = {
+"createdOn" : "createdOn",
+"createdBy" : "createdBy",
+"office" : "office",
+"cadate" : "candidate"
+}
