@@ -11,6 +11,16 @@ def check_party_keys(request):
             errors.append(key)
     return errors
 
+def check_voters_keys(request):
+    """Check if the key values are correct."""
+
+    res_keys = ['createdOn', 'createdBy', 'office', 'candidate']
+    errors = []
+    for key in res_keys:
+        if not key in request.json:
+            errors.append(key)
+    return errors
+
 def check_candidates_keys(request):
     """Check if the key values are correct."""
 
