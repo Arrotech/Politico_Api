@@ -75,3 +75,17 @@ class Office:
         return make_response(jsonify({
             "status": "not found"
             }),404)
+
+    @office_v2.route('/offices/<int:office_id>/edit',methods=['PATCH'])
+    def edit_party(office_id):
+        """Edit a specific office."""
+
+        details = request.get_json()
+        office = OfficesModel().update_office(office_id, details)
+        if office:
+            return make_response(jsonify({
+                "message": "office updated successfully"
+                }),200)
+        return make_response(jsonify({
+            "status": "not found"
+            }),404)

@@ -30,3 +30,16 @@ class OfficesModel():
 			for office in self.entries:
 				if office.get('office_id') == office_id:
 					return office
+
+	def update_office(self, office_id, details):
+		"""Returns a tuple as dictionary."""
+
+		for office in self.entries:
+			if office['office_id'] == office_id:
+				category = details.get('category')
+				name = details.get('name')
+				if category:
+					office['category']  = category
+				if name:
+					office['name'] = name
+				return party

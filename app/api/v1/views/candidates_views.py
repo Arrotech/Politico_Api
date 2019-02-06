@@ -6,7 +6,7 @@ import json
 candidate_v4 = Blueprint('v4',__name__, url_prefix='/api/v4/')
 
 class Candidates:
-    """A user can create a new account."""
+    """Candidates enpoint to show interest in running for an office."""
     
     @candidate_v4.route('/candidates', methods=['POST'])
     def post():

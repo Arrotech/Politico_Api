@@ -5,9 +5,11 @@ from app.api.v1.views.petitions_views import Petition
 from app.api.v1.models.petitions_model import PetitionsModel
 from utils.dummy import new_petition, petition_keys
 
-class TestDataParcel(unittest.TestCase):
+class TestPetitions(unittest.TestCase):
+	"""Test petitions endpoint."""
 
 	def setUp(self):
+		"""Set up the app for testing."""
 
 		self.app = electoral_app()
 		self.client = self.app.test_client()
@@ -15,6 +17,7 @@ class TestDataParcel(unittest.TestCase):
 		self.app_context.push()
 
 	def test_petition(self):
+		"""Test filing a new petition."""
 
 		response = self.client.post(
 			'/api/v6/petitions', data=json.dumps(new_petition), content_type='application/json')
@@ -23,6 +26,7 @@ class TestDataParcel(unittest.TestCase):
 		assert response.status_code == 201
 
 	def test_petition_keys(self):
+		"""Test petition json keys."""
 
 		response = self.client.post(
 			'/api/v6/petitions', data=json.dumps(petition_keys), content_type='application/json')
