@@ -2,15 +2,15 @@ import unittest
 from app import electoral_app
 import json
 from app.api.v1.views.party_views import Party
-from app.api.v1.views.office_views import Office
 from app.api.v1.models.parties_model import PartiesModel
-from app.api.v1.models.offices_model import OfficesModel
-from utils.dummy import create_party, get_party, create_office, office_keys, get_office, party, party_keys, office_category, office_name, party_name, party_hqAddress, party_logoUrl
+from utils.dummy import create_party, get_party, party, party_keys, party_name, party_hqAddress, party_logoUrl, update_party
 
 
-class TestDataParcel(unittest.TestCase):
+class TestParty(unittest.TestCase):
+	"""Test party endpoints."""
 
 	def setUp(self):
+		"""Set up the app for testing."""
 
 		self.app = electoral_app()
 		self.client = self.app.test_client()
@@ -18,6 +18,7 @@ class TestDataParcel(unittest.TestCase):
 		self.app_context.push()
 
 	def test_create_party(self):
+		"""Test when a user creates a new party."""
 
 		response = self.client.post(
 			'/api/v1/parties', data=json.dumps(create_party), content_type='application/json')
@@ -26,6 +27,7 @@ class TestDataParcel(unittest.TestCase):
 		assert response.status_code == 201
 
 	def test_get_parties(self):
+		"""Test when a user gets all parties."""
 
 		response = self.client.get(
 			'/api/v1/parties', data=json.dumps(party), content_type='application/json')
@@ -34,16 +36,18 @@ class TestDataParcel(unittest.TestCase):
 			"success")
 		assert response.status_code == 200
 
-	def test_edit_party(self):
+	def test_update_party(self):
+		"""Test when a user wants to edit a specific party."""
 
-		response = self.client.put(
-			'/api/v1/parties/1/edit', data=json.dumps(party), content_type='application/json')
+		response = self.client.patch(
+			'/api/v1/parties/1/edit', data=json.dumps(update_party), content_type='application/json')
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'],
 			"party updated successfully")
 		assert response.status_code == 200
 
 	def test_unexisting_partyUrl(self):
+		"""Test when a user provides unexisting url."""
 
 		response = self.client.get(
 			'/api/v1/party')
@@ -52,6 +56,7 @@ class TestDataParcel(unittest.TestCase):
 		assert result['status'] == "not found"
 
 	def test_get_party(self):
+		"""Test when a user wants to fetch a specific party."""
 
 		response = self.client.get(
 			'/api/v1/parties/1', data=json.dumps(get_party), content_type='application/json')
@@ -61,6 +66,7 @@ class TestDataParcel(unittest.TestCase):
 		assert response.status_code == 200
 
 	def test_unexisting_party(self):
+		"""Test when a user wants to fetch unexisting party."""
 
 		response = self.client.get(
 			'/api/v1/parties/5')
@@ -69,6 +75,7 @@ class TestDataParcel(unittest.TestCase):
 		assert result['status'] == "not found"
 
 	def test_party_keys(self):
+		"""Test party json keys."""
 
 		response = self.client.post(
 			'/api/v1/parties', data=json.dumps(party_keys), content_type='application/json')
@@ -76,7 +83,8 @@ class TestDataParcel(unittest.TestCase):
 		self.assertEqual(result['message'], 'Invalid name key')
 		assert response.status_code == 400
 
-	def test_office_nameValue(self):
+	def test_party_nameValue(self):
+		"""Test party json values."""
 
 		response = self.client.post(
 			'/api/v1/parties', data=json.dumps(party_name), content_type='application/json')
@@ -84,7 +92,8 @@ class TestDataParcel(unittest.TestCase):
 		self.assertEqual(result['message'], 'name is in wrong format')
 		assert response.status_code == 400
 
-	def test_office_hqAddressValue(self):
+	def test_party_hqAddressValue(self):
+		"""Test party json values."""
 
 		response = self.client.post(
 			'/api/v1/parties', data=json.dumps(party_hqAddress), content_type='application/json')
@@ -92,78 +101,11 @@ class TestDataParcel(unittest.TestCase):
 		self.assertEqual(result['message'], 'hqAddress is in wrong format')
 		assert response.status_code == 400
 
-	def test_office_logoUrlValue(self):
+	def test_party_logoUrlValue(self):
+		"""Test party json values."""
 
 		response = self.client.post(
 			'/api/v1/parties', data=json.dumps(party_logoUrl), content_type='application/json')
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'], 'logoUrl is in wrong format')
 		assert response.status_code == 400
-
-	def test_create_office(self):
-
-		response = self.client.post(
-			'/api/v2/offices', data=json.dumps(create_office), content_type='application/json')
-		result = json.loads(response.data.decode())
-		self.assertEqual(result['message'], 'office created successfully!')
-		assert response.status_code == 201
-
-	def test_unexisting_officeUrl(self):
-
-		response = self.client.get(
-			'/api/v2/office')
-		result = json.loads(response.data.decode())
-		assert response.status_code == 404
-		assert result['status'] == "not found"
-
-	def test_office_keys(self):
-
-		response = self.client.post(
-			'/api/v2/offices', data=json.dumps(office_keys), content_type='application/json')
-		result = json.loads(response.data.decode())
-		self.assertEqual(result['message'], 'Invalid category key')
-		assert response.status_code == 400
-
-	def test_get_offices(self):
-
-		response = self.client.get(
-			'/api/v2/offices', data=json.dumps(get_office), content_type='application/json')
-		result = json.loads(response.data.decode())
-		self.assertEqual(result['message'],
-			"success")
-		assert response.status_code == 200
-
-	def test_get_office(self):
-
-		response = self.client.get(
-			'/api/v2/offices/1', data=json.dumps(get_office), content_type='application/json')
-		result = json.loads(response.data.decode())
-		self.assertEqual(result['message'],
-			'success')
-		assert response.status_code == 200
-
-	def test_unexisting_office(self):
-
-		response = self.client.get(
-			'/api/v2/offices/5')
-		result = json.loads(response.data.decode())
-		assert response.status_code == 404
-		assert result['status'] == "not found"
-
-	def test_office_categoryValue(self):
-
-		response = self.client.post(
-			'/api/v2/offices', data=json.dumps(office_category), content_type='application/json')
-		result = json.loads(response.data.decode())
-		self.assertEqual(result['message'], 'category is in wrong format')
-		assert response.status_code == 400
-
-	def test_office_nameValue(self):
-
-		response = self.client.post(
-			'/api/v2/offices', data=json.dumps(office_name), content_type='application/json')
-		result = json.loads(response.data.decode())
-		self.assertEqual(result['message'], 'name is in wrong format')
-		assert response.status_code == 400
-
-

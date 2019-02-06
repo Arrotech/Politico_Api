@@ -79,24 +79,16 @@ class Party:
             "status": "not found"
             }),404)
 
-    @party_v1.route('/parties/<int:party_id>/edit',methods=['PUT'])
+    @party_v1.route('/parties/<int:party_id>/edit',methods=['PATCH'])
     def edit_party(party_id):
         """Edit a specific party."""
 
-        errors = check_party_keys(request)
-        if errors:
-            return raise_error(400,"Invalid {} key".format(', '.join(errors)))
         details = request.get_json()
-        name = details['name']
-        hqAddress = details['hqAddress']
-        logoUrl = details['logoUrl']
-
-        party = PartiesModel().update_party(name, hqAddress, logoUrl)
+        party = PartiesModel().update_party(party_id, details)
         if party:
             return make_response(jsonify({
                 "message": "party updated successfully"
-                }))
-                
+                }),200)
         return make_response(jsonify({
             "status": "not found"
             }),404)

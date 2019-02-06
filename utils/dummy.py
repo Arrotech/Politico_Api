@@ -29,6 +29,12 @@ party = {
 "logoUrl": "arrotech"
 }
 
+update_party = {
+"name": "updated",
+"hqAddress": "KICC",
+"logoUrl": "arrotech"
+}
+
 party_keys = {
 "na": "ODM",
 "hqAddress": "KICC",

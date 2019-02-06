@@ -34,13 +34,18 @@ class PartiesModel():
 				if party.get('party_id') == party_id:
 					return party
 
-	def update_party(self, name, hqAddress, logoUrl):
+	def update_party(self, party_id, details):
 		"""Returns a tuple as dictionary."""
 
-		party = {
-		"name" : name,
-		"hqAddress" : hqAddress,
-		"logoUrl" : logoUrl,
-		}
-
-		return party
+		for party in self.entries:
+			if party['party_id'] == party_id:
+				name = details.get('name')
+				hqAddress = details.get('hqAddress')
+				logoUrl = details.get('logoUrl')
+				if name:
+					party['name']  = name
+				if hqAddress:
+					party['hqAddress'] = hqAddress
+				if logoUrl:
+					party['logoUrl'] = logoUrl
+				return party
