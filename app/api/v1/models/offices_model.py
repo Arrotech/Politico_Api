@@ -42,4 +42,4 @@ class OfficesModel():
 					office['category']  = category
 				if name:
 					office['name'] = name
-				return party
+				return office
