@@ -1,7 +1,7 @@
 
 from flask import make_response, jsonify, request, abort, Blueprint
 from app.api.v1.models.offices_model import OfficesModel, offices
-from utils.validations import raise_error, check_office_keys
+from utils.validations import raise_error, check_office_keys, on_success
 import json
 
 office_v2 = Blueprint('v2',__name__, url_prefix='/api/v2/')
@@ -20,31 +20,27 @@ class Office:
         category = details['category']
         name = details['name']
 
-        if not request.json:
-            abort(400)
         if details['category'].isalpha()== False:
             return raise_error(400,"category is in wrong format")
         if details['name'].isalpha()== False:
             return raise_error(400,"name is in wrong format")
         
         res = OfficesModel().save(category, name)
-        return make_response(jsonify({
-                "message" : "office created successfully!"
-            }),201)
+        return on_success(201,"office created successfully!")
         
     @office_v2.route('/offices',methods=['GET'])
     def get_offices():
         '''Fetch all the existing offices.'''
 
         offices = {}
-        offices = OfficesModel().get_all_offices()
-        if offices:
+        all_offices = OfficesModel().get_all_offices()
+        if all_offices:
             return make_response(jsonify({
             "message": "success",
-            "offices": offices
+            "offices": all_offices
             }),200)
         return make_response(jsonify({
-            "message": "success",
+            "message": "unavailable offices",
             "offices": offices
             }),200)
 

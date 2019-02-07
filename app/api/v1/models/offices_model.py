@@ -32,7 +32,7 @@ class OfficesModel():
 					return office
 
 	def update_office(self, office_id, details):
-		"""Returns a tuple as dictionary."""
+		"""Update an existing office."""
 
 		for office in self.entries:
 			if office['office_id'] == office_id:

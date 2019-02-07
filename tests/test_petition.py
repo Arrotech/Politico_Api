@@ -1,20 +1,12 @@
 import unittest
-from app import electoral_app
 import json
 from app.api.v1.views.petitions_views import Petition
 from app.api.v1.models.petitions_model import PetitionsModel
-from utils.dummy import new_petition, petition_keys
+from utils.dummy import new_petition, petition_keys, petition_date_value, petition_office_value, petitioner_value
+from .base_test import BaseTest
 
-class TestPetitions(unittest.TestCase):
+class TestPetitions(BaseTest):
 	"""Test petitions endpoint."""
-
-	def setUp(self):
-		"""Set up the app for testing."""
-
-		self.app = electoral_app()
-		self.client = self.app.test_client()
-		self.app_context = self.app.app_context()
-		self.app_context.push()
 
 	def test_petition(self):
 		"""Test filing a new petition."""
@@ -24,6 +16,33 @@ class TestPetitions(unittest.TestCase):
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'], 'petition filed successfully')
 		assert response.status_code == 201
+
+	def test_date_value(self):
+		"""Test the format of the date."""
+
+		response = self.client.post(
+			'/api/v6/petitions', data=json.dumps(petition_date_value), content_type='application/json')
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'], 'createdOn is in the wrong format')
+		assert response.status_code == 400
+
+	def test_office_value(self):
+		"""Test input format of the office name."""
+
+		response = self.client.post(
+			'/api/v6/petitions', data=json.dumps(petition_office_value), content_type='application/json')
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'], 'office is in wrong format')
+		assert response.status_code == 400
+
+	def test_petitioner_value(self):
+		"""Test input of the petitioner format."""
+
+		response = self.client.post(
+			'/api/v6/petitions', data=json.dumps(petitioner_value), content_type='application/json')
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'], 'createdBy is in wrong format')
+		assert response.status_code == 400
 
 	def test_petition_keys(self):
 		"""Test petition json keys."""

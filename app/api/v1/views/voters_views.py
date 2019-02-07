@@ -1,6 +1,6 @@
 from flask import make_response, jsonify, request, abort, Blueprint
 from app.api.v1.models.voters_model import VotersModel, voters
-from utils.validations import raise_error, check_voters_keys
+from utils.validations import raise_error, check_voters_keys, on_success, is_valid_date
 import json
           
 vote_v5 = Blueprint('v5',__name__, url_prefix='/api/v5/')
@@ -21,7 +21,14 @@ class Vote:
         office = details['office']
         candidate = details['candidate']
 
+        if not is_valid_date(createdOn):
+            return raise_error(400,"createdOn is in the wrong format")
+        if details['createdBy'].isalpha()== False:
+            return raise_error(400,"createdBy is in wrong format")
+        if details['office'].isalpha()== False:
+            return raise_error(400,"office is in wrong format")
+        if details['candidate'].isalpha()== False:
+            return raise_error(400,"candidate is in wrong format")
+
         voter = VotersModel().save(createdOn, createdBy, office, candidate)
-        return make_response(jsonify({
-            'message': 'voted successfully'
-            }),201)
+        return on_success(201,"voted successfully")
