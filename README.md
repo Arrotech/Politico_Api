@@ -1,6 +1,7 @@
 
-[![Build Status](https://travis-ci.org/Arrotech/Politico_Api.svg?branch=develop)](https://travis-ci.org/Arrotech/Politico_Api) [![Maintainability](https://api.codeclimate.com/v1/badges/e4c6a7d21481978d93b4/maintainability)](https://codeclimate.com/github/Arrotech/Politico_Api/maintainability) [![Coverage Status](https://coveralls.io/repos/github/Arrotech/Politico_Api/badge.svg?branch=ch-travis-setup-163674934)](https://coveralls.io/github/Arrotech/Politico_Api?branch=ch-travis-setup-163674934) [![Test Coverage](https://api.codeclimate.com/v1/badges/e4c6a7d21481978d93b4/test_coverage)](https://codeclimate.com/github/Arrotech/Politico_Api/test_coverage)
+[![Build Status](https://travis-ci.org/Arrotech/Politico_Api.svg?branch=develop)](https://travis-ci.org/Arrotech/Politico_Api) [![Maintainability](https://api.codeclimate.com/v1/badges/e4c6a7d21481978d93b4/maintainability)](https://codeclimate.com/github/Arrotech/Politico_Api/maintainability) [![Coverage Status](https://coveralls.io/repos/github/Arrotech/Politico_Api/badge.svg?branch=ch-travis-setup-163674934)](https://coveralls.io/github/Arrotech/Politico_Api?branch=ch-travis-setup-163674934)
 
+[POSTMAN](https://documenter.getpostman.com/view/5790072/RztpoSeD)
 
 # Politico API's
 
@@ -35,7 +36,18 @@ Below are the Endpoints that have been created.
 4. Testing Framework:[PyTest, a Python Testing Framework](https://docs.pytest.org/en/latest/)
 5. Testing Endpoints: [PostMan](https://www.getpostman.com/)
 6. Testing Framework:[Coverage, a Python Testing Framework](https://coverage.readthedocs.io/en/v4.5.x/)
+ 
+**Other requirements**
 
+		pip install pytest
+
+		pip install coverage
+
+		pip install nose
+
+		pip install flask
+
+		virtualenv
 
 **How to run the application**
  1. Make a new directory on your computer
@@ -45,10 +57,13 @@ Below are the Endpoints that have been created.
  4. run `pip install -r requirements.txt` on the terminal to install the dependencies
  6. Export the environmental variable
  7. Then type on the terminal ```flask run``` to start and run the server
- 8. Then on [postman](https://www.getpostman.com/), use the above url's 
+ 8. Then on [postman](https://www.getpostman.com/), use the above url's
 
 
-**heroku application Link**
+ This is the postman documentation [POSTMAN](https://documenter.getpostman.com/view/5790072/RztpoSeD)
+
+
+**Heroku Link**
 
  Navigate to this [link](https://politico-ap1-arrotech.herokuapp.com/api/v1/parties) to run the application on heroku
 
