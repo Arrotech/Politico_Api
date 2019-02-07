@@ -35,7 +35,7 @@ class PartiesModel():
 					return party
 
 	def update_party(self, party_id, details):
-		"""Returns a tuple as dictionary."""
+		"""Updates an existing party."""
 
 		for party in self.entries:
 			if party['party_id'] == party_id:

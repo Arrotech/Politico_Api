@@ -9,7 +9,7 @@ from app.api.v1.views.petitions_views import petition_v6 as v6
 
 def page_not_found(e):
 	"""Capture Not Found error."""
-
+	
 	return make_response(jsonify({
 		"status" : "not found",
 		"message" : "url does not exist"

@@ -1,20 +1,12 @@
 import unittest
-from app import electoral_app
 import json
 from app.api.v1.views.voters_views import Vote
 from app.api.v1.models.voters_model import VotersModel
-from utils.dummy import new_vote, vote_keys
+from utils.dummy import new_vote, vote_keys, voters_createdOn_value, voters_office_value, voters_candidate_value, voters_createdBy_value
+from .base_test import BaseTest
 
-class TestVote(unittest.TestCase):
+class TestVote(BaseTest):
 	"""Test voting endpoint."""
-
-	def setUp(self):
-		"""Set up the app for testing."""
-
-		self.app = electoral_app()
-		self.client = self.app.test_client()
-		self.app_context = self.app.app_context()
-		self.app_context.push()
 
 	def test_vote(self):
 		"""Test a new vote."""
@@ -32,4 +24,40 @@ class TestVote(unittest.TestCase):
 			'/api/v5/voters', data=json.dumps(vote_keys), content_type='application/json')
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'], 'Invalid candidate key')
+		assert response.status_code == 400
+
+	def test_createdOn_value(self):
+		"""Test the date format."""
+
+		response = self.client.post(
+			'/api/v5/voters', data=json.dumps(voters_createdOn_value), content_type='application/json')
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'], 'createdOn is in the wrong format')
+		assert response.status_code == 400
+
+	def test_office_value(self):
+		"""Test office name format."""
+
+		response = self.client.post(
+			'/api/v5/voters', data=json.dumps(voters_office_value), content_type='application/json')
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'], 'office is in wrong format')
+		assert response.status_code == 400
+
+	def test_candidate_value(self):
+		"""Test the candidates name format."""
+
+		response = self.client.post(
+			'/api/v5/voters', data=json.dumps(voters_candidate_value), content_type='application/json')
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'], 'candidate is in wrong format')
+		assert response.status_code == 400
+
+	def test_createdBy_value(self):
+		"""Test the voter's name format"""
+
+		response = self.client.post(
+			'/api/v5/voters', data=json.dumps(voters_createdBy_value), content_type='application/json')
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'], 'createdBy is in wrong format')
 		assert response.status_code == 400
