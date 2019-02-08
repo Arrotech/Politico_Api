@@ -29,6 +29,15 @@ class TestOffice(BaseTest):
 		self.assertEqual(result['message'], 'office updated successfully')
 		assert response.status_code == 200
 
+	def test_update_unexisting_office(self):
+		"""Test updating an already existing office."""
+
+		response = self.client.patch(
+			'/api/v2/offices/100/edit', data=json.dumps(create_office), content_type='application/json')
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['status'], 'not found')
+		assert response.status_code == 404
+
 	def test_unexisting_officeUrl(self):
 		"""Test when unexisting url is provided."""
 
@@ -56,6 +65,16 @@ class TestOffice(BaseTest):
 		response = self.client.get(
 			'/api/v2/offices', data=json.dumps(get_office), content_type='application/json')
 		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'],
+			"success")
+		assert response.status_code == 200
+
+	def test_unexisting_offices(self):
+		"""Test fetching all offices that have been created."""
+
+		response = self.client.get(
+			'/api/v2/offices', content_type='application/json')
+		result = json.loads(response.data.decode('utf-8'))
 		self.assertEqual(result['message'],
 			"success")
 		assert response.status_code == 200
@@ -95,14 +114,26 @@ class TestOffice(BaseTest):
 
 		response1 = self.client.post(
 			'/api/v2/offices', data=json.dumps(create_office), content_type='application/json')
-		return response1
+		result1 = json.loads(response1.data.decode())
 		response = self.client.delete(
-			'/api/v2/offices/1/delete',
+			'/api/v2/offices/{}/delete'.format(result1["id"]),
+			headers={"content_type":'application/json'}
+			)
+		result2 = json.loads(response.data.decode('utf-8'))
+		self.assertEqual(result2['message'],'office deleted')
+		self.assertEqual(response.status_code, 200)
+
+
+	def test_delete_unexisting_office(self):
+		"""Test delete office."""
+
+		response = self.client.delete(
+			'/api/v2/offices/100/delete',
 			headers={"content_type":'application/json'}
 			)
 		result = json.loads(response.data.decode('utf-8'))
-		self.assertEqual(result['message'],'office deleted')
-		self.assertEqual(response.status_code, 200)
+		self.assertEqual(result['status'],'not found')
+		self.assertEqual(response.status_code, 404)
 
 	def test_office_nameValue(self):
 		"""Test name json values."""

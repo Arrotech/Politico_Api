@@ -30,19 +30,41 @@ class TestParty(BaseTest):
 			"success")
 		assert response.status_code == 200
 
+	def test_unexisting_parties(self):
+		"""Test when a user gets all parties."""
+
+		response = self.client.get(
+			'/api/v1/parties', content_type='application/json')
+		result = json.loads(response.data.decode('utf-8'))
+		self.assertEqual(result['message'],
+			"success")
+		assert response.status_code == 200
+
 	def test_delete_party(self):
-		"""Test delete product."""
+		"""Test delete party."""
 
 		response1 = self.client.post(
 			'/api/v1/parties', data=json.dumps(create_party), content_type='application/json')
-		return response1
+		result1 = json.loads(response1.data.decode())
 		response = self.client.delete(
-			'/api/v1/parties/1/delete',
+			'/api/v1/parties/{}/delete'.format(result1["id"]),
+			headers={"content_type":'application/json'}
+			)
+		result2 = json.loads(response.data.decode('utf-8'))
+		self.assertEqual(result2['message'],'party deleted')
+		self.assertEqual(response.status_code, 200)
+
+
+	def test_delete_unexisting_party(self):
+		"""Test delete party."""
+
+		response = self.client.delete(
+			'/api/v1/parties/100/delete',
 			headers={"content_type":'application/json'}
 			)
 		result = json.loads(response.data.decode('utf-8'))
-		self.assertEqual(result['message'],'party deleted')
-		self.assertEqual(response.status_code, 200)
+		self.assertEqual(result['status'],'not found')
+		self.assertEqual(response.status_code, 404)
 
 	def test_unexisting_partyUrl(self):
 		"""Test when a user provides unexisting url."""
@@ -109,3 +131,23 @@ class TestParty(BaseTest):
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'], 'logoUrl is in the wrong format')
 		assert response.status_code == 400
+
+	def test_update_party(self):
+		"""Test updating an already existing party."""
+
+		response1 = self.client.post(
+			'/api/v1/parties', data=json.dumps(create_party), content_type='application/json')
+		response = self.client.patch(
+			'/api/v1/parties/1/edit', data=json.dumps(create_party), content_type='application/json')
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'], 'party updated successfully')
+		assert response.status_code == 200
+
+	def test_update_unexisting_office(self):
+		"""Test updating an already existing party."""
+
+		response = self.client.patch(
+			'/api/v1/parties/100/edit', data=json.dumps(create_party), content_type='application/json')
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['status'], 'not found')
+		assert response.status_code == 404

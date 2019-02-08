@@ -27,19 +27,19 @@ class Party:
         if details['hqAddress'].isalpha()== False:
             return raise_error(400,"hqAddress is in wrong format")
         res = PartiesModel().save(name, hqAddress, logoUrl)
-        return on_success(201,"party created successfully!")
+        return jsonify({
+            "message": "party created successfully!",
+            "id": len(parties)
+            }),201
 
     @party_v1.route('/parties',methods=['GET'])
     def get_parties():
         """Fetch all the existing parties."""
 
-        parties = PartiesModel().get_all_parties()
-        if parties:
-            return make_response(jsonify({
-            "message": "success",
-            "parties": parties
-            }),200)
-        return on_success(200,"unavailable parties")
+        return make_response(jsonify({
+        "message": "success",
+        "parties": PartiesModel().get_all_parties()
+        }),200)
 
     @party_v1.route('/parties/<int:party_id>',methods=['GET'])
     def get_party(party_id):
