@@ -26,23 +26,22 @@ class Office:
             return raise_error(400,"name is in wrong format")
         
         res = OfficesModel().save(category, name)
-        return on_success(201,"office created successfully!")
+        return jsonify({
+            "message": "office created successfully!",
+            "id": len(offices)
+            }),201
+        # return on_success(201,"office created successfully!")
         
     @office_v2.route('/offices',methods=['GET'])
     def get_offices():
         '''Fetch all the existing offices.'''
 
-        offices = {}
-        all_offices = OfficesModel().get_all_offices()
-        if all_offices:
-            return make_response(jsonify({
-            "message": "success",
-            "offices": all_offices
-            }),200)
+    
         return make_response(jsonify({
-            "message": "unavailable offices",
-            "offices": offices
-            }),200)
+        "message": "success",
+        "offices": OfficesModel().get_all_offices()
+        }),200)
+      
 
     @office_v2.route('/offices/<int:office_id>',methods=['GET'])
     def get_office(office_id):
@@ -73,7 +72,7 @@ class Office:
             }),404)
 
     @office_v2.route('/offices/<int:office_id>/edit',methods=['PATCH'])
-    def edit_party(office_id):
+    def edit_office(office_id):
         """Edit a specific office."""
 
         details = request.get_json()

@@ -1,7 +1,8 @@
 
-[![Build Status](https://travis-ci.org/Arrotech/Politico_Api.svg?branch=develop)](https://travis-ci.org/Arrotech/Politico_Api) [![Maintainability](https://api.codeclimate.com/v1/badges/e4c6a7d21481978d93b4/maintainability)](https://codeclimate.com/github/Arrotech/Politico_Api/maintainability) [![Coverage Status](https://coveralls.io/repos/github/Arrotech/Politico_Api/badge.svg?branch=ch-travis-setup-163674934)](https://coveralls.io/github/Arrotech/Politico_Api?branch=ch-travis-setup-163674934)
+[![Build Status](https://travis-ci.org/Arrotech/Politico_Api.svg?branch=develop)](https://travis-ci.org/Arrotech/Politico_Api) [![Maintainability](https://api.codeclimate.com/v1/badges/e4c6a7d21481978d93b4/maintainability)](https://codeclimate.com/github/Arrotech/Politico_Api/maintainability) [![Coverage Status](https://coveralls.io/repos/github/Arrotech/Politico_Api/badge.svg?branch=develop)](https://coveralls.io/github/Arrotech/Politico_Api?branch=develop)
 
-[POSTMAN](https://documenter.getpostman.com/view/5790072/RztpoSeD)
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/56d56dd01abbed269170) 
 
 # Politico API's
 
@@ -65,12 +66,13 @@ Below are the Endpoints that have been created.
 
 **Heroku Link**
 
- Navigate to this [link](https://politico-ap1-arrotech.herokuapp.com/api/v1/parties) to run the application on heroku
+ Navigate to this [link](https://politico-ap1-arrotech.herokuapp.com/) to run the application on heroku
 
 
 **Author**
 
      Harun Gachanja Gitundu
+
 
 **Contributors to the project**
 
