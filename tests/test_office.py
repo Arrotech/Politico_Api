@@ -106,7 +106,7 @@ class TestOffice(BaseTest):
 		response = self.client.post(
 			'/api/v2/offices', data=json.dumps(office_category), content_type='application/json')
 		result = json.loads(response.data.decode())
-		self.assertEqual(result['message'], 'category is in wrong format')
+		self.assertEqual(result['message'], 'input is in wrong format')
 		assert response.status_code == 400
 
 	def test_delete_office(self):
@@ -141,7 +141,7 @@ class TestOffice(BaseTest):
 		response = self.client.post(
 			'/api/v2/offices', data=json.dumps(office_name), content_type='application/json')
 		result = json.loads(response.data.decode())
-		self.assertEqual(result['message'], 'name is in wrong format')
+		self.assertEqual(result['message'], 'input is in wrong format')
 		assert response.status_code == 400
 
 

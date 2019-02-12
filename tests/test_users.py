@@ -42,7 +42,7 @@ class TestUsersAccount(BaseTest):
 		response = self.client.post(
 			'/api/v3/users', data=json.dumps(firstname_value), content_type='application/json')
 		result = json.loads(response.data.decode())
-		self.assertEqual(result['message'], 'firstname is in wrong format')
+		self.assertEqual(result['message'], 'input is in wrong format')
 		assert response.status_code == 400
 
 	def test_lastname_value(self):
@@ -51,7 +51,7 @@ class TestUsersAccount(BaseTest):
 		response = self.client.post(
 			'/api/v3/users', data=json.dumps(lastname_value), content_type='application/json')
 		result = json.loads(response.data.decode())
-		self.assertEqual(result['message'], 'lastname is in wrong format')
+		self.assertEqual(result['message'], 'input is in wrong format')
 		assert response.status_code == 400
 
 	def test_othername_value(self):
@@ -60,7 +60,7 @@ class TestUsersAccount(BaseTest):
 		response = self.client.post(
 			'/api/v3/users', data=json.dumps(othername_value), content_type='application/json')
 		result = json.loads(response.data.decode())
-		self.assertEqual(result['message'], 'othername is in wrong format')
+		self.assertEqual(result['message'], 'input is in wrong format')
 		assert response.status_code == 400
 
 	def test_role_value(self):
@@ -69,7 +69,7 @@ class TestUsersAccount(BaseTest):
 		response = self.client.post(
 			'/api/v3/users', data=json.dumps(role_value), content_type='application/json')
 		result = json.loads(response.data.decode())
-		self.assertEqual(result['message'], 'role is in wrong format')
+		self.assertEqual(result['message'], 'input is in wrong format')
 		assert response.status_code == 400
 
 	def test_account_phoneValue(self):

@@ -1,5 +1,6 @@
 candidates = []
 
+
 class CandidatesModel():         
 
 	def __init__(self):

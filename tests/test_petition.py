@@ -32,7 +32,7 @@ class TestPetitions(BaseTest):
 		response = self.client.post(
 			'/api/v6/petitions', data=json.dumps(petition_office_value), content_type='application/json')
 		result = json.loads(response.data.decode())
-		self.assertEqual(result['message'], 'office is in wrong format')
+		self.assertEqual(result['message'], 'input is in wrong format')
 		assert response.status_code == 400
 
 	def test_petitioner_value(self):
@@ -41,7 +41,7 @@ class TestPetitions(BaseTest):
 		response = self.client.post(
 			'/api/v6/petitions', data=json.dumps(petitioner_value), content_type='application/json')
 		result = json.loads(response.data.decode())
-		self.assertEqual(result['message'], 'createdBy is in wrong format')
+		self.assertEqual(result['message'], 'input is in wrong format')
 		assert response.status_code == 400
 
 	def test_petition_keys(self):

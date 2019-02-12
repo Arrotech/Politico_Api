@@ -111,7 +111,7 @@ class TestParty(BaseTest):
 		response = self.client.post(
 			'/api/v1/parties', data=json.dumps(party_name), content_type='application/json')
 		result = json.loads(response.data.decode())
-		self.assertEqual(result['message'], 'name is in wrong format')
+		self.assertEqual(result['message'], 'input is in wrong format')
 		assert response.status_code == 400
 
 	def test_party_hqAddressValue(self):
@@ -120,7 +120,7 @@ class TestParty(BaseTest):
 		response = self.client.post(
 			'/api/v1/parties', data=json.dumps(party_hqAddress), content_type='application/json')
 		result = json.loads(response.data.decode())
-		self.assertEqual(result['message'], 'hqAddress is in wrong format')
+		self.assertEqual(result['message'], 'input is in wrong format')
 		assert response.status_code == 400
 
 	def test_party_logoUrlValue(self):
