@@ -66,7 +66,7 @@ Below are the Endpoints that have been created.
 
 **Heroku Link**
 
- Navigate to this [link](https://politico-ap1-arrotech.herokuapp.com/) to run the application on heroku
+ Navigate to this [link](https://politico-dev-api2.herokuapp.com/) to run the application on heroku
 
 
 **Author**
