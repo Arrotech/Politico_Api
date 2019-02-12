@@ -15,6 +15,14 @@ def page_not_found(e):
 		"message" : "url does not exist"
 		}), 404)
 
+def method_not_allowed(e):
+	"""Capture Not Found error."""
+	
+	return make_response(jsonify({
+		"status" : "error",
+		"message" : "method not allowed"
+		}), 404)
+
 def electoral_app():
 	"""Create app."""
 
@@ -26,5 +34,6 @@ def electoral_app():
 	app.register_blueprint(v5, url_prefix='/api/v5/')
 	app.register_blueprint(v6, url_prefix='/api/v6/')
 	app.register_error_handler(404, page_not_found)
+	app.register_error_handler(405, method_not_allowed)
 	
 	return app

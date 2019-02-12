@@ -1,5 +1,6 @@
 voters = []
 
+
 class VotersModel():         
 
 	def __init__(self):

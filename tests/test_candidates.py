@@ -25,7 +25,7 @@ class TestCandidates(BaseTest):
 		response = self.client.post(
 			'/api/v4/candidates', data=json.dumps(candidate_office_value), content_type='application/json')
 		result = json.loads(response.data.decode())
-		self.assertEqual(result['message'], 'office is in wrong format')
+		self.assertEqual(result['message'], 'input is in wrong format')
 		assert response.status_code == 400
 
 	def test_party_value(self):
@@ -34,7 +34,7 @@ class TestCandidates(BaseTest):
 		response = self.client.post(
 			'/api/v4/candidates', data=json.dumps(candidate_party_value), content_type='application/json')
 		result = json.loads(response.data.decode())
-		self.assertEqual(result['message'], 'party is in wrong format')
+		self.assertEqual(result['message'], 'input is in wrong format')
 		assert response.status_code == 400
 
 	def test_candidate_value(self):
@@ -43,7 +43,7 @@ class TestCandidates(BaseTest):
 		response = self.client.post(
 			'/api/v4/candidates', data=json.dumps(candidate_name_value), content_type='application/json')
 		result = json.loads(response.data.decode())
-		self.assertEqual(result['message'], 'candidate is in wrong format')
+		self.assertEqual(result['message'], 'input is in wrong format')
 		assert response.status_code == 400
 
 	def test_candidates_keys(self):

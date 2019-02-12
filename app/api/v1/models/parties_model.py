@@ -1,6 +1,6 @@
 import json
-
 parties = []
+
 
 class PartiesModel():         
 
