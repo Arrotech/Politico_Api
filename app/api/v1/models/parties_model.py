@@ -21,6 +21,27 @@ class PartiesModel():
 		self.entries.append(new_party)
 		return self.entries
 
+	def get_name(self, name):
+		"""Get a party with a specific name."""
+
+		for party in self.entries:
+			if party['name'] == name:
+				return json.dumps(party, default=str)
+
+	def get_hqAddress(self, hqAddress):
+		"""Get party by hqAddress."""
+
+		for party in self.entries:
+			if party['hqAddress'] == hqAddress:
+				return json.dumps(party, default=str)
+
+	def get_logoUrl(self, logoUrl):
+		"""Get party by logoUrl."""
+
+		for party in self.entries:
+			if party['logoUrl'] == logoUrl:
+				return json.dumps(party, default=str)
+
 	def get_all_parties(self):
 		"""Fetch all the existing parties."""
 

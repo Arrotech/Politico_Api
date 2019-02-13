@@ -20,6 +20,9 @@ class Office:
         category = details['category']
         name = details['name']
 
+        if OfficesModel().get_name(name) \
+                or OfficesModel().get_category(category):
+            return raise_error(400, "Office already exists")
         if details['category'].isalpha() \
                 is False or details['name'].isalpha() \
                 is False:
@@ -28,7 +31,7 @@ class Office:
         res = OfficesModel().save(category, name)
         return jsonify({
             "message": "office created successfully!",
-            "id": len(offices)
+            "office_id": len(offices)
             }), 201
 
     @office.route('/offices', methods=['GET'])
