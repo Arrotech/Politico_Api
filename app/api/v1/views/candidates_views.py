@@ -2,13 +2,13 @@ from flask import make_response, jsonify, request, abort, Blueprint
 from app.api.v1.models.candidates_model import CandidatesModel, candidates
 from utils.validations import raise_error, check_candidates_keys, on_success
 import json
-candidate_v4 = Blueprint('v4', __name__, url_prefix='/api/v4/')
+candidate = Blueprint('candidates', __name__)
 
 
 class Candidates:
     """Candidates enpoint to show interest in running for an office."""
 
-    @candidate_v4.route('/candidates', methods=['POST'])
+    @candidate.route('/candidates', methods=['POST'])
     def post():
         """A candidate can show interest to run for a seat."""
 

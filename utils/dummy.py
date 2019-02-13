@@ -6,19 +6,19 @@ create_party = {
 
 party_name = {
 "name": "O ^%%9(*& M",
-"hqAddress": "KICC",
-"logoUrl": "https://www.w3schools.org"
+"hqAddress": "Anniversary",
+"logoUrl": "https://www.w3schools.com"
 }
 
 party_hqAddress = {
-"name": "ODM",
+"name": "NASA",
 "hqAddress": "K $%^998 ^54CC",
-"logoUrl": "https://www.w3schools.org"
+"logoUrl": "https://www.w3schools.ac.ke"
 }
 
 party_logoUrl= {
-"name": "ODM",
-"hqAddress": "KICC",
+"name": "PNU",
+"hqAddress": "Kiambu",
 "logoUrl": "arr  &*$6  tech"
 }
 
@@ -50,17 +50,22 @@ get_party = {
 
 
 create_office = {
+"category": "local",
+"name": "Presidential"
+}
+
+delete_office = {
 "category": "Executive",
 "name": "Presidential"
 }
 
 office_category = {
 "category": "Executi@#^^ &^78ve",
-"name": "Presidential"
+"name": "Secretary"
 }
 
 office_name = {
-"category": "Executive",
+"category": "Local",
 "name": "Presidenti  56876$%&$5al"
 }
 

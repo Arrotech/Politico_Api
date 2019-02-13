@@ -12,7 +12,7 @@ class TestPetitions(BaseTest):
 		"""Test filing a new petition."""
 
 		response = self.client.post(
-			'/api/v6/petitions', data=json.dumps(new_petition), content_type='application/json')
+			'/api/v1/petitions', data=json.dumps(new_petition), content_type='application/json')
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'], 'petition filed successfully')
 		assert response.status_code == 201
@@ -21,7 +21,7 @@ class TestPetitions(BaseTest):
 		"""Test the format of the date."""
 
 		response = self.client.post(
-			'/api/v6/petitions', data=json.dumps(petition_date_value), content_type='application/json')
+			'/api/v1/petitions', data=json.dumps(petition_date_value), content_type='application/json')
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'], 'createdOn is in the wrong format')
 		assert response.status_code == 400
@@ -30,7 +30,7 @@ class TestPetitions(BaseTest):
 		"""Test input format of the office name."""
 
 		response = self.client.post(
-			'/api/v6/petitions', data=json.dumps(petition_office_value), content_type='application/json')
+			'/api/v1/petitions', data=json.dumps(petition_office_value), content_type='application/json')
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'], 'input is in wrong format')
 		assert response.status_code == 400
@@ -39,7 +39,7 @@ class TestPetitions(BaseTest):
 		"""Test input of the petitioner format."""
 
 		response = self.client.post(
-			'/api/v6/petitions', data=json.dumps(petitioner_value), content_type='application/json')
+			'/api/v1/petitions', data=json.dumps(petitioner_value), content_type='application/json')
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'], 'input is in wrong format')
 		assert response.status_code == 400
@@ -48,7 +48,7 @@ class TestPetitions(BaseTest):
 		"""Test petition json keys."""
 
 		response = self.client.post(
-			'/api/v6/petitions', data=json.dumps(petition_keys), content_type='application/json')
+			'/api/v1/petitions', data=json.dumps(petition_keys), content_type='application/json')
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'], 'Invalid createdOn key')
 		assert response.status_code == 400

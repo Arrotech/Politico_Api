@@ -1,14 +1,14 @@
 from flask import make_response, jsonify, request, abort, Blueprint
 from app.api.v1.models.offices_model import OfficesModel, offices
-from utils.validations import raise_error, check_office_keys, on_success
+from utils.validations import raise_error, check_office_keys, on_success, office_restrictions
 import json
-office_v2 = Blueprint('v2', __name__, url_prefix='/api/v2/')
+office = Blueprint('office', __name__)
 
 
 class Office:
     """Creates a new government office."""
 
-    @office_v2.route('/offices', methods=['POST'])
+    @office.route('/offices', methods=['POST'])
     def post():
         """Create a new government office."""
 
@@ -19,18 +19,23 @@ class Office:
         category = details['category']
         name = details['name']
 
+        if OfficesModel().get_name(name) \
+                or OfficesModel().get_category(category):
+            return raise_error(400, "Office already exists")
         if details['category'].isalpha() \
                 is False or details['name'].isalpha() \
                 is False:
             return raise_error(400, "input is in wrong format")
+        if(office_restrictions(category) is False):
+            return raise_error(400, "select from state, local, federal or legislative")
 
         res = OfficesModel().save(category, name)
         return jsonify({
             "message": "office created successfully!",
-            "id": len(offices)
+            "office_id": len(offices)
             }), 201
 
-    @office_v2.route('/offices', methods=['GET'])
+    @office.route('/offices', methods=['GET'])
     def get_offices():
         '''Fetch all the existing offices.'''
 
@@ -39,7 +44,7 @@ class Office:
             "offices": OfficesModel().get_all_offices()
             }), 200)
 
-    @office_v2.route('/offices/<int:office_id>', methods=['GET'])
+    @office.route('/offices/<int:office_id>', methods=['GET'])
     def get_office(office_id):
         """Fetch a specific political office."""
 
@@ -53,7 +58,7 @@ class Office:
             "status": "not found"
             }), 404)
 
-    @office_v2.route('/offices/<int:office_id>/delete', methods=['DELETE'])
+    @office.route('/offices/<int:office_id>/delete', methods=['DELETE'])
     def delete(office_id):
         """Delete a specific office."""
 
@@ -67,7 +72,7 @@ class Office:
             "status": "not found"
             }), 404)
 
-    @office_v2.route('/offices/<int:office_id>/edit', methods=['PATCH'])
+    @office.route('/offices/<int:office_id>/edit', methods=['PATCH'])
     def edit_office(office_id):
         """Edit a specific office."""
 
