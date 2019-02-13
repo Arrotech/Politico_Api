@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/Arrotech/Politico_Api.svg?branch=develop)](https://travis-ci.org/Arrotech/Politico_Api) [![Maintainability](https://api.codeclimate.com/v1/badges/e4c6a7d21481978d93b4/maintainability)](https://codeclimate.com/github/Arrotech/Politico_Api/maintainability) [![Coverage Status](https://coveralls.io/repos/github/Arrotech/Politico_Api/badge.svg?branch=develop)](https://coveralls.io/github/Arrotech/Politico_Api?branch=develop)
 
 
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://documenter.getpostman.com/view/5790072/RztpoSeD) 
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://documenter.getpostman.com/view/5790072/RztsnRVw) 
 
 # Politico API's
 
@@ -19,15 +19,15 @@ Below are the Endpoints that have been created.
 | api/v1/parties/<int:party_id> |Fetch single party |GET|
 | api/v1/parties/<int:party_id>/delete |Delete party |DELETE|
 | api/v1/parties/<int:party_id>/edit|Edit party |PATCH|
-| api/v2/offices |Create office |POST|
-| api/v2/offices |Fetch all offices |GET|
-| api/v2/offices/<int:office_id> |Fetch single office |GET|
-| api/v2/offices/<int:office_id>/delete |Delete office |DELETE|
-| api/v2/offices/<int:office_id>/edit |Update office |PATCH|
-| api/v3/users |Create account |POST|
-| api/v4/candidates |Show interest |POST|
-| api/v5/voters |Vote |POST|
-| api/v2/petitions |File petition |POST|
+| api/v1/offices |Create office |POST|
+| api/v1/offices |Fetch all offices |GET|
+| api/v1/offices/<int:office_id> |Fetch single office |GET|
+| api/v1/offices/<int:office_id>/delete |Delete office |DELETE|
+| api/v1/offices/<int:office_id>/edit |Update office |PATCH|
+| api/v1/users |Create account |POST|
+| api/v1/candidates |Show interest |POST|
+| api/v1/voters |Vote |POST|
+| api/v1/petitions |File petition |POST|
 
 
 **TOOLS TO BE USED IN THE CHALLENGE**
@@ -61,12 +61,12 @@ Below are the Endpoints that have been created.
  8. Then on [postman](https://www.getpostman.com/), use the above url's
 
 
- This is the postman documentation [POSTMAN](https://documenter.getpostman.com/view/5790072/RztpoSeD)
+ This is the postman documentation [POSTMAN](https://documenter.getpostman.com/view/5790072/RztsnRVw)
 
 
 **Heroku Link**
 
- Navigate to this [link](https://politico-ap1-arrotech.herokuapp.com/) to run the application on heroku
+ Navigate to this [link](https://api-endpoint-politico.herokuapp.com/) to run the application on heroku
 
 
 **Author**
