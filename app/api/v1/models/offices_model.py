@@ -1,3 +1,4 @@
+import json
 offices = []
 
 
@@ -31,6 +32,20 @@ class OfficesModel():
 			for office in self.entries:
 				if office.get('office_id') == office_id:
 					return office
+
+	def get_category(self, category):
+		"""Get a party with a specific name."""
+
+		for office in self.entries:
+			if office['category'] == category:
+				return json.dumps(office, default=str)
+
+	def get_name(self, name):
+		"""Get party by hqAddress."""
+
+		for office in self.entries:
+			if office['name'] == name:
+				return json.dumps(office, default=str)
 
 	def update_office(self, office_id, details):
 		"""Update an existing office."""
