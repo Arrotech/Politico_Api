@@ -1,33 +1,16 @@
 
-[![Build Status](https://travis-ci.org/Arrotech/Politico_Api.svg?branch=develop)](https://travis-ci.org/Arrotech/Politico_Api) [![Maintainability](https://api.codeclimate.com/v1/badges/e4c6a7d21481978d93b4/maintainability)](https://codeclimate.com/github/Arrotech/Politico_Api/maintainability) [![Coverage Status](https://coveralls.io/repos/github/Arrotech/Politico_Api/badge.svg?branch=develop)](https://coveralls.io/github/Arrotech/Politico_Api?branch=develop)
-
-
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://documenter.getpostman.com/view/5790072/RztsnRVw) 
-
 # Politico API's
 
 This project i am to create a set of API endpoints defined in the API Endpoints Specification
-section and use data structures to store data in memory (don’t use a database).
+section and use database to store data.
 
 
 Below are the Endpoints that have been created.
 
 | EndPoints       | Functionality  | HTTP Method  |
 | ------------- |:-------------:| -----:|
-| api/v1/parties | Create party| POST |
-| api/v1/parties | Fetch all parties |GET|
-| api/v1/parties/<int:party_id> |Fetch single party |GET|
-| api/v1/parties/<int:party_id>/delete |Delete party |DELETE|
-| api/v1/parties/<int:party_id>/edit|Edit party |PATCH|
-| api/v1/offices |Create office |POST|
-| api/v1/offices |Fetch all offices |GET|
-| api/v1/offices/<int:office_id> |Fetch single office |GET|
-| api/v1/offices/<int:office_id>/delete |Delete office |DELETE|
-| api/v1/offices/<int:office_id>/edit |Update office |PATCH|
-| api/v1/users |Create account |POST|
-| api/v1/candidates |Show interest |POST|
-| api/v1/voters |Vote |POST|
-| api/v1/petitions |File petition |POST|
+| api/v2/auth/signup | Create user| POST |
+| api/v2/auth/login | Login to account |GET|
 
 
 **TOOLS TO BE USED IN THE CHALLENGE**
@@ -50,6 +33,10 @@ Below are the Endpoints that have been created.
 
 		virtualenv
 
+		Postgres
+
+		Psycopg2-binary
+
 **How to run the application**
  1. Make a new directory on your computer
  2. Do a git init in  the folder
@@ -59,14 +46,6 @@ Below are the Endpoints that have been created.
  6. Export the environmental variable
  7. Then type on the terminal ```flask run``` to start and run the server
  8. Then on [postman](https://www.getpostman.com/), use the above url's
-
-
- This is the postman documentation [POSTMAN](https://documenter.getpostman.com/view/5790072/RztsnRVw)
-
-
-**Heroku Link**
-
- Navigate to this [link](https://api-endpoint-politico.herokuapp.com/) to run the application on heroku
 
 
 **Author**

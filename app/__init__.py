@@ -8,33 +8,34 @@ from app.api.v1.views.petitions_views import petition
 
 
 def page_not_found(e):
-	"""Capture Not Found error."""
-	
-	return make_response(jsonify({
-		"status" : "not found",
-		"message" : "url does not exist"
-		}), 404)
+    """Capture Not Found error."""
+
+    return make_response(jsonify({
+        "status": "not found",
+        "message": "url does not exist"
+    }), 404)
+
 
 def method_not_allowed(e):
-	"""Capture Not Found error."""
-	
-	return make_response(jsonify({
-		"status" : "error",
-		"message" : "method not allowed"
-		}), 404)
+    """Capture Not Found error."""
+
+    return make_response(jsonify({
+        "status": "error",
+        "message": "method not allowed"
+    }), 404)
+
 
 def electoral_app():
-	"""Create app."""
+    """Create app."""
 
-	app = Flask(__name__)
-	app.register_blueprint(party, url_prefix='/api/v1/')
-	app.register_blueprint(office, url_prefix='/api/v1/')
-	app.register_blueprint(user, url_prefix='/api/v1/')
-	app.register_blueprint(candidate, url_prefix='/api/v1/')
-	app.register_blueprint(vote, url_prefix='/api/v1/')
-	app.register_blueprint(petition, url_prefix='/api/v1/')
+    app = Flask(__name__)
+    app.register_blueprint(party, url_prefix='/api/v1/')
+    app.register_blueprint(office, url_prefix='/api/v1/')
+    app.register_blueprint(user, url_prefix='/api/v1/')
+    app.register_blueprint(candidate, url_prefix='/api/v1/')
+    app.register_blueprint(vote, url_prefix='/api/v1/')
+    app.register_blueprint(petition, url_prefix='/api/v1/')
 
-	app.register_error_handler(404, page_not_found)
-	app.register_error_handler(405, method_not_allowed)
-	
-	return app
+    app.register_error_handler(404, page_not_found)
+    app.register_error_handler(405, method_not_allowed)
+    return app
