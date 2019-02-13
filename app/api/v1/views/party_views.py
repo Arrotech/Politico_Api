@@ -21,6 +21,10 @@ class Party:
         hqAddress = details['hqAddress']
         logoUrl = details['logoUrl']
 
+        if PartiesModel().get_name(name) \
+                or PartiesModel().get_hqAddress(hqAddress) \
+                or PartiesModel().get_logoUrl(logoUrl):
+            return raise_error(400, "Party already exists")
         if not is_valid_url(logoUrl):
             return raise_error(400, "logoUrl is in the wrong format")
         if details['name'].isalpha() is False \
@@ -29,7 +33,7 @@ class Party:
         res = PartiesModel().save(name, hqAddress, logoUrl)
         return jsonify({
             "message": "party created successfully!",
-            "id": len(parties)
+            "party_id": len(parties)
             }), 201
 
     @party_v1.route('/parties', methods=['GET'])

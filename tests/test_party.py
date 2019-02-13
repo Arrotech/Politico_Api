@@ -47,7 +47,7 @@ class TestParty(BaseTest):
 			'/api/v1/parties', data=json.dumps(create_party), content_type='application/json')
 		result1 = json.loads(response1.data.decode())
 		response = self.client.delete(
-			'/api/v1/parties/{}/delete'.format(result1["id"]),
+			'/api/v1/parties/1/delete',
 			headers={"content_type":'application/json'}
 			)
 		result2 = json.loads(response.data.decode('utf-8'))

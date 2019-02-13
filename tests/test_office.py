@@ -2,7 +2,7 @@ import unittest
 import json
 from app.api.v1.views.office_views import Office
 from app.api.v1.models.offices_model import OfficesModel
-from utils.dummy import create_office, office_keys, get_office, office_category, office_name, offices
+from utils.dummy import create_office, office_keys, get_office, office_category, office_name, offices, delete_office
 from .base_test import BaseTest
 
 
@@ -116,7 +116,7 @@ class TestOffice(BaseTest):
 			'/api/v2/offices', data=json.dumps(create_office), content_type='application/json')
 		result1 = json.loads(response1.data.decode())
 		response = self.client.delete(
-			'/api/v2/offices/{}/delete'.format(result1["id"]),
+			'/api/v2/offices/1/delete',
 			headers={"content_type":'application/json'}
 			)
 		result2 = json.loads(response.data.decode('utf-8'))
