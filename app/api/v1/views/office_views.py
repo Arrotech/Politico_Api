@@ -1,7 +1,7 @@
 
 from flask import make_response, jsonify, request, abort, Blueprint
 from app.api.v1.models.offices_model import OfficesModel, offices
-from utils.validations import raise_error, check_office_keys, on_success
+from utils.validations import raise_error, check_office_keys, on_success, office_restrictions
 import json
 office = Blueprint('office', __name__)
 
@@ -27,6 +27,8 @@ class Office:
                 is False or details['name'].isalpha() \
                 is False:
             return raise_error(400, "input is in wrong format")
+        if(office_restrictions(category) is False):
+            return raise_error(400, "select from state, local, federal or legislative")
 
         res = OfficesModel().save(category, name)
         return jsonify({
