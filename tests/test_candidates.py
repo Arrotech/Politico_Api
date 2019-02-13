@@ -14,7 +14,7 @@ class TestCandidates(BaseTest):
 		"""Test when a candidate shows interest in running for office."""
 
 		response = self.client.post(
-			'/api/v4/candidates', data=json.dumps(new_candidate), content_type='application/json')
+			'/api/v1/candidates', data=json.dumps(new_candidate), content_type='application/json')
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'], 'interest created successfully')
 		assert response.status_code == 201
@@ -23,7 +23,7 @@ class TestCandidates(BaseTest):
 		"""Test the format of the office's name json value."""
 
 		response = self.client.post(
-			'/api/v4/candidates', data=json.dumps(candidate_office_value), content_type='application/json')
+			'/api/v1/candidates', data=json.dumps(candidate_office_value), content_type='application/json')
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'], 'input is in wrong format')
 		assert response.status_code == 400
@@ -32,7 +32,7 @@ class TestCandidates(BaseTest):
 		"""Test the format of the party's name json value."""
 
 		response = self.client.post(
-			'/api/v4/candidates', data=json.dumps(candidate_party_value), content_type='application/json')
+			'/api/v1/candidates', data=json.dumps(candidate_party_value), content_type='application/json')
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'], 'input is in wrong format')
 		assert response.status_code == 400
@@ -41,7 +41,7 @@ class TestCandidates(BaseTest):
 		"""Test the format of the candidate's name json value."""
 
 		response = self.client.post(
-			'/api/v4/candidates', data=json.dumps(candidate_name_value), content_type='application/json')
+			'/api/v1/candidates', data=json.dumps(candidate_name_value), content_type='application/json')
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'], 'input is in wrong format')
 		assert response.status_code == 400
@@ -50,7 +50,7 @@ class TestCandidates(BaseTest):
 		"""Test candidates json keys."""
 
 		response = self.client.post(
-			'/api/v4/candidates', data=json.dumps(candidate_keys), content_type='application/json')
+			'/api/v1/candidates', data=json.dumps(candidate_keys), content_type='application/json')
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'], 'Invalid party key')
 		assert response.status_code == 400

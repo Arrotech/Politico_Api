@@ -3,13 +3,13 @@ from app.api.v1.models.petitions_model import PetitionsModel, petitions
 from utils.validations import raise_error, \
     check_petitions_keys, on_success, is_valid_date
 import json
-petition_v6 = Blueprint('v6', __name__, url_prefix='/api/v6/')
+petition = Blueprint('petitions', __name__)
 
 
 class Petition:
     """A user can file a petition."""
 
-    @petition_v6.route('/petitions', methods=['POST'])
+    @petition.route('/petitions', methods=['POST'])
     def post():
         """A user can file a petition."""
 
