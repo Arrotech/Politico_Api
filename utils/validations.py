@@ -110,5 +110,10 @@ def is_valid_phone(variable):
        return True
    return False
 
+def office_restrictions(data):
+  """Restrict user inputs in a list."""
 
-   
+  office = ["state", "local", "federal", "legislative"]
+  if data not in office:
+    return False
+  return True
