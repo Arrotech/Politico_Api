@@ -1,4 +1,3 @@
-
 from flask import make_response, jsonify, request, abort, Blueprint
 from app.api.v1.models.offices_model import OfficesModel, offices
 from utils.validations import raise_error, check_office_keys, on_success, office_restrictions
