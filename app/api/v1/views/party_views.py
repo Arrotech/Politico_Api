@@ -3,13 +3,13 @@ from flask import make_response, jsonify, request, abort, Blueprint
 from app.api.v1.models.parties_model import PartiesModel, parties
 from utils.validations import raise_error, \
     check_party_keys, is_valid_url, on_success
-party_v1 = Blueprint('v1', __name__, url_prefix='/api/v1/')
+party = Blueprint('parties', __name__)
 
 
 class Party:
     """Creates a new political party."""
 
-    @party_v1.route('/parties', methods=['POST'])
+    @party.route('/parties', methods=['POST'])
     def post():
         """Create a new political party."""
 
@@ -32,7 +32,7 @@ class Party:
             "id": len(parties)
             }), 201
 
-    @party_v1.route('/parties', methods=['GET'])
+    @party.route('/parties', methods=['GET'])
     def get_parties():
         """Fetch all the existing parties."""
 
@@ -41,7 +41,7 @@ class Party:
             "parties": PartiesModel().get_all_parties()
             }), 200)
 
-    @party_v1.route('/parties/<int:party_id>', methods=['GET'])
+    @party.route('/parties/<int:party_id>', methods=['GET'])
     def get_party(party_id):
         """Fetch a specific political party."""
 
@@ -55,7 +55,7 @@ class Party:
             "status": "not found"
             }), 404)
 
-    @party_v1.route('/parties/<int:party_id>/delete', methods=['DELETE'])
+    @party.route('/parties/<int:party_id>/delete', methods=['DELETE'])
     def delete_party(party_id):
         """Delete a specific party."""
 
@@ -67,7 +67,7 @@ class Party:
             "status": "not found"
             }), 404)
 
-    @party_v1.route('/parties/<int:party_id>/edit', methods=['PATCH'])
+    @party.route('/parties/<int:party_id>/edit', methods=['PATCH'])
     def edit_party(party_id):
         """Edit a specific party."""
 

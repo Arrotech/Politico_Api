@@ -3,13 +3,13 @@ from app.api.v1.models.voters_model import VotersModel, voters
 from utils.validations import raise_error, \
     check_voters_keys, on_success, is_valid_date
 import json
-vote_v5 = Blueprint('v5', __name__, url_prefix='/api/v5/')
+vote = Blueprint('votes', __name__)
 
 
 class Vote:
     """A user can vote his/her candidate of choice."""
 
-    @vote_v5.route('/voters', methods=['POST'])
+    @vote.route('/voters', methods=['POST'])
     def post():
         """A user can vote his/her candidate of choice."""
 

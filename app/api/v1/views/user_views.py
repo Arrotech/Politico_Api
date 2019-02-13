@@ -4,13 +4,13 @@ from utils.validations import raise_error, \
     check_register_keys, is_valid_email, \
     is_valid_url, on_success, is_valid_phone
 import json
-user_v3 = Blueprint('v3', __name__, url_prefix='/api/v3/')
+user = Blueprint('users', __name__)
 
 
 class Register:
     """A user can create a new account."""
 
-    @user_v3.route('/users', methods=['POST'])
+    @user.route('/users', methods=['POST'])
     def post():
         """Create new account."""
 
