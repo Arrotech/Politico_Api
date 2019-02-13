@@ -50,7 +50,7 @@ get_party = {
 
 
 create_office = {
-"category": "Executive",
+"category": "local",
 "name": "Presidential"
 }
 
