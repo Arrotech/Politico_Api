@@ -50,12 +50,12 @@ get_party = {
 
 
 create_office = {
-"category": "Executive",
+"category": "local",
 "name": "Presidential"
 }
 
 delete_office = {
-"category": "Executive",
+"category": "local",
 "name": "Presidential"
 }
 
@@ -65,7 +65,7 @@ office_category = {
 }
 
 office_name = {
-"category": "Local",
+"category": "state",
 "name": "Presidenti  56876$%&$5al"
 }
 
@@ -78,7 +78,7 @@ get_office = {
 offices = {}
 
 office_keys = {
-"catry": "Executive",
+"catry": "local",
 "name": "Presidential"
 }
 
