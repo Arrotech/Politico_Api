@@ -42,3 +42,26 @@ class Register:
 
         user = UsersModel().save(firstname, lastname, email, password, phoneNumber, passportUrl, role)
         return on_success(201,"Account created successfully")
+
+login = Blueprint('login', __name__)
+
+class Login:
+    """A user can sign in to their account."""
+
+    @login.route('/login', methods=['POST'])
+    def post():
+        """Sign In a user"""
+
+        details = request.get_json()
+
+        email = details['email']
+        password = details['password']
+
+        user = UsersModel().get_email(email)
+
+        if user:
+            return make_response(jsonify({
+                "message" : f"successfully logged in {email}",
+            }), 200)
+        if not user:
+            return {'message': 'user not found'}, 404
