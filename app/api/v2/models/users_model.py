@@ -45,3 +45,12 @@ class UsersModel(Database):
 		self.conn.commit()
 		self.curr.close()
 		return user
+
+	def get_users(self):
+		"""Fetch all users"""
+
+		self.curr.execute(''' SELECT * FROM users''')
+		users = self.curr.fetchall()
+		self.conn.commit()
+		self.curr.close()
+		return users

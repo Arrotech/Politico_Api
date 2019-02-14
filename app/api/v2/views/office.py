@@ -2,6 +2,7 @@ from flask import make_response, jsonify, request, abort, Blueprint
 from app.api.v2.models.offices_model import OfficesModel
 from utils.validations import raise_error, check_office_keys, on_success, office_restrictions
 import json
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 office_v2 = Blueprint('office_v2', __name__)
 
@@ -10,6 +11,7 @@ class Office:
     """Creates a new government office."""
 
     @office_v2.route('/offices', methods=['POST'])
+    @jwt_required
     def post():
         """Create a new government office."""
 
@@ -33,6 +35,7 @@ class Office:
             }), 201
 
     @office_v2.route('/offices', methods=['GET'])
+    @jwt_required
     def get_offices():
         '''Fetch all the existing offices.'''
 
@@ -42,6 +45,7 @@ class Office:
             }), 200)
 
     @office_v2.route('/offices/<int:office_id>', methods=['GET'])
+    @jwt_required
     def get_office(office_id):
         """Fetch a specific political office."""
 

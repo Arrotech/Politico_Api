@@ -52,7 +52,7 @@ class TestUsersAccount(BaseTest):
 		"""Test account json keys."""
 
 		response = self.client.post(
-			'/api/v2/auth/signup', data=json.dumps(account_keys), content_type='application/json')
+			'/api/v2/auth/signup', data=json.dumps(account_keys), content_type='application/json', headers=self.get_token())
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'], 'Invalid firstname key')
 		assert response.status_code == 400
@@ -61,7 +61,7 @@ class TestUsersAccount(BaseTest):
 		"""Test the account email format."""
 
 		response = self.client.post(
-			'/api/v2/auth/signup', data=json.dumps(email_value), content_type='application/json')
+			'/api/v2/auth/signup', data=json.dumps(email_value), content_type='application/json', headers=self.get_token())
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'], 'Email is in the wrong format')
 		assert response.status_code == 400
@@ -70,7 +70,7 @@ class TestUsersAccount(BaseTest):
 		"""Test the account firstname format."""
 
 		response = self.client.post(
-			'/api/v2/auth/signup', data=json.dumps(firstname_value), content_type='application/json')
+			'/api/v2/auth/signup', data=json.dumps(firstname_value), content_type='application/json', headers=self.get_token())
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'], 'firstname is in wrong format')
 		assert response.status_code == 400
@@ -79,7 +79,7 @@ class TestUsersAccount(BaseTest):
 		"""Test the account lastname format."""
 
 		response = self.client.post(
-			'/api/v2/auth/signup', data=json.dumps(lastname_value), content_type='application/json')
+			'/api/v2/auth/signup', data=json.dumps(lastname_value), content_type='application/json', headers=self.get_token())
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'], 'lastname is in wrong format')
 		assert response.status_code == 400
@@ -88,7 +88,7 @@ class TestUsersAccount(BaseTest):
 		"""Test the account role format."""
 
 		response = self.client.post(
-			'/api/v2/auth/signup', data=json.dumps(role_value), content_type='application/json')
+			'/api/v2/auth/signup', data=json.dumps(role_value), content_type='application/json', headers=self.get_token())
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'], 'role is in wrong format')
 		assert response.status_code == 400
@@ -97,7 +97,7 @@ class TestUsersAccount(BaseTest):
 		"""Test the account phone number format."""
 
 		response = self.client.post(
-			'/api/v2/auth/signup', data=json.dumps(phone_value), content_type='application/json')
+			'/api/v2/auth/signup', data=json.dumps(phone_value), content_type='application/json', headers=self.get_token())
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'], 'phone number is in the wrong format')
 		assert response.status_code == 400
@@ -106,7 +106,7 @@ class TestUsersAccount(BaseTest):
 		"""Test the account passport url format."""
 
 		response = self.client.post(
-			'/api/v2/auth/signup', data=json.dumps(passport_value), content_type='application/json')
+			'/api/v2/auth/signup', data=json.dumps(passport_value), content_type='application/json', headers=self.get_token())
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'], 'passportUrl is in the wrong format')
 		assert response.status_code == 400

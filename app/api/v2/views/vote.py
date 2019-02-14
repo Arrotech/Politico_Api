@@ -3,6 +3,7 @@ from app.api.v2.models.voters_model import VotersModel
 from utils.validations import raise_error, \
     check_voters_keys2, on_success, is_valid_date
 import json
+from flask_jwt_extended import jwt_required, get_jwt_identity
 vote_v2= Blueprint('votes_v2', __name__)
 
 
@@ -10,6 +11,7 @@ class Vote:
     """A user can vote his/her candidate of choice."""
 
     @vote_v2.route('/voters', methods=['POST'])
+    @jwt_required
     def post():
         """A user can vote his/her candidate of choice."""
 
