@@ -54,6 +54,11 @@ create_office = {
 "name": "Presidential"
 }
 
+create_office2 = {
+"category": "federal",
+"name": "mayor"
+}
+
 delete_office = {
 "category": "Executive",
 "name": "Presidential"
