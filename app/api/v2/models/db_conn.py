@@ -28,6 +28,29 @@ class Database:
                 passportUrl varchar NOT NULL,
                 role varchar NOT NULL,
                 date TIMESTAMP
+			)""",
+
+            	"""
+	        CREATE TABLE IF NOT EXISTS offices(
+				office_id serial PRIMARY KEY,
+				category varchar NOT NULL,
+                name varchar NOT NULL
+			)""",
+
+            	"""
+	        CREATE TABLE IF NOT EXISTS voters(
+				voter_id serial PRIMARY KEY,
+                createdBy varchar NOT NULL,
+                office varchar NOT NULL,
+                candidate varchar NOT NULL
+			)""",
+
+            	"""
+	        CREATE TABLE IF NOT EXISTS petitions(
+				petition_id serial PRIMARY KEY,
+                createdBy varchar NOT NULL,
+                office varchar NOT NULL,
+                body varchar NOT NULL
 			)"""
         ]
         try:
@@ -42,7 +65,10 @@ class Database:
         """Destroy tables"""
 
         users = "DROP TABLE IF EXISTS  users CASCADE"
-        queries = [users]
+        offices = "DROP TABLE IF EXISTS  offices CASCADE"
+        voters = "DROP TABLE IF EXISTS  voters CASCADE"
+        petitions = "DROP TABLE IF EXISTS  petitions CASCADE"
+        queries = [users, offices, voters, petitions]
         try:
             for query in queries:
                 self.curr.execute(query)

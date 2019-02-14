@@ -7,7 +7,7 @@ from .base_test import BaseTest
 
 class TestVote(BaseTest):
 	"""Test voting endpoint."""
-
+  
 	def get_token(self):
 
 		self.client.post('/api/v2/auth/signup', data=json.dumps(create_account),

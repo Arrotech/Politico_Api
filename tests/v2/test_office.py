@@ -57,7 +57,7 @@ class TestOffice(BaseTest):
 
 	def test_get_offices(self):
 		"""Test fetching all offices that have been created."""
-
+    
 		response = self.client.get(
 			'/api/v2/auth/offices', content_type='application/json', headers=self.get_token())
 		result = json.loads(response.data.decode())

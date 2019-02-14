@@ -22,6 +22,7 @@ class TestPetitions(BaseTest):
 		"""Test filing a new petition."""
 
 		response = self.client.post(
+
 			'/api/v2/auth/petitions', data=json.dumps(new_petition), content_type='application/json', headers=self.get_token())
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'], 'petition filed successfully')
@@ -40,6 +41,7 @@ class TestPetitions(BaseTest):
 		"""Test input of the petitioner format."""
 
 		response = self.client.post(
+
 			'/api/v2/auth/petitions', data=json.dumps(petitioner_value), content_type='application/json', headers=self.get_token())
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'], 'input is in wrong format')

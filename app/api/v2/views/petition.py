@@ -4,6 +4,7 @@ from utils.validations import raise_error, \
     check_petitions_keys2, on_success, is_valid_date
 import json
 from flask_jwt_extended import jwt_required, get_jwt_identity
+
 petition_v2 = Blueprint('petitions_v2', __name__)
 
 
