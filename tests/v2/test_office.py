@@ -2,7 +2,7 @@ import unittest
 import json
 from app.api.v1.views.office_views import Office
 from app.api.v1.models.offices_model import OfficesModel
-from utils.dummy import create_office2, office_keys, get_office, office_category, office_name, offices, delete_office
+from utils.dummy import create_office2, office_keys, get_office, office_category, office_name, offices, delete_office, category_restriction
 from .base_test import BaseTest
 
 
@@ -18,6 +18,14 @@ class TestOffice(BaseTest):
 		self.assertEqual(result['message'], 'office created successfully!')
 		assert response.status_code == 201
 
+	def test_wrong_category_value(self):
+		"""Test create a new office."""
+
+		response = self.client.post(
+			'/api/v2/auth/offices', data=json.dumps(category_restriction), content_type='application/json')
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'], 'select from state, local, federal or legislative')
+		assert response.status_code == 400
 
 	def test_unexisting_officeUrl(self):
 		"""Test when unexisting url is provided."""
