@@ -2,11 +2,21 @@ import unittest
 import json
 from app.api.v2.views.auth_views import Register
 from app.api.v2.models.users_model import UsersModel
-from utils.dummy import create_account, account_keys, email_value, passport_value, phone_value, firstname_value, lastname_value, othername_value, role_value
+from utils.dummy import create_account, account_keys, email_value, passport_value, phone_value, firstname_value, lastname_value, othername_value, role_value, user_login, unregistered_user
 from .base_test import BaseTest
 
 class TestUsersAccount(BaseTest):
 	"""Testing the users account endpoint."""
+
+	def get_token(self):
+
+		self.client.post('/api/v2/auth/signup', data=json.dumps(create_account),
+		content_type='application/json')
+		resp = self.client.post('/api/v2/auth/login', data=json.dumps(user_login),
+			content_type='application/json')
+		access_token = json.loads(resp.get_data(as_text=True))['token']
+		auth_header = {'Authorization': 'Bearer {}'.format(access_token)}
+		return auth_header
 
 	def test_create_account(self):
 		"""Test create a new account."""
@@ -16,6 +26,27 @@ class TestUsersAccount(BaseTest):
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'], 'Account created successfully')
 		assert response.status_code == 201
+
+	def test_signin_account(self):
+		response = self.client.post(
+			'/api/v2/auth/login', data=json.dumps(user_login), content_type='application/json', headers=self.get_token())
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'], 'successfully logged in email@gmail.co.ke', msg='not allowed')
+		assert response.status_code == 200
+
+	def test_unexisting_url(self):
+		response = self.client.post(
+			'/api/v2/auth/lo8563gin', data=json.dumps(user_login), content_type='application/json', headers=self.get_token())
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['status'], 'not found', msg='not allowed')
+		assert response.status_code == 404
+
+	def test_unexisting_user(self):
+		response = self.client.post(
+			'/api/v2/auth/login', data=json.dumps(unregistered_user), content_type='application/json', headers=self.get_token())
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['status'], 'not found', msg='not allowed')
+		assert response.status_code == 404
 
 	def test_account_keys(self):
 		"""Test account json keys."""

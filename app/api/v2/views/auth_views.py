@@ -3,6 +3,7 @@ from app.api.v2.models.users_model import UsersModel
 from utils.validations import raise_error, check_register_keys, is_valid_email, is_valid_url, on_success, is_valid_phone
 import json
 from werkzeug.security import check_password_hash, generate_password_hash
+from flask_jwt_extended import create_access_token
           
 signup = Blueprint('signup',__name__)
 
@@ -55,13 +56,16 @@ class Login:
         details = request.get_json()
 
         email = details['email']
-        password = details['password']
+        new_password = details['password']
 
         user = UsersModel().get_email(email)
 
         if user:
+            token = create_access_token(identity=email)
             return make_response(jsonify({
                 "message" : f"successfully logged in {email}",
+                "token" : token
             }), 200)
-        if not user:
-            return {'message': 'user not found'}, 404
+        return make_response(jsonify({
+            "status": "not found"
+            }), 404)
