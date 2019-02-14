@@ -23,8 +23,8 @@ def check_petitions_keys(request):
 
 def check_petitions_keys2(request):
     """Check if the key values are correct."""
-
-    res_keys = ['createdOn', 'createdBy', 'office', 'body']
+    
+    res_keys = ['createdBy', 'office', 'body']
     errors = []
     for key in res_keys:
         if not key in request.json:
