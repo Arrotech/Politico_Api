@@ -159,6 +159,16 @@ email_value = {
 "role" : "role"
 }
 
+unregistered_user = {
+"email": "hgg@gmail.com",
+"password": "45678990"
+}
+
+user_login = {
+"email": "email@gmail.co.ke",
+"password": "1234567890"
+}
+
 passport_value = {
 "firstname" : "firstname",
 "lastname" : "lastname",

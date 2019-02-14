@@ -8,6 +8,7 @@ from app.api.v1.views.petitions_views import petition
 from app.api.v2.views.auth_views import signup, login
 from app.config import app_config
 import os
+from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
 
 
 def page_not_found(e):
@@ -35,6 +36,7 @@ def electoral_app(config_name):
 
     app.config.from_pyfile('config.py')
     app.config["SECRET_KEY"] = 'thisisarrotech'
+    jwt = JWTManager(app)
     
     app.register_blueprint(party, url_prefix='/api/v1/')
     app.register_blueprint(office, url_prefix='/api/v1/')
