@@ -21,12 +21,30 @@ def check_petitions_keys(request):
             errors.append(key)
     return errors
 
+def check_petitions_keys2(request):
+    """Check if the key values are correct."""
 
+    res_keys = ['createdBy', 'office', 'body']
+    errors = []
+    for key in res_keys:
+        if not key in request.json:
+            errors.append(key)
+    return errors
 
 def check_voters_keys(request):
     """Check if the key values are correct."""
 
     res_keys = ['createdOn', 'createdBy', 'office', 'candidate']
+    errors = []
+    for key in res_keys:
+        if not key in request.json:
+            errors.append(key)
+    return errors
+
+def check_voters_keys2(request):
+    """Check if the key values are correct."""
+
+    res_keys = ['createdBy', 'office', 'candidate']
     errors = []
     for key in res_keys:
         if not key in request.json:

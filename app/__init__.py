@@ -7,6 +7,8 @@ from app.api.v1.views.voters_views import vote
 from app.api.v1.views.petitions_views import petition
 from app.api.v2.views.auth_views import signup, login
 from app.api.v2.views.office import office_v2
+from app.api.v2.views.vote import vote_v2
+from app.api.v2.views.petition import petition_v2
 from app.config import app_config
 import os
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
@@ -48,6 +50,8 @@ def electoral_app(config_name):
     app.register_blueprint(signup, url_prefix='/api/v2/auth/')
     app.register_blueprint(login, url_prefix='/api/v2/auth/')
     app.register_blueprint(office_v2, url_prefix='/api/v2/auth/')
+    app.register_blueprint(vote_v2, url_prefix='/api/v2/auth/')
+    app.register_blueprint(petition_v2, url_prefix='/api/v2/auth/')
 
     app.register_error_handler(404, page_not_found)
     app.register_error_handler(405, method_not_allowed)
