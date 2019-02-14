@@ -5,36 +5,45 @@ from app.api.v1.views.user_views import user
 from app.api.v1.views.candidates_views import candidate
 from app.api.v1.views.voters_views import vote
 from app.api.v1.views.petitions_views import petition
+from app.api.v2.views.auth_views import signup
+from app.config import app_config
+import os
 
 
 def page_not_found(e):
-	"""Capture Not Found error."""
-	
-	return make_response(jsonify({
-		"status" : "not found",
-		"message" : "url does not exist"
-		}), 404)
+    """Capture Not Found error."""
+
+    return make_response(jsonify({
+        "status": "not found",
+        "message": "url does not exist"
+    }), 404)
+
 
 def method_not_allowed(e):
-	"""Capture Not Found error."""
-	
-	return make_response(jsonify({
-		"status" : "error",
-		"message" : "method not allowed"
-		}), 404)
+    """Capture Not Found error."""
 
-def electoral_app():
-	"""Create app."""
+    return make_response(jsonify({
+        "status": "error",
+        "message": "method not allowed"
+    }), 404)
 
-	app = Flask(__name__)
-	app.register_blueprint(party, url_prefix='/api/v1/')
-	app.register_blueprint(office, url_prefix='/api/v1/')
-	app.register_blueprint(user, url_prefix='/api/v1/')
-	app.register_blueprint(candidate, url_prefix='/api/v1/')
-	app.register_blueprint(vote, url_prefix='/api/v1/')
-	app.register_blueprint(petition, url_prefix='/api/v1/')
 
-	app.register_error_handler(404, page_not_found)
-	app.register_error_handler(405, method_not_allowed)
-	
-	return app
+def electoral_app(config_name):
+    """Create app."""
+
+    app = Flask(__name__)
+
+    app.config.from_pyfile('config.py')
+    app.config["SECRET_KEY"] = 'thisisarrotech'
+    
+    app.register_blueprint(party, url_prefix='/api/v1/')
+    app.register_blueprint(office, url_prefix='/api/v1/')
+    app.register_blueprint(user, url_prefix='/api/v1/')
+    app.register_blueprint(candidate, url_prefix='/api/v1/')
+    app.register_blueprint(vote, url_prefix='/api/v1/')
+    app.register_blueprint(petition, url_prefix='/api/v1/')
+    app.register_blueprint(signup, url_prefix='/api/v2/auth/')
+
+    app.register_error_handler(404, page_not_found)
+    app.register_error_handler(405, method_not_allowed)
+    return app

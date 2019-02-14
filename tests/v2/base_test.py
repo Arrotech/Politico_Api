@@ -1,4 +1,3 @@
-from utils.dummy import create_party
 import unittest
 from app import electoral_app
 
