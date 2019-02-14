@@ -46,7 +46,7 @@ def check_candidates_keys(request):
 def check_register_keys(request):
     """Check if the key values are correct."""
 
-    res_keys = ['firstname', 'lastname', 'othername', 'email', 'phoneNumber', 'passportUrl', 'role']
+    res_keys = ['firstname', 'lastname', 'email', 'password', 'phoneNumber', 'passportUrl', 'role']
     errors = []
     for key in res_keys:
         if not key in request.json:

@@ -87,6 +87,7 @@ create_account = {
 "lastname" : "lastname",
 "othername" : "othername",
 "email" : "email@gmail.co.ke",
+"password": "1234567890",
 "phoneNumber" : "0720930988",
 "passportUrl" : "https://www.passport.com",
 "role" : "role"
@@ -97,6 +98,7 @@ firstname_value = {
 "lastname" : "lastname",
 "othername" : "othername",
 "email" : "email@gmail.co.ke",
+"password": "1234567890",
 "phoneNumber" : "0720930988",
 "passportUrl" : "https://www.passport.com",
 "role" : "role"
@@ -107,6 +109,7 @@ lastname_value = {
 "lastname" : "lastn79386 ame",
 "othername" : "othername",
 "email" : "email@gmail.co.ke",
+"password": "1234567890",
 "phoneNumber" : "0720930988",
 "passportUrl" : "https://www.passport.com",
 "role" : "role"
@@ -117,6 +120,7 @@ othername_value = {
 "lastname" : "lastname",
 "othername" : "othe7863 %rname",
 "email" : "email@gmail.co.ke",
+"password": "1234567890",
 "phoneNumber" : "0720930988",
 "passportUrl" : "https://www.passport.com",
 "role" : "role"
@@ -127,6 +131,7 @@ role_value = {
 "lastname" : "lastname",
 "othername" : "othername",
 "email" : "email@gmail.co.ke",
+"password": "1234567890",
 "phoneNumber" : "0720930988",
 "passportUrl" : "https://www.passport.com",
 "role" : "ro 6385 %4le"
@@ -137,6 +142,7 @@ phone_value = {
 "lastname" : "lastname",
 "othername" : "othername",
 "email" : "email@gmail.co.ke",
+"password": "1234567890",
 "phoneNumber" : "harun2456",
 "passportUrl" : "https://www.passport.com",
 "role" : "role"
@@ -147,6 +153,7 @@ email_value = {
 "lastname" : "lastname",
 "othername" : "othername",
 "email" : "email",
+"password": "1234567890",
 "phoneNumber" : "phoneNumber",
 "passportUrl" : "https://www.passport.com",
 "role" : "role"
@@ -157,6 +164,7 @@ passport_value = {
 "lastname" : "lastname",
 "othername" : "othername",
 "email" : "email@gmail.co.ke",
+"password": "1234567890",
 "phoneNumber" : "0720930988",
 "passportUrl" : "passport",
 "role" : "role"
@@ -168,6 +176,7 @@ account_keys = {
 "lastname" : "lastname",
 "othername" : "othername",
 "email" : "email@gmail.co.ke",
+"password": "1234567890",
 "phoneNumber" : "phoneNumber",
 "passportUrl" : "passportUrl",
 "role" : "role"
