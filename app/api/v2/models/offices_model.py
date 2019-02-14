@@ -51,4 +51,4 @@ class OfficesModel(Database):
 		office = self.curr.fetchone()
 		self.conn.commit()
 		self.curr.close()
-		return json.dumbs(office, default=str)
+		return json.dumps(office, default=str)

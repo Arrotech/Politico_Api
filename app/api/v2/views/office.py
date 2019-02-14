@@ -26,8 +26,6 @@ class Office:
             return raise_error(400, "input is in wrong format")
         if(office_restrictions(category) is False):
             return raise_error(400, "select from state, local, federal or legislative")
-        if OfficesModel().get_office_name(name):
-            return raise_error(400, "Office with that name already exists")
 
         res = OfficesModel().save(category, name)
         return jsonify({
