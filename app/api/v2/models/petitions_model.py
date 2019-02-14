@@ -15,7 +15,7 @@ class PetitionsModel(Database):
 		self.body = body
 
 	def save(self, createdBy, office, body):
-		"""Save information of the new petition"""
+		"""Save information of a new petition"""
 
 		self.curr.execute(
             ''' INSERT INTO petitions(createdBy, office, body)\

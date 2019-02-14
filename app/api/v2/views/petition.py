@@ -7,7 +7,7 @@ petition_v2 = Blueprint('petitions_v2', __name__)
 
 
 class Petition:
-    """A user can file a petition."""
+    """A user can file petition."""
 
     @petition_v2.route('/petitions', methods=['POST'])
     def post():

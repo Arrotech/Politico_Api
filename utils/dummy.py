@@ -54,6 +54,12 @@ create_office = {
 "name": "Presidential"
 }
 
+category_restriction = {
+"category": "Womenrep",
+"name": "clerk"
+}
+
+
 create_office2 = {
 "category": "federal",
 "name": "mayor"
@@ -300,6 +306,12 @@ petition_office_value = {
 petition_keys = {
 "credOn" : "createdOn",
 "createdBy" : "createdBy",
+"office" : "office",
+"body" : "body"
+}
+
+petition_keys2 = {
+"crea363tedBy" : "createdBy",
 "office" : "office",
 "body" : "body"
 }
