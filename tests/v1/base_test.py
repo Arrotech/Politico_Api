@@ -8,7 +8,7 @@ class BaseTest(unittest.TestCase):
     def setUp(self):
         """Set up the app for testing."""
 
-        self.app = electoral_app()
+        self.app = electoral_app("testing")
         self.client = self.app.test_client()
         self.app_context = self.app.app_context()
         self.app_context.push()

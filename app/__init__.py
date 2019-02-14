@@ -5,6 +5,9 @@ from app.api.v1.views.user_views import user
 from app.api.v1.views.candidates_views import candidate
 from app.api.v1.views.voters_views import vote
 from app.api.v1.views.petitions_views import petition
+from app.api.v2.views.auth_views import signup
+from app.config import app_config
+import os
 
 
 def page_not_found(e):
@@ -25,16 +28,21 @@ def method_not_allowed(e):
     }), 404)
 
 
-def electoral_app():
+def electoral_app(config_name):
     """Create app."""
 
     app = Flask(__name__)
+
+    app.config.from_pyfile('config.py')
+    app.config["SECRET_KEY"] = 'thisisarrotech'
+    
     app.register_blueprint(party, url_prefix='/api/v1/')
     app.register_blueprint(office, url_prefix='/api/v1/')
     app.register_blueprint(user, url_prefix='/api/v1/')
     app.register_blueprint(candidate, url_prefix='/api/v1/')
     app.register_blueprint(vote, url_prefix='/api/v1/')
     app.register_blueprint(petition, url_prefix='/api/v1/')
+    app.register_blueprint(signup, url_prefix='/api/v2/auth/')
 
     app.register_error_handler(404, page_not_found)
     app.register_error_handler(405, method_not_allowed)
