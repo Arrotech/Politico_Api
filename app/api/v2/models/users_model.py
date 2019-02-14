@@ -32,7 +32,16 @@ class UsersModel(Database):
              VALUES('{}','{}','{}','{}','{}','{}','{}')\
              RETURNING firstname,lastname,email,password,phoneNumber,passportUrl,role'''\
             .format(firstname,lastname,email,password,phoneNumber,passportUrl,role))
-		create = self.curr.fetchone()
+		user = self.curr.fetchone()
 		self.conn.commit()
 		self.curr.close()
-		return create
+		return user
+
+	def get_email(self, email):
+		"""Get user with specific email."""
+
+		self.curr.execute(''' SELECT * FROM users WHERE email=%s''',(email, ))
+		user = self.curr.fetchone()
+		self.conn.commit()
+		self.curr.close()
+		return user
