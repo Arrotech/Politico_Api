@@ -40,3 +40,12 @@ class Party:
         return jsonify({
             "message": "party created successfully!"
         }), 201
+
+    @party_v2.route('/parties', methods=['GET'])
+    def get_parties():
+        """Fetch all the existing parties."""
+
+        return make_response(jsonify({
+            "message": "success",
+            "parties": json.loads(PartiesModel().get_parties())
+            }), 200)

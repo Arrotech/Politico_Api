@@ -19,15 +19,6 @@ class TestOffice(BaseTest):
 		auth_header = {'Authorization': 'Bearer {}'.format(access_token)}
 		return auth_header
 
-	def test_name_exists(self):
-		"""Test create a new office."""
-
-		response = self.client.post(
-			'/api/v2/auth/offices', data=json.dumps(name_exists), content_type='application/json', headers=self.get_token())
-		result = json.loads(response.data.decode())
-		self.assertEqual(result['message'], 'office with that name already exists!')
-		assert response.status_code == 400
-
 	def test_wrong_category_value(self):
 		"""Test create a new office."""
 
