@@ -104,6 +104,51 @@ create_account = {
 "role" : "role"
 }
 
+phone_exists = {
+"firstname" : "firstname",
+"lastname" : "lastname",
+"othername" : "othername",
+"email" : "mary@gmail.co.ke",
+"password": "1234567890",
+"phoneNumber" : "0720930988",
+"passportUrl" : "https://www.aaron.com",
+"role" : "role"
+}
+
+passport_exists = {
+"firstname" : "firstname",
+"lastname" : "lastname",
+"othername" : "othername",
+"email" : "gaucho@gmail.co.ke",
+"password": "1234567890",
+"phoneNumber" : "0722568598",
+"passportUrl" : "https://www.aaron.com",
+"role" : "role"
+}
+
+new_account = {
+"firstname" : "firstname",
+"lastname" : "lastname",
+"othername" : "othername",
+"email" : "aaron@gmail.co.ke",
+"password": "1234567890",
+"phoneNumber" : "0721354678",
+"passportUrl" : "https://www.gaucho.com",
+"role" : "role"
+}
+
+
+email_exists = {
+"firstname" : "firstname",
+"lastname" : "lastname",
+"othername" : "othername",
+"email" : "email@gmail.co.ke",
+"password": "1234567890",
+"phoneNumber" : "0725347685",
+"passportUrl" : "https://www.emily.com",
+"role" : "role"
+}
+
 firstname_value = {
 "firstname" : "firstn 76358927ame",
 "lastname" : "lastname",
@@ -209,8 +254,19 @@ new_candidate = {
 "candidate" : "candidate"
 }
 
+new_candidate2 = {
+"office" : "office",
+"user" : "john"
+}
+
+
+candidate_office_value2 = {
+"office" : "offic 2461e",
+"user" : "john"
+}
+
 candidate_office_value = {
-"office" : "off  876982ice",
+"office" : "offic 72`e",
 "party" : "party",
 "candidate" : "candidate"
 }
@@ -225,6 +281,17 @@ candidate_name_value = {
 "office" : "office",
 "party" : "party",
 "candidate" : "candi76826 date"
+}
+
+candidate_user_value = {
+"office" : "offic 2461e",
+"user" : "jo67186 hn"
+}
+
+
+candidate_keys2 = {
+"of 1715ice" : "office",
+"user" : "john"
 }
 
 candidate_keys = {

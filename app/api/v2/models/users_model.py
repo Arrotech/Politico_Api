@@ -46,6 +46,24 @@ class UsersModel(Database):
 		self.curr.close()
 		return user
 
+	def get_phoneNumber(self, phoneNumber):
+		"""Get user with specific email."""
+
+		self.curr.execute(''' SELECT * FROM users WHERE phoneNumber=%s''',(phoneNumber, ))
+		user = self.curr.fetchone()
+		self.conn.commit()
+		self.curr.close()
+		return user
+
+	def get_passportUrl(self, passportUrl):
+		"""Get user with specific email."""
+
+		self.curr.execute(''' SELECT * FROM users WHERE passportUrl=%s''',(passportUrl, ))
+		user = self.curr.fetchone()
+		self.conn.commit()
+		self.curr.close()
+		return user
+
 	def get_users(self):
 		"""Fetch all users"""
 
