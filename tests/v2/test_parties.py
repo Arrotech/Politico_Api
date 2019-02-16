@@ -19,15 +19,6 @@ class TestOffice(BaseTest):
 		auth_header = {'Authorization': 'Bearer {}'.format(access_token)}
 		return auth_header
 
-	def test_party_name_exists(self):
-		"""Test create a new party with an existing name."""
-
-		response = self.client.post(
-			'/api/v2/auth/parties', data=json.dumps(party_name_exists), content_type='application/json', headers=self.get_token())
-		result = json.loads(response.data.decode())
-		self.assertEqual(result['message'], 'Party with that name already exists!')
-		assert response.status_code == 400
-
 	def test_unexisting_officeUrl(self):
 		"""Test when unexisting url is provided."""
 
@@ -36,6 +27,16 @@ class TestOffice(BaseTest):
 		result = json.loads(response.data.decode())
 		assert response.status_code == 404
 		assert result['status'] == "not found"
+
+	def test_get_parties(self):
+		"""Test fetching all offices that have been created."""
+    
+		response = self.client.get(
+			'/api/v2/auth/parties', content_type='application/json', headers=self.get_token())
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'],
+			"success")
+		assert response.status_code == 200
 
 	def test_party_keys(self):
 		"""Test party json keys"""
