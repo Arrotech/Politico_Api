@@ -51,7 +51,15 @@ class Database:
                 createdBy varchar NOT NULL,
                 office varchar NOT NULL,
                 body varchar NOT NULL
-			)"""
+			)""",
+
+                """
+            CREATE TABLE IF NOT EXISTS parties(
+                party_id serial PRIMARY KEY,
+                name varchar NOT NULL,
+                hqAddress varchar NOT NULL,
+                logoUrl varchar NOT NULL
+            )"""
         ]
         try:
             for query in queries:
@@ -68,7 +76,8 @@ class Database:
         offices = "DROP TABLE IF EXISTS  offices CASCADE"
         voters = "DROP TABLE IF EXISTS  voters CASCADE"
         petitions = "DROP TABLE IF EXISTS  petitions CASCADE"
-        queries = [users, offices, voters, petitions]
+        parties = "DROP TABLE IF EXISTS  parties CASCADE"
+        queries = [users, offices, voters, petitions, parties]
         try:
             for query in queries:
                 self.curr.execute(query)

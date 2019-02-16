@@ -19,9 +19,8 @@ class Office:
         category = details['category']
         name = details['name']
 
-        if OfficesModel().get_name(name) \
-                or OfficesModel().get_category(category):
-            return raise_error(400, "Office already exists")
+        if OfficesModel().get_name(name):
+            return raise_error(400, "office with that name already exists!")
         if details['category'].isalpha() \
                 is False or details['name'].isalpha() \
                 is False:

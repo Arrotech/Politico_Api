@@ -33,14 +33,14 @@ class PartiesModel():
 
 		for party in self.entries:
 			if party['hqAddress'] == hqAddress:
-				return json.dumps(party, default=str)
+				return party
 
 	def get_logoUrl(self, logoUrl):
 		"""Get party by logoUrl."""
 
 		for party in self.entries:
 			if party['logoUrl'] == logoUrl:
-				return json.dumps(party, default=str)
+				return party
 
 	def get_all_parties(self):
 		"""Fetch all the existing parties."""
