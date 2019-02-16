@@ -1,6 +1,7 @@
 from app.api.v2.models.db_conn import Database
 from werkzeug.security import generate_password_hash
 import json
+from flask import jsonify
 
 
 class UsersModel(Database):
@@ -63,12 +64,3 @@ class UsersModel(Database):
 		self.conn.commit()
 		self.curr.close()
 		return user
-
-	def get_users(self):
-		"""Fetch all users"""
-
-		self.curr.execute(''' SELECT * FROM users''')
-		users = self.curr.fetchall()
-		self.conn.commit()
-		self.curr.close()
-		return users

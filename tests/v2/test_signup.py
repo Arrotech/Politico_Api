@@ -18,40 +18,31 @@ class TestUsersAccount(BaseTest):
 		auth_header = {'Authorization': 'Bearer {}'.format(access_token)}
 		return auth_header
 
-	def test_create_account(self):
-		"""Test create a new account."""
-
-		response = self.client.post(
-			'/api/v2/auth/signup', data=json.dumps(new_account), content_type='application/json')
-		result = json.loads(response.data.decode())
-		self.assertEqual(result['message'], 'Account created successfully')
-		assert response.status_code == 201
-
 	def test_email_exists(self):
 		"""Test create a new account."""
 
 		response = self.client.post(
-			'/api/v2/auth/signup', data=json.dumps(email_exists), content_type='application/json')
+			'/api/v2/auth/signup', data=json.dumps(email_exists), content_type='application/json', headers=self.get_token())
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'], 'Email already exists!')
 		assert response.status_code == 400
 
-	def test_passport_exists(self):
+	def test_phoneNumber_exists(self):
 		"""Test create a new account."""
 
 		response = self.client.post(
-			'/api/v2/auth/signup', data=json.dumps(passport_exists), content_type='application/json')
-		result = json.loads(response.data.decode())
-		self.assertEqual(result['message'], 'passportUrl already in use!')
-		assert response.status_code == 400
-
-	def test_phone_exists(self):
-		"""Test create a new account."""
-
-		response = self.client.post(
-			'/api/v2/auth/signup', data=json.dumps(phone_exists), content_type='application/json')
+			'/api/v2/auth/signup', data=json.dumps(phone_exists), content_type='application/json', headers=self.get_token())
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'], 'phoneNumber already exists!')
+		assert response.status_code == 400
+
+	def test_passportUrl_exists(self):
+		"""Test create a new account."""
+
+		response = self.client.post(
+			'/api/v2/auth/signup', data=json.dumps(passport_exists), content_type='application/json', headers=self.get_token())
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'], 'passportUrl already in use!')
 		assert response.status_code == 400
 
 	def test_signin_account(self):
