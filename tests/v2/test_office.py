@@ -1,7 +1,7 @@
 import unittest
 import json
-from app.api.v1.views.office_views import Office
-from app.api.v1.models.offices_model import OfficesModel
+from app.api.v2.views.office import Office
+from app.api.v2.models.offices_model import OfficesModel
 from utils.dummy import create_office2, office_keys, get_office, office_category, office_name, offices, delete_office, name_exists, category_restriction, create_account, user_login
 from .base_test import BaseTest
 

@@ -4,6 +4,54 @@ create_party = {
 "logoUrl": "https://www.w3schools.org"
 }
 
+create_party2 = {
+"name": "ORM",
+"hqAddress": "Kericho",
+"logoUrl": "https://www.reigns.org"
+}
+
+party_name_value = {
+"name": "OD  M",
+"hqAddress": "Kisumu",
+"logoUrl": "https://www.w3schools.com"
+}
+
+party_hqAddress_value = {
+"name": "AMOR",
+"hqAddress": "Kisum 8074 u",
+"logoUrl": "https://www.welco.com"
+}
+
+party_name_exists = {
+"name": "ORM",
+"hqAddress": "Nakuru",
+"logoUrl": "https://www.kenkom.com"
+}
+
+party_hqAddress_exists = {
+"name": "malmo",
+"hqAddress": "Kericho",
+"logoUrl": "https://www.facebook.com"
+}
+
+party_logoUrl_exists = {
+"name": "Imenti",
+"hqAddress": "RWESR",
+"logoUrl": "https://www.reigns.org"
+}
+
+party_name_key = {
+"nme": "NAP",
+"hqAddress": "Kakamega",
+"logoUrl": "https://www.w3.org"
+}
+
+party_name_keys = {
+"nme": "jupilee",
+"hqAddress": "Kamiti",
+"logoUrl": "https://www.w3schoolsfalsetto.org"
+}
+
 party_name = {
 "name": "O ^%%9(*& M",
 "hqAddress": "Anniversary",
@@ -54,11 +102,17 @@ create_office = {
 "name": "Presidential"
 }
 
+category_restrictions = {
+"category": "Executive",
+"name": "chief"	
+}
+
 category_restriction = {
 "category": "Womenrep",
 "name": "clerk"
 }
 
+offices = {}
 
 create_office2 = {
 "category": "federal",
@@ -90,8 +144,6 @@ get_office = {
 "category": "Executive",
 "name": "Presidential"
 }
-
-offices = {}
 
 office_keys = {
 "catry": "Executive",

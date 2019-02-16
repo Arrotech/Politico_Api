@@ -2,7 +2,7 @@ import unittest
 import json
 from app.api.v1.views.office_views import Office
 from app.api.v1.models.offices_model import OfficesModel
-from utils.dummy import create_office, office_keys, get_office, office_category, office_name, offices, delete_office
+from utils.dummy import create_office, office_keys, get_office, office_category, office_name, offices, delete_office, category_restrictions
 from .base_test import BaseTest
 
 
@@ -17,6 +17,15 @@ class TestOffice(BaseTest):
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'], 'office created successfully!')
 		assert response.status_code == 201
+
+	def test_name_exists(self):
+		"""Test create a new office."""
+
+		response = self.client.post(
+			'/api/v1/offices', data=json.dumps(create_office), content_type='application/json')
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'], 'office with that name already exists!')
+		assert response.status_code == 400
 
 	def test_update_office(self):
 		"""Test updating an already existing office."""
@@ -143,5 +152,15 @@ class TestOffice(BaseTest):
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'], 'input is in wrong format')
 		assert response.status_code == 400
+
+	def test_office_category_input(self):
+		"""Test name json values."""
+
+		response = self.client.post(
+			'/api/v1/offices', data=json.dumps(category_restrictions), content_type='application/json')
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'], 'select from state, local, federal or legislative')
+		assert response.status_code == 400
+
 
 

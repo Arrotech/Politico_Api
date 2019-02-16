@@ -33,13 +33,6 @@ class OfficesModel():
 				if office.get('office_id') == office_id:
 					return office
 
-	def get_category(self, category):
-		"""Get a party with a specific name."""
-
-		for office in self.entries:
-			if office['category'] == category:
-				return json.dumps(office, default=str)
-
 	def get_name(self, name):
 		"""Get party by hqAddress."""
 
