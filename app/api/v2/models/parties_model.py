@@ -38,6 +38,15 @@ class PartiesModel(Database):
 		self.curr.close()
 		return json.dumps(parties, default=str)
 
+	def get_party(self, party_id):
+		"""Fetch a single party"""
+
+		self.curr.execute(""" SELECT * FROM parties WHERE party_id={}""".format(party_id ))
+		party = self.curr.fetchone()
+		self.conn.commit()
+		self.curr.close()
+		return json.dumps(party, default=str)
+
 	def get_name(self, name):
 		"""Get party with specific name."""
 

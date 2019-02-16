@@ -69,6 +69,8 @@ class TestOffice(BaseTest):
 	def test_get_office(self):
 		"""Test getting a specific office by id."""
 
+		response1 = self.client.post(
+			'/api/v2/auth/offices', data=json.dumps(create_office2), content_type='application/json', headers=self.get_token())
 		response = self.client.get(
 			'/api/v2/auth/offices/1', content_type='application/json', headers=self.get_token())
 		result = json.loads(response.data.decode())
