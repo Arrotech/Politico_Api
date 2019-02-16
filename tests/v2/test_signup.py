@@ -2,7 +2,7 @@ import unittest
 import json
 from app.api.v2.views.auth_views import Register
 from app.api.v2.models.users_model import UsersModel
-from utils.dummy import create_account, account_keys, email_value, passport_value, phone_value, firstname_value, lastname_value, othername_value, role_value, user_login, unregistered_user
+from utils.dummy import create_account, account_keys, email_value, passport_value, new_account, phone_value, firstname_value, lastname_value, othername_value, role_value, user_login, unregistered_user,  email_exists, phone_exists, passport_exists
 from .base_test import BaseTest
 
 class TestUsersAccount(BaseTest):
@@ -22,10 +22,37 @@ class TestUsersAccount(BaseTest):
 		"""Test create a new account."""
 
 		response = self.client.post(
-			'/api/v2/auth/signup', data=json.dumps(create_account), content_type='application/json')
+			'/api/v2/auth/signup', data=json.dumps(new_account), content_type='application/json')
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'], 'Account created successfully')
 		assert response.status_code == 201
+
+	def test_email_exists(self):
+		"""Test create a new account."""
+
+		response = self.client.post(
+			'/api/v2/auth/signup', data=json.dumps(email_exists), content_type='application/json')
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'], 'Email already exists!')
+		assert response.status_code == 400
+
+	def test_passport_exists(self):
+		"""Test create a new account."""
+
+		response = self.client.post(
+			'/api/v2/auth/signup', data=json.dumps(passport_exists), content_type='application/json')
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'], 'passportUrl already in use!')
+		assert response.status_code == 400
+
+	def test_phone_exists(self):
+		"""Test create a new account."""
+
+		response = self.client.post(
+			'/api/v2/auth/signup', data=json.dumps(phone_exists), content_type='application/json')
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'], 'phoneNumber already exists!')
+		assert response.status_code == 400
 
 	def test_signin_account(self):
 		response = self.client.post(

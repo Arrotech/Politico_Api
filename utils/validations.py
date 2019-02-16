@@ -86,6 +86,16 @@ def check_candidates_keys(request):
             errors.append(key)
     return errors
 
+def check_candidates_keys2(request):
+    """Check if the key values are correct."""
+
+    res_keys = ['office', 'user']
+    errors = []
+    for key in res_keys:
+        if not key in request.json:
+            errors.append(key)
+    return errors
+
 def check_register_keys(request):
     """Check if the key values are correct."""
 
@@ -160,3 +170,4 @@ def office_restrictions(data):
   if data not in office:
     return False
   return True
+  

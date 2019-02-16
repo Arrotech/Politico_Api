@@ -1,7 +1,8 @@
 from flask import make_response, jsonify, request, abort, Blueprint
 from app.api.v2.models.users_model import UsersModel
-from utils.validations import raise_error, check_register_keys, is_valid_email, is_valid_url, on_success, is_valid_phone
+from utils.validations import raise_error, check_register_keys, is_valid_email, is_valid_url, on_success, is_valid_phone, check_candidates_keys2
 import json
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_jwt_extended import create_access_token
           
@@ -38,8 +39,12 @@ class Register:
             return raise_error(400,"role is in wrong format")
         if not is_valid_url(passportUrl):
             return raise_error(400,"passportUrl is in the wrong format")
-        # if not is_valid_url(password):
-        #     return raise_error(400,"password is in wrong format")
+        if UsersModel().get_email(email):
+            return raise_error(400, "Email already exists!")
+        if UsersModel().get_phoneNumber(phoneNumber):
+            return raise_error(400, "phoneNumber already exists!")
+        if UsersModel().get_passportUrl(passportUrl):
+            return raise_error(400, "passportUrl already in use!")
 
         user = UsersModel().save(firstname, lastname, email, password, phoneNumber, passportUrl, role)
         return on_success(201,"Account created successfully")
