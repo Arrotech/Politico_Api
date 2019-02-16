@@ -61,7 +61,7 @@ class Login:
         details = request.get_json()
 
         email = details['email']
-        new_password = details['password']
+        password = details['password']
 
         user = UsersModel().get_email(email)
 

@@ -2,7 +2,7 @@ import unittest
 import json
 from app.api.v1.views.office_views import Office
 from app.api.v1.models.offices_model import OfficesModel
-from utils.dummy import create_office2, office_keys, get_office, office_category, office_name, offices, delete_office, category_restriction, create_account, user_login
+from utils.dummy import create_office2, office_keys, get_office, office_category, office_name, offices, delete_office, name_exists, category_restriction, create_account, user_login
 from .base_test import BaseTest
 
 
@@ -19,14 +19,14 @@ class TestOffice(BaseTest):
 		auth_header = {'Authorization': 'Bearer {}'.format(access_token)}
 		return auth_header
 
-	def test_create_office(self):
+	def test_name_exists(self):
 		"""Test create a new office."""
 
 		response = self.client.post(
-			'/api/v2/auth/offices', data=json.dumps(create_office2), content_type='application/json', headers=self.get_token())
+			'/api/v2/auth/offices', data=json.dumps(name_exists), content_type='application/json', headers=self.get_token())
 		result = json.loads(response.data.decode())
-		self.assertEqual(result['message'], 'office created successfully!')
-		assert response.status_code == 201
+		self.assertEqual(result['message'], 'office with that name already exists!')
+		assert response.status_code == 400
 
 	def test_wrong_category_value(self):
 		"""Test create a new office."""
@@ -94,22 +94,13 @@ class TestOffice(BaseTest):
 		assert response.status_code == 404
 		assert result['status'] == "not found"
 
-	def test_office_categoryValue(self):
-		"""Test category name json values."""
-
-		response = self.client.post(
-			'/api/v2/auth/offices', data=json.dumps(office_category), content_type='application/json', headers=self.get_token())
-		result = json.loads(response.data.decode())
-		self.assertEqual(result['message'], 'input is in wrong format')
-		assert response.status_code == 400
-
 	def test_office_nameValue(self):
 		"""Test name json values."""
 
 		response = self.client.post(
 			'/api/v2/auth/offices', data=json.dumps(office_name), content_type='application/json', headers=self.get_token())
 		result = json.loads(response.data.decode())
-		self.assertEqual(result['message'], 'input is in wrong format')
+		self.assertEqual(result['message'], 'The name of the office is in wrong format!')
 		assert response.status_code == 400
 
 

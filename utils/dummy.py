@@ -65,6 +65,11 @@ create_office2 = {
 "name": "mayor"
 }
 
+name_exists = {
+"category": "state",
+"name": "mayor"
+}
+
 delete_office = {
 "category": "Executive",
 "name": "Presidential"
@@ -119,10 +124,10 @@ passport_exists = {
 "firstname" : "firstname",
 "lastname" : "lastname",
 "othername" : "othername",
-"email" : "gaucho@gmail.co.ke",
+"email" : "george@gmail.co.ke",
 "password": "1234567890",
-"phoneNumber" : "0722568598",
-"passportUrl" : "https://www.aaron.com",
+"phoneNumber" : "0723765498",
+"passportUrl" : "https://www.passport.com",
 "role" : "role"
 }
 
@@ -130,10 +135,10 @@ new_account = {
 "firstname" : "firstname",
 "lastname" : "lastname",
 "othername" : "othername",
-"email" : "aaron@gmail.co.ke",
+"email" : "malmo@gmail.co.ke",
 "password": "1234567890",
-"phoneNumber" : "0721354678",
-"passportUrl" : "https://www.gaucho.com",
+"phoneNumber" : "0722457987",
+"passportUrl" : "https://www.gacho.com",
 "role" : "role"
 }
 

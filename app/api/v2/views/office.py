@@ -1,6 +1,7 @@
 from flask import make_response, jsonify, request, abort, Blueprint
 from app.api.v2.models.offices_model import OfficesModel
 from utils.validations import raise_error, check_office_keys, on_success, office_restrictions
+from utils.authorization import admin_required
 import json
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
@@ -22,12 +23,12 @@ class Office:
         category = details['category']
         name = details['name']
 
-        if details['category'].isalpha() \
-                is False or details['name'].isalpha() \
-                is False:
-            return raise_error(400, "input is in wrong format")
+        if details['name'].isalpha() is False:
+            return raise_error(400, "The name of the office is in wrong format!")
         if(office_restrictions(category) is False):
             return raise_error(400, "select from state, local, federal or legislative")
+        if OfficesModel().get_name(name):
+            return raise_error(400, "office with that name already exists!")
 
         res = OfficesModel().save(category, name)
         return jsonify({

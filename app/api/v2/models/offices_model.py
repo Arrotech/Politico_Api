@@ -44,11 +44,11 @@ class OfficesModel(Database):
 		self.curr.close()
 		return json.dumps(office, default=str)
 
-	def get_office_name(self, name):
-		"""Get an office with specific name."""
+	def get_name(self, name):
+		"""Get user with specific email."""
 
 		self.curr.execute(''' SELECT * FROM offices WHERE name=%s''',(name, ))
-		office = self.curr.fetchone()
+		user = self.curr.fetchone()
 		self.conn.commit()
 		self.curr.close()
-		return json.dumps(office, default=str)
+		return user
