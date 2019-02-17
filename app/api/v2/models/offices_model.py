@@ -52,3 +52,10 @@ class OfficesModel(Database):
 		self.conn.commit()
 		self.curr.close()
 		return user
+
+	def delete(self, office_id):
+		''' Delete order '''
+		
+		self.curr.execute(''' DELETE FROM offices WHERE office_id=%s''',(office_id, ))
+		self.conn.commit()
+		self.curr.close()
