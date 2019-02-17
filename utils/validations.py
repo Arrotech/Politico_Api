@@ -36,6 +36,36 @@ def check_party_keys(request):
             errors.append(key)
     return errors
 
+def edit_party_name_keys(request):
+    """Check if the key values are correct."""
+
+    res_keys = ['name']
+    errors = []
+    for key in res_keys:
+        if not key in request.json:
+            errors.append(key)
+    return errors
+
+def edit_party_hqAddress_keys(request):
+    """Check if the key values are correct."""
+
+    res_keys = ['hqAddress']
+    errors = []
+    for key in res_keys:
+        if not key in request.json:
+            errors.append(key)
+    return errors
+
+def edit_party_logoUrl_keys(request):
+    """Check if the key values are correct."""
+
+    res_keys = ['logoUrl']
+    errors = []
+    for key in res_keys:
+        if not key in request.json:
+            errors.append(key)
+    return errors
+
 def check_petitions_keys(request):
     """Check if the key values are correct."""
 

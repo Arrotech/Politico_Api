@@ -80,3 +80,15 @@ class PartiesModel(Database):
 		self.curr.execute(''' DELETE FROM parties WHERE party_id=%s''',(party_id, ))
 		self.conn.commit()
 		self.curr.close()
+
+	def edit_party(self, party_id, name, hqAddress, logoUrl):
+		"""User can Change name of the party."""
+
+		self.curr.execute("""UPDATE parties\
+			SET name='{}', hqAddress='{}', logoUrl='{}'\
+			WHERE party_id={} RETURNING name, hqAddress, logoUrl"""\
+			.format(party_id,name,hqAddress,logoUrl))
+		party = self.curr.fetchone()
+		self.conn.commit()
+		self.curr.close()
+		return party
