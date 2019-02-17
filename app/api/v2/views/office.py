@@ -60,3 +60,18 @@ class Office:
         return make_response(jsonify({
             "status": "not found"
             }), 404)
+
+    @office_v2.route('/offices/<int:office_id>/delete', methods=['DELETE'])
+    @jwt_required
+    def delete(office_id):
+        """Delete a specific office."""
+
+        office = OfficesModel().get_office_by_id(office_id)
+        if office:
+            OfficesModel().delete(office_id)
+            return make_response(jsonify({
+                "message": "office deleted"
+                }), 200)
+        return make_response(jsonify({
+            "status": "not found"
+            }), 404)
