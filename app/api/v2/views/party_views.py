@@ -2,7 +2,7 @@ import json
 from flask import make_response, jsonify, request, abort, Blueprint
 from app.api.v2.models.parties_model import PartiesModel
 from utils.validations import raise_error, \
-    check_party_keys, is_valid_url, on_success
+    check_party_keys, is_valid_url, on_success, edit_party_name_keys, edit_party_hqAddress_keys, edit_party_logoUrl_keys
 from flask_jwt_extended import jwt_required, get_jwt_identity
 party_v2 = Blueprint('parties_v2', __name__)
 
@@ -79,3 +79,31 @@ class Party:
         return make_response(jsonify({
             "status": "not found"
             }), 404)
+
+    @party_v2.route('/parties/<int:party_id>/edit', methods=['PUT'])
+    @jwt_required
+    def put(party_id):
+        """Edit party name"""
+
+        errors = check_party_keys(request)
+        if errors:
+            return raise_error(400, "Invalid {} key".format(', '.join(errors)))
+        details = request.get_json()
+        name = details['name']
+        hqAddress = details['hqAddress']
+        logoUrl = details['logoUrl']
+
+        if details['name'].isalpha() is False:
+            return raise_error(400, "name of the party should only contain letters!")
+        if details['hqAddress'].isalpha() is False:
+            return raise_error(400, "hqAddress of the party should only contain letters!")
+        if not is_valid_url(logoUrl):
+            return raise_error(400, "logoUrl is in the wrong format!")
+        party = PartiesModel().edit_party(name, hqAddress, logoUrl, party_id)
+        if party:
+            return jsonify({
+                "message" : "party updated successfully!"
+                }), 200
+        return jsonify({
+                "status" : "not found"
+                }), 404
