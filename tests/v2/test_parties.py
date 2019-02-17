@@ -38,6 +38,18 @@ class TestOffice(BaseTest):
 			"success")
 		assert response.status_code == 200
 
+	def test_get_party(self):
+		"""Test getting a specific office by id."""
+
+		response1 = self.client.post(
+			'/api/v2/auth/parties', data=json.dumps(create_party2), content_type='application/json', headers=self.get_token())
+		response = self.client.get(
+			'/api/v2/auth/parties/1', content_type='application/json', headers=self.get_token())
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'],
+			'success')
+		assert response.status_code == 200
+
 	def test_party_keys(self):
 		"""Test party json keys"""
 

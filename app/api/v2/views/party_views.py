@@ -42,6 +42,7 @@ class Party:
         }), 201
 
     @party_v2.route('/parties', methods=['GET'])
+    @jwt_required
     def get_parties():
         """Fetch all the existing parties."""
 
@@ -49,3 +50,19 @@ class Party:
             "message": "success",
             "parties": json.loads(PartiesModel().get_parties())
             }), 200)
+
+    @party_v2.route('/parties/<int:party_id>', methods=['GET'])
+    @jwt_required
+    def get_party(party_id):
+        """Fetch a specific political party."""
+
+        party = PartiesModel().get_party(party_id)
+        party = json.loads(party)
+        if party:
+            return make_response(jsonify({
+                "message": "success",
+                "party": party
+                }), 200)
+        return make_response(jsonify({
+            "status": "not found"
+            }), 404)
