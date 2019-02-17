@@ -11,7 +11,6 @@ create_party2 = {
 }
 
 get_party2 = {
-"party_id": 1,
 "name": "ORM",
 "hqAddress": "Kericho",
 "logoUrl": "https://www.reigns.org"

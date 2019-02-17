@@ -75,3 +75,29 @@ class Office:
         return make_response(jsonify({
             "status": "not found"
             }), 404)
+
+    @office_v2.route('/offices/<int:office_id>/edit', methods=['PUT'])
+    @jwt_required
+    def put(office_id):
+        """Edit office details"""
+
+        errors = check_office_keys(request)
+        if errors:
+            return raise_error(400, "Invalid {} key".format(', '.join(errors)))
+        details = request.get_json()
+        category = details['category']
+        name = details['name']
+
+        if details['category'].isalpha() is False:
+            return raise_error(400, "The category of the office is in wrong format!")
+        if details['name'].isalpha() is False:
+            return raise_error(400, "The name of the office is in wrong format!")
+
+        office = OfficesModel().edit_office(category, name, office_id)
+        if office:
+            return jsonify({
+                "message" : "office updated successfully!"
+                }), 200
+        return jsonify({
+                "status" : "not found"
+                }), 404
