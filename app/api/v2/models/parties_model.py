@@ -73,3 +73,10 @@ class PartiesModel(Database):
 		self.conn.commit()
 		self.curr.close()
 		return party
+
+	def delete(self, party_id):
+		''' Delete order '''
+		
+		self.curr.execute(''' DELETE FROM parties WHERE party_id=%s''',(party_id, ))
+		self.conn.commit()
+		self.curr.close()

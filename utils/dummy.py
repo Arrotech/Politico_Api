@@ -10,6 +10,14 @@ create_party2 = {
 "logoUrl": "https://www.reigns.org"
 }
 
+get_party2 = {
+"party_id": 1,
+"name": "ORM",
+"hqAddress": "Kericho",
+"logoUrl": "https://www.reigns.org"
+}
+
+
 party_name_value = {
 "name": "OD  M",
 "hqAddress": "Kisumu",
