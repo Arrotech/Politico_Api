@@ -66,3 +66,16 @@ class Party:
         return make_response(jsonify({
             "status": "not found"
             }), 404)
+
+    @party_v2.route('/parties/<int:party_id>/delete', methods=['DELETE'])
+    @jwt_required
+    def delete(party_id):
+        """Delete a specific party."""
+
+        party = PartiesModel().get_party(party_id)
+        if party:
+            PartiesModel().delete(party_id)
+            return on_success(200, "party deleted")
+        return make_response(jsonify({
+            "status": "not found"
+            }), 404)
