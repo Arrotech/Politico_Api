@@ -59,3 +59,15 @@ class OfficesModel(Database):
 		self.curr.execute(''' DELETE FROM offices WHERE office_id=%s''',(office_id, ))
 		self.conn.commit()
 		self.curr.close()
+
+	def edit_office(self, office_id, category, name):
+		"""User can Change information of the office."""
+
+		self.curr.execute("""UPDATE offices\
+			SET category='{}', name='{}'\
+			WHERE office_id={} RETURNING category, name"""\
+			.format(office_id,category,name))
+		office = self.curr.fetchone()
+		self.conn.commit()
+		self.curr.close()
+		return office
