@@ -1,6 +1,7 @@
 import json
 from flask import make_response, jsonify, request, abort, Blueprint
 from app.api.v2.models.parties_model import PartiesModel
+from utils.authorization import admin_required
 from utils.validations import raise_error, \
     check_party_keys, is_valid_url, on_success, edit_party_name_keys, edit_party_hqAddress_keys, edit_party_logoUrl_keys
 from flask_jwt_extended import jwt_required, get_jwt_identity
@@ -12,6 +13,7 @@ class Party:
 
     @party_v2.route('/parties', methods=['POST'])
     @jwt_required
+    @admin_required
     def post():
         """Create a new political party."""
 
@@ -69,6 +71,7 @@ class Party:
 
     @party_v2.route('/parties/<int:party_id>/delete', methods=['DELETE'])
     @jwt_required
+    @admin_required
     def delete(party_id):
         """Delete a specific party."""
 
@@ -82,6 +85,7 @@ class Party:
 
     @party_v2.route('/parties/<int:party_id>/edit', methods=['PUT'])
     @jwt_required
+    @admin_required
     def put(party_id):
         """Edit party name"""
 

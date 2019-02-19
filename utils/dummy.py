@@ -165,7 +165,7 @@ create_account = {
 "password": "1234567890",
 "phoneNumber" : "0720930988",
 "passportUrl" : "https://www.passport.com",
-"role" : "role"
+"role" : "admin"
 }
 
 phone_exists = {
@@ -176,7 +176,7 @@ phone_exists = {
 "password": "1234567890",
 "phoneNumber" : "0720930988",
 "passportUrl" : "https://www.aaron.com",
-"role" : "role"
+"role" : "admin"
 }
 
 passport_exists = {
@@ -187,7 +187,7 @@ passport_exists = {
 "password": "1234567890",
 "phoneNumber" : "0723765498",
 "passportUrl" : "https://www.passport.com",
-"role" : "role"
+"role" : "admin"
 }
 
 new_account = {
@@ -198,7 +198,7 @@ new_account = {
 "password": "1234567890",
 "phoneNumber" : "0722457987",
 "passportUrl" : "https://www.gacho.com",
-"role" : "role"
+"role" : "admin"
 }
 
 
@@ -210,7 +210,7 @@ email_exists = {
 "password": "1234567890",
 "phoneNumber" : "0725347685",
 "passportUrl" : "https://www.emily.com",
-"role" : "role"
+"role" : "admin"
 }
 
 firstname_value = {
@@ -221,7 +221,7 @@ firstname_value = {
 "password": "1234567890",
 "phoneNumber" : "0720930988",
 "passportUrl" : "https://www.passport.com",
-"role" : "role"
+"role" : "admin"
 }
 
 lastname_value = {
@@ -232,7 +232,7 @@ lastname_value = {
 "password": "1234567890",
 "phoneNumber" : "0720930988",
 "passportUrl" : "https://www.passport.com",
-"role" : "role"
+"role" : "admin"
 }
 
 othername_value = {
@@ -243,7 +243,7 @@ othername_value = {
 "password": "1234567890",
 "phoneNumber" : "0720930988",
 "passportUrl" : "https://www.passport.com",
-"role" : "role"
+"role" : "admin"
 }
 
 role_value = {
@@ -265,7 +265,7 @@ phone_value = {
 "password": "1234567890",
 "phoneNumber" : "harun2456",
 "passportUrl" : "https://www.passport.com",
-"role" : "role"
+"role" : "admin"
 }
 
 email_value = {
@@ -276,7 +276,7 @@ email_value = {
 "password": "1234567890",
 "phoneNumber" : "phoneNumber",
 "passportUrl" : "https://www.passport.com",
-"role" : "role"
+"role" : "admin"
 }
 
 unregistered_user = {
@@ -297,7 +297,7 @@ passport_value = {
 "password": "1234567890",
 "phoneNumber" : "0720930988",
 "passportUrl" : "passport",
-"role" : "role"
+"role" : "admin"
 }
 
 
@@ -309,7 +309,7 @@ account_keys = {
 "password": "1234567890",
 "phoneNumber" : "phoneNumber",
 "passportUrl" : "passportUrl",
-"role" : "role"
+"role" : "admin"
 }
 
 new_candidate = {
