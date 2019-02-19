@@ -79,9 +79,7 @@ class Party:
         if party:
             PartiesModel().delete(party_id)
             return on_success(200, "party deleted")
-        return make_response(jsonify({
-            "status": "not found"
-            }), 404)
+        return raise_error(404, "party not found")
 
     @party_v2.route('/parties/<int:party_id>/edit', methods=['PUT'])
     @jwt_required
@@ -105,9 +103,5 @@ class Party:
             return raise_error(400, "logoUrl is in the wrong format!")
         party = PartiesModel().edit_party(name, hqAddress, logoUrl, party_id)
         if party:
-            return jsonify({
-                "message" : "party updated successfully!"
-                }), 200
-        return jsonify({
-                "status" : "not found"
-                }), 404
+            return on_success(200, "party updated successfully!")
+        return raise_error(404, "not found")

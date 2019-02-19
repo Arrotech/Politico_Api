@@ -10,6 +10,12 @@ create_party2 = {
 "logoUrl": "https://www.reigns.org"
 }
 
+create_party3 = {
+"name": "NARCO",
+"hqAddress": "Kinoo",
+"logoUrl": "https://www.narco.org"
+}
+
 get_party2 = {
 "name": "ORM",
 "hqAddress": "Kericho",

@@ -2,7 +2,7 @@ import unittest
 import json
 from app.api.v2.views.party_views import Party
 from app.api.v2.models.parties_model import PartiesModel
-from utils.dummy import party_hqAddress_value, get_party2, party_name_exists, create_party2, create_account, user_login, party_name_keys, party_name_value
+from utils.dummy import party_hqAddress_value, get_party2, party_name_exists, create_party3, create_party2, create_account, user_login, party_name_keys, party_name_value
 from .base_test import BaseTest
 
 
@@ -49,7 +49,18 @@ class TestOffice(BaseTest):
 		result = json.loads(response1.data.decode())
 		self.assertEqual(result['message'],
 			'success')
-		assert response.status_code == 200
+		assert response1.status_code == 200
+
+	def test_get_unexisting_party(self):
+		"""Test getting a specific party by id."""
+
+		response1 = self.client.get(
+			'/api/v2/parties/100', content_type='application/json', headers=self.get_token())
+		result = json.loads(response1.data.decode())
+		self.assertEqual(result['status'],
+			'not found')
+		assert response1.status_code == 404
+
 
 	def test_delete_party(self):
 		"""Test deleting a specific party by id."""
@@ -68,6 +79,15 @@ class TestOffice(BaseTest):
 
 		response = self.client.post(
 			'/api/v2/parties', data=json.dumps(party_name_keys), content_type='application/json', headers=self.get_token())
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'], 'Invalid name key')
+		assert response.status_code == 400
+
+	def test_party_keys(self):
+		"""Test party json keys"""
+
+		response = self.client.put(
+			'/api/v2/parties/1/edit', data=json.dumps(party_name_keys), content_type='application/json', headers=self.get_token())
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'], 'Invalid name key')
 		assert response.status_code == 400

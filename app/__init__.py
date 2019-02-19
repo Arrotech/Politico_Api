@@ -30,15 +30,15 @@ def method_not_allowed(e):
     return make_response(jsonify({
         "status": "error",
         "message": "method not allowed"
-    }), 404)
+    }), 405)
 
-def method_not_allowed(e):
-    """Capture Not Found error."""
+# def method_not_allowed(e):
+#     """Capture Not Found error."""
 
-    return make_response(jsonify({
-        "status": "500",
-        "message": "content type should be json"
-    }), 500)
+#     return make_response(jsonify({
+#         "status": "500",
+#         "message": "content type should be json"
+#     }), 500)
 
 def electoral_app(config_name):
     """Create app."""
