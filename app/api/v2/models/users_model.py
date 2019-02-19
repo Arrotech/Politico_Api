@@ -38,6 +38,15 @@ class UsersModel(Database):
 		self.curr.close()
 		return user
 
+	def get_users(self):
+		"""Fetch all users"""
+
+		self.curr.execute(''' SELECT * FROM users''')
+		users = self.curr.fetchall()
+		self.conn.commit()
+		self.curr.close()
+		return json.dumps(users, default=str)
+
 	def get_email(self, email):
 		"""Get user with specific email."""
 

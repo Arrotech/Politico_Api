@@ -13,6 +13,7 @@ class Office:
 
     @office_v2.route('/offices', methods=['POST'])
     @jwt_required
+    @admin_required
     def post():
         """Create a new government office."""
 
@@ -63,6 +64,7 @@ class Office:
 
     @office_v2.route('/offices/<int:office_id>/delete', methods=['DELETE'])
     @jwt_required
+    @admin_required
     def delete(office_id):
         """Delete a specific office."""
 
@@ -78,6 +80,7 @@ class Office:
 
     @office_v2.route('/offices/<int:office_id>/edit', methods=['PUT'])
     @jwt_required
+    @admin_required
     def put(office_id):
         """Edit office details"""
 
