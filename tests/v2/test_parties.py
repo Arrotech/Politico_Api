@@ -23,7 +23,7 @@ class TestOffice(BaseTest):
 		"""Test when unexisting url is provided."""
 
 		response = self.client.get(
-			'/api/v2/auth/party')
+			'/api/v2/party')
 		result = json.loads(response.data.decode())
 		assert response.status_code == 404
 		assert result['status'] == "not found"
@@ -32,62 +32,62 @@ class TestOffice(BaseTest):
 		"""Test fetching all offices that have been created."""
     
 		response = self.client.get(
-			'/api/v2/auth/parties', content_type='application/json', headers=self.get_token())
+			'/api/v2/parties', content_type='application/json', headers=self.get_token())
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'],
 			"success")
 		assert response.status_code == 200
 
-	# def test_get_party(self):
-	# 	"""Test getting a specific party by id."""
+	def test_get_party(self):
+		"""Test getting a specific party by id."""
 
-	# 	response1 = self.client.post(
-	# 		'/api/v2/auth/parties', data=json.dumps(create_party2), content_type='application/json', headers=self.get_token())
-	# 	return response1
-	# 	response1 = self.client.get(
-	# 		'/api/v2/auth/parties/1', content_type='application/json', headers=self.get_token())
-	# 	result = json.loads(response1.data.decode())
-	# 	self.assertEqual(result['message'],
-	# 		'success')
-	# 	assert response.status_code == 200
+		response1 = self.client.post(
+			'/api/v2/parties', data=json.dumps(create_party2), content_type='application/json', headers=self.get_token())
+		return response1
+		response1 = self.client.get(
+			'/api/v2/parties/1', content_type='application/json', headers=self.get_token())
+		result = json.loads(response1.data.decode())
+		self.assertEqual(result['message'],
+			'success')
+		assert response.status_code == 200
 
-	# def test_delete_party(self):
-	# 	"""Test deleting a specific party by id."""
+	def test_delete_party(self):
+		"""Test deleting a specific party by id."""
 
-	# 	response1 = self.client.post(
-	# 		'/api/v2/auth/parties', data=json.dumps(create_party2), content_type='application/json', headers=self.get_token())
-	# 	response = self.client.delete(
-	# 		'/api/v2/auth/parties/1/delete', content_type='application/json', headers=self.get_token())
-	# 	result = json.loads(response.data.decode())
-	# 	self.assertEqual(result['message'],
-	# 		'party deleted')
-	# 	assert response.status_code == 200
+		response1 = self.client.post(
+			'/api/v2/parties', data=json.dumps(create_party2), content_type='application/json', headers=self.get_token())
+		response = self.client.delete(
+			'/api/v2/parties/1/delete', content_type='application/json', headers=self.get_token())
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'],
+			'party deleted')
+		assert response.status_code == 200
 
-	# def test_party_keys(self):
-	# 	"""Test party json keys"""
+	def test_party_keys(self):
+		"""Test party json keys"""
 
-	# 	response = self.client.post(
-	# 		'/api/v2/auth/parties', data=json.dumps(party_name_keys), content_type='application/json', headers=self.get_token())
-	# 	result = json.loads(response.data.decode())
-	# 	self.assertEqual(result['message'], 'Invalid name key')
-	# 	assert response.status_code == 400
+		response = self.client.post(
+			'/api/v2/parties', data=json.dumps(party_name_keys), content_type='application/json', headers=self.get_token())
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'], 'Invalid name key')
+		assert response.status_code == 400
 
-	# def test_party_nameValue(self):
-	# 	"""Test name json values."""
+	def test_party_nameValue(self):
+		"""Test name json values."""
 
-	# 	response = self.client.post(
-	# 		'/api/v2/auth/parties', data=json.dumps(party_name_value), content_type='application/json', headers=self.get_token())
-	# 	result = json.loads(response.data.decode())
-	# 	self.assertEqual(result['message'], 'name should only contain letters!')
-	# 	assert response.status_code == 400
+		response = self.client.post(
+			'/api/v2/parties', data=json.dumps(party_name_value), content_type='application/json', headers=self.get_token())
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'], 'name should only contain letters!')
+		assert response.status_code == 400
 
-	# def test_party_hqAddressValue(self):
-	# 	"""Test name json values."""
+	def test_party_hqAddressValue(self):
+		"""Test name json values."""
 
-	# 	response = self.client.post(
-	# 		'/api/v2/auth/parties', data=json.dumps(party_hqAddress_value), content_type='application/json', headers=self.get_token())
-	# 	result = json.loads(response.data.decode())
-	# 	self.assertEqual(result['message'], 'hqAddress should only contain letters!')
-	# 	assert response.status_code == 400
+		response = self.client.post(
+			'/api/v2/parties', data=json.dumps(party_hqAddress_value), content_type='application/json', headers=self.get_token())
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'], 'hqAddress should only contain letters!')
+		assert response.status_code == 400
 
 
