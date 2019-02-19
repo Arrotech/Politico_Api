@@ -19,38 +19,38 @@ class TestOffice(BaseTest):
 		auth_header = {'Authorization': 'Bearer {}'.format(access_token)}
 		return auth_header
 
-	# def test_wrong_category_value(self):
-	# 	"""Test create a new office."""
+	def test_wrong_category_value(self):
+		"""Test create a new office."""
 
-	# 	response = self.client.post(
-	# 		'/api/v2/auth/offices', data=json.dumps(category_restriction), content_type='application/json', headers=self.get_token())
-	# 	result = json.loads(response.data.decode())
-	# 	self.assertEqual(result['message'], 'select from state, local, federal or legislative')
-	# 	assert response.status_code == 400
+		response = self.client.post(
+			'/api/v2/offices', data=json.dumps(category_restriction), content_type='application/json', headers=self.get_token())
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'], 'select from state, local, federal or legislative')
+		assert response.status_code == 400
 
 	def test_unexisting_officeUrl(self):
 		"""Test when unexisting url is provided."""
 
 		response = self.client.get(
-			'/api/v2/auth/office')
+			'/api/v2/office')
 		result = json.loads(response.data.decode())
 		assert response.status_code == 404
 		assert result['status'] == "not found"
 
-	# def test_office_keys(self):
-	# 	"""Test office json keys"""
+	def test_office_keys(self):
+		"""Test office json keys"""
 
-	# 	response = self.client.post(
-	# 		'/api/v2/auth/offices', data=json.dumps(office_keys), content_type='application/json', headers=self.get_token())
-	# 	result = json.loads(response.data.decode())
-	# 	self.assertEqual(result['message'], 'Invalid category key')
-	# 	assert response.status_code == 400
+		response = self.client.post(
+			'/api/v2/offices', data=json.dumps(office_keys), content_type='application/json', headers=self.get_token())
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'], 'Invalid category key')
+		assert response.status_code == 400
 
 	def test_get_offices(self):
 		"""Test fetching all offices that have been created."""
     
 		response = self.client.get(
-			'/api/v2/auth/offices', content_type='application/json', headers=self.get_token())
+			'/api/v2/offices', content_type='application/json', headers=self.get_token())
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'],
 			"success")
@@ -60,53 +60,53 @@ class TestOffice(BaseTest):
 		"""Test fetching all offices that have been created."""
 
 		response = self.client.get(
-			'/api/v2/auth/offices', content_type='application/json', headers=self.get_token())
+			'/api/v2/offices', content_type='application/json', headers=self.get_token())
 		result = json.loads(response.data.decode('utf-8'))
 		self.assertEqual(result['message'],
 			"success")
 		assert response.status_code == 200
 
-	# def test_get_office(self):
-	# 	"""Test getting a specific office by id."""
+	def test_get_office(self):
+		"""Test getting a specific office by id."""
 
-	# 	response1 = self.client.post(
-	# 		'/api/v2/auth/offices', data=json.dumps(create_office2), content_type='application/json', headers=self.get_token())
-	# 	return response1
-	# 	response = self.client.get(
-	# 		'/api/v2/auth/offices/1', content_type='application/json', headers=self.get_token())
-	# 	result = json.loads(response.data.decode())
-	# 	self.assertEqual(result['message'],
-	# 		'success')
-	# 	assert response.status_code == 200
+		response1 = self.client.post(
+			'/api/v2/offices', data=json.dumps(create_office2), content_type='application/json', headers=self.get_token())
+		return response1
+		response = self.client.get(
+			'/api/v2/offices/1', content_type='application/json', headers=self.get_token())
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'],
+			'success')
+		assert response.status_code == 200
 
 	def test_unexisting_office(self):
 		"""Test fetching unexisting office."""
 
 		response = self.client.get(
-			'/api/v2/auth/offices/500', content_type='application/json', headers=self.get_token())
+			'/api/v2/offices/500', content_type='application/json', headers=self.get_token())
 		result = json.loads(response.data.decode())
 		assert response.status_code == 404
 		assert result['status'] == "not found"
 
-	# def test_office_nameValue(self):
-	# 	"""Test name json values."""
+	def test_office_nameValue(self):
+		"""Test name json values."""
 
-	# 	response = self.client.post(
-	# 		'/api/v2/auth/offices', data=json.dumps(office_name), content_type='application/json', headers=self.get_token())
-	# 	result = json.loads(response.data.decode())
-	# 	self.assertEqual(result['message'], 'The name of the office is in wrong format!')
-	# 	assert response.status_code == 400
+		response = self.client.post(
+			'/api/v2/offices', data=json.dumps(office_name), content_type='application/json', headers=self.get_token())
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'], 'The name of the office is in wrong format!')
+		assert response.status_code == 400
 
-	# def test_delete_office(self):
-	# 	"""Test deleting a specific office by id."""
+	def test_delete_office(self):
+		"""Test deleting a specific office by id."""
 
-	# 	response1 = self.client.post(
-	# 		'/api/v2/auth/offices', data=json.dumps(create_office2), content_type='application/json', headers=self.get_token())
-	# 	response = self.client.delete(
-	# 		'/api/v2/auth/offices/1/delete', content_type='application/json', headers=self.get_token())
-	# 	result = json.loads(response.data.decode())
-	# 	self.assertEqual(result['message'],
-	# 		'office deleted')
-	# 	assert response.status_code == 200
+		response1 = self.client.post(
+			'/api/v2/offices', data=json.dumps(create_office2), content_type='application/json', headers=self.get_token())
+		response = self.client.delete(
+			'/api/v2/offices/1/delete', content_type='application/json', headers=self.get_token())
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'],
+			'office deleted')
+		assert response.status_code == 200
 
 
