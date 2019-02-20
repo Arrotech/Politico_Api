@@ -69,6 +69,16 @@ class Database:
         except Exception as e:
             return e
 
+    def create_admin(self):
+        """Create a deafult admin user."""
+
+        query = "INSERT INTO users(firstname,lastname,email,password,phoneNumber,passportUrl,role)\
+        VALUES('Harun','Gachanja','admin@admin.com','Harun20930988!','0722985471','https://www.pivotaltracker.com/n/projects/2284574','admin')"
+
+        self.curr.execute(query)
+        self.conn.commit()
+        self.curr.close()
+
     def destroy_table(self):
         """Destroy tables"""
 
