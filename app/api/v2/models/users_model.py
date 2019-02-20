@@ -38,6 +38,16 @@ class UsersModel(Database):
 		self.curr.close()
 		return user
 
+	def get_user_by_id(self, user_id):
+		"""Get user with specific email."""
+
+		self.curr.execute(''' SELECT * FROM users WHERE user_id=%s''',(user_id, ))
+		user = self.curr.fetchone()
+		self.conn.commit()
+		self.curr.close()
+		return user
+
+
 	def get_users(self):
 		"""Fetch all users"""
 
