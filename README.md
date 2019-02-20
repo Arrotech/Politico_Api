@@ -1,10 +1,12 @@
 [![Build Status](https://travis-ci.org/Arrotech/Politico_Api.svg?branch=develop)](https://travis-ci.org/Arrotech/Politico_Api) [![Coverage Status](https://coveralls.io/repos/github/Arrotech/Politico_Api/badge.svg?branch=develop)](https://coveralls.io/github/Arrotech/Politico_Api?branch=develop) [![Maintainability](https://api.codeclimate.com/v1/badges/e4c6a7d21481978d93b4/maintainability)](https://codeclimate.com/github/Arrotech/Politico_Api/maintainability)
 
 
+
 # Politico API's
 
 This project i am to create a set of API endpoints defined in the API Endpoints Specification
 section and use database to store data.
+
 
 
 Below are the Endpoints that have been created.
@@ -23,6 +25,8 @@ Below are the Endpoints that have been created.
 | api/v2/parties/<int:party_id> | Fetch one party | GET |
 | api/v2/parties/<int:party_id>/edit | Edit a Party | PUT |
 | api/v2/parties/<int:party_id>/delete | Delete a Party | DELETE |
+| api/v2/petitions | Create Petition | POST |
+| api/v2/voters | Cast vote | POST |
 
 
 
@@ -33,6 +37,8 @@ Below are the Endpoints that have been created.
 4. Testing Framework:[PyTest, a Python Testing Framework](https://docs.pytest.org/en/latest/)
 5. Testing Endpoints: [PostMan](https://www.getpostman.com/)
 6. Testing Framework:[Coverage, a Python Testing Framework](https://coverage.readthedocs.io/en/v4.5.x/)
+
+
  
 **Requirements**
 
@@ -80,13 +86,18 @@ Below are the Endpoints that have been created.
  7. Then type on the terminal ```flask run``` to start and run the server
  8. Then on [postman](https://www.getpostman.com/), use the above url's
 
+
+
 **Heroku link**
 
-	This is the heroku link [Heroku](https://politico-api-database.herokuapp.com/)
+This is the heroku link [Heroku](https://politico-api-database.herokuapp.com/)
+
+
 
 **Author**
 
      Harun Gachanja Gitundu
+
 
 
 **Contributors to the project**
