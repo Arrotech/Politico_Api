@@ -20,7 +20,6 @@ before_script:
 
 script:
   - nosetests --with-coverage --cover-package=app
-  - coveralls
 
 after_success:
   - coveralls

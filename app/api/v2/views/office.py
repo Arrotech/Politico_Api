@@ -71,12 +71,8 @@ class Office:
         office = OfficesModel().get_office_by_id(office_id)
         if office:
             OfficesModel().delete(office_id)
-            return make_response(jsonify({
-                "message": "office deleted"
-                }), 200)
-        return make_response(jsonify({
-            "status": "not found"
-            }), 404)
+            return on_success(200, "office deleted")
+        return raise_error(404, "not found")
 
     @office_v2.route('/offices/<int:office_id>/edit', methods=['PUT'])
     @jwt_required
@@ -98,9 +94,5 @@ class Office:
 
         office = OfficesModel().edit_office(category, name, office_id)
         if office:
-            return jsonify({
-                "message" : "office updated successfully!"
-                }), 200
-        return jsonify({
-                "status" : "not found"
-                }), 404
+            return on_success(201, "office updated successfully!")
+        return raise_error(404, "not found")
