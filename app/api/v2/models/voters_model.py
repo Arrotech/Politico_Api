@@ -47,11 +47,11 @@ class VotersModel(Database):
 		except psycopg2.IntegrityError:
 			return "error"
 
-	def get_candidate(self, candidate):
+	def get_candidate(self):
 		"""Get user with specific email."""
 
-		self.curr.execute(''' SELECT COUNT(*) from voters WHERE candidate=%s''',(candidate, ))
+		self.curr.execute(''' SELECT candidate, COUNT(*) from voters GROUP BY candidate''')
 		candidate = self.curr.fetchone()
 		self.conn.commit()
 		self.curr.close()
-		return candidate
+		return json.dumps(candidate, default=str)

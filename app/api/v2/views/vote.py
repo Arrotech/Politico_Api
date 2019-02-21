@@ -45,12 +45,12 @@ class Vote:
 
     @vote_v2.route('/voters/candidate', methods=['GET'])
     @jwt_required
-    def get_results(candidate):
+    def get_results():
         """Fetch results."""
-
-        results = VotersModel().get_candidate(candidate)
+        
+        results = VotersModel().get_candidate()
         results = json.loads(results)
-        if office:
+        if results:
             return make_response(jsonify({
                 "message": "success",
                 "office": results
