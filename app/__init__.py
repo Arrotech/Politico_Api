@@ -20,8 +20,7 @@ def page_not_found(e):
     """Capture Not Found error."""
 
     return make_response(jsonify({
-        "status": "not found",
-        "message": "url does not exist"
+        "status": "not found"
     }), 404)
 
 
@@ -29,17 +28,23 @@ def method_not_allowed(e):
     """Capture Not Found error."""
 
     return make_response(jsonify({
-        "status": "error",
         "message": "method not allowed"
     }), 405)
 
-# def method_not_allowed(e):
-#     """Capture Not Found error."""
+def bad_request(e):
+    """Capture Not Found error."""
 
-#     return make_response(jsonify({
-#         "status": "500",
-#         "message": "content type should be json"
-#     }), 500)
+    return make_response(jsonify({
+        "message": "bad_request"
+    }), 400)
+
+def internal_server_error(e):
+    """Capture Not Found error."""
+
+    return make_response(jsonify({
+        "status": "500",
+        "message": "content type should be json"
+    }), 500)
 
 def electoral_app(config_name):
     """Create app."""
@@ -66,4 +71,6 @@ def electoral_app(config_name):
 
     app.register_error_handler(404, page_not_found)
     app.register_error_handler(405, method_not_allowed)
+    app.register_error_handler(400, bad_request)
+    app.register_error_handler(500, internal_server_error)
     return app

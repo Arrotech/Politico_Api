@@ -37,13 +37,6 @@ class Database:
                 name varchar NOT NULL
 			)""",
 
-            	"""
-	        CREATE TABLE IF NOT EXISTS voters(
-				voter_id serial PRIMARY KEY,
-                createdBy varchar NOT NULL,
-                office varchar NOT NULL,
-                candidate varchar NOT NULL
-			)""",
 
             	"""
 	        CREATE TABLE IF NOT EXISTS petitions(
@@ -63,15 +56,29 @@ class Database:
 
             """
             CREATE TABLE IF NOT EXISTS candidates(
-                candidate_id serial PRIMARY KEY,
+                candidate_id serial UNIQUE,
                 office integer NOT NULl DEFAULT 0,
                 candidate integer NOT NULL DEFAULT 0,
                 party integer NOT NULL DEFAULT 0,
                 CONSTRAINT office_fk FOREIGN KEY(office) REFERENCES offices(office_id),
                 CONSTRAINT candidate_fk FOREIGN KEY(candidate) REFERENCES users(user_id),
-                CONSTRAINT party_fk FOREIGN KEY(party) REFERENCES parties(party_id)
-                )
-            """
+                CONSTRAINT party_fk FOREIGN KEY(party) REFERENCES parties(party_id),
+                CONSTRAINT candidate_composite_key PRIMARY KEY(office,candidate,party)
+                );
+            """,
+
+                """
+            CREATE TABLE IF NOT EXISTS voters(
+                voter_id serial UNIQUE,
+                createdBy integer NOT NULL,
+                office integer NOT NULL,
+                candidate integer NOT NULL,
+                CONSTRAINT createdBy_fk FOREIGN KEY(createdBy) REFERENCES users(user_id),
+                CONSTRAINT office_fk FOREIGN KEY(office) REFERENCES offices(office_id),
+                CONSTRAINT candidate_fk FOREIGN KEY(candidate) REFERENCES candidates(candidate_id),
+                CONSTRAINT office_composite_key PRIMARY KEY(createdBy,office,candidate)
+            )"""
+
         ]
         try:
             for query in queries:
@@ -85,7 +92,7 @@ class Database:
         """Create a deafult admin user."""
 
         query = "INSERT INTO users(firstname,lastname,email,password,phoneNumber,passportUrl,role)\
-        VALUES('Harun','Gachanja','admin@admin.com','Harun20930988!','0722985471','https://www.pivotaltracker.com/n/projects/2284574','admin')"
+        VALUES('Harun','Gachanja','admin@admin.com','Harun20930988','0722985471','https://www.pivotaltracker.com/n/projects/2284574','admin')"
 
         self.curr.execute(query)
         self.conn.commit()
