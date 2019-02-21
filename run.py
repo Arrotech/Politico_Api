@@ -9,8 +9,10 @@ app = electoral_app(config_name)
 @app.cli.command()
 def create():
     Database().create_table()
-    Database().create_admin()
 
+@app.cli.command()
+def admin():
+    Database().create_admin()
 
 @app.cli.command()
 def destroy():

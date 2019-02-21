@@ -26,7 +26,7 @@ get_party2 = {
 party_name_value = {
 "name": "OD  M",
 "hqAddress": "Kisumu",
-"logoUrl": "https://www.w3schools.com"
+"logoUrl": "https://www.google.com"
 }
 
 party_hqAddress_value = {

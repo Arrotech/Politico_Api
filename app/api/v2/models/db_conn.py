@@ -59,7 +59,19 @@ class Database:
                 name varchar NOT NULL,
                 hqAddress varchar NOT NULL,
                 logoUrl varchar NOT NULL
-            )"""
+            )""",
+
+            """
+            CREATE TABLE IF NOT EXISTS candidates(
+                candidate_id serial PRIMARY KEY,
+                office integer NOT NULl DEFAULT 0,
+                candidate integer NOT NULL DEFAULT 0,
+                party integer NOT NULL DEFAULT 0,
+                CONSTRAINT office_fk FOREIGN KEY(office) REFERENCES offices(office_id),
+                CONSTRAINT candidate_fk FOREIGN KEY(candidate) REFERENCES users(user_id),
+                CONSTRAINT party_fk FOREIGN KEY(party) REFERENCES parties(party_id)
+                )
+            """
         ]
         try:
             for query in queries:
@@ -67,7 +79,7 @@ class Database:
             self.conn.commit()
             self.curr.close()
         except Exception as e:
-            return e
+            print(e)
 
     def create_admin(self):
         """Create a deafult admin user."""
@@ -87,7 +99,8 @@ class Database:
         voters = "DROP TABLE IF EXISTS  voters CASCADE"
         petitions = "DROP TABLE IF EXISTS  petitions CASCADE"
         parties = "DROP TABLE IF EXISTS  parties CASCADE"
-        queries = [users, offices, voters, petitions, parties]
+        candidates = "DROP TABLE IF EXISTS  candidates CASCADE"
+        queries = [users, offices, voters, petitions, parties, candidates]
         try:
             for query in queries:
                 self.curr.execute(query)
