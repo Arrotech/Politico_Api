@@ -1,0 +1,272 @@
+FORMAT: 1A
+HOST: https://politico-api-database.herokuapp.com
+
+# Politico app
+
+Politico is a simple API allowing users vote in their candidates of choice.
+
+### Create Account [/api/v2/auth/signup]
+
+#### SignUp [POST]
+
++ Request (application/json)
+
+        {
+            "firstname" : "Peter",
+            "lastname" : "Gitundu",
+            "email" : "peter@gmail.com",
+            "password": "Peter20930988",
+            "phoneNumber" : "0720930981",
+            "passportUrl" : "https://www.peter.com",
+            "role" : "user"
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /api/v2/auth/signup
+
+    + Body
+
+            {
+                "message": "Account created successfully"
+            }
+            
+            
+            
+            
+### Login [/api/v2/auth/login]
+
+#### SignIn [POST]
+
++ Request (application/json)
+
+        {
+            "email": "peter@gmail.com",
+            "password": "Peter20930988"
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /api/v2/auth/login
+
+    + Body
+
+            {
+                "message": "successfully logged in peter@gmail.com",
+                "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTA2MjUwNDksIm5iZiI6MTU1MDYyNTA0OSwianRpIjoiMTE2MjdjNTItYjc2Yy00M2EwLTk2OTctNDBlZjNkNTA5Y2NjIiwiZXhwIjoxNTUwNjI1OTQ5LCJpZGVudGl0eSI6InBldGVyQGdtYWlsLmNvbSIsImZyZXNoIjpmYWxzZSwidHlwZSI6ImFjY2VzcyJ9.7Ia98XisBLG2qA4bF3k4EA23DHv_fndE2TY79kyCZqQ"
+            }
+            
+    
+
+### Offices [/api/v2/offices]
+
+#### Create office [POST]
+
++ Request (application/json)
+
+        {
+            "category": "executive",
+            "name": "presidential"
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /api/v2/offices
+
+    + Body
+
+            {
+                "message": "office created successfully!"
+            }
+            
+
+
+            {
+                "id": 1,
+                "message": "party created successfully!"
+            }
+
+#### Get all offices  [GET]
+
++ Response 200 (application/json)
+
+        {
+            "message": "success",
+            "offices": [
+                {
+                    "category": "executive",
+                    "name": "presidential",
+                    "office_id": 1
+                }
+            ]
+        }
+
+
+
+
+### Specific Office [/api/v2/offices/{office_id}]
+
++ Parameters
+    + office_id (number)
+
+#### Get One office  [GET]
+
++ Response 200 (application/json)
+    
+    + Body
+
+            {
+                "message": "success",
+                "offices": [
+                    {
+                        "category": "executive",
+                        "name": "presidential",
+                        "office_id": 1
+                    }
+                ]
+            }
+            
+#### Edit office [PUT]
+
++ Request (application/json)
+
+        {
+            "category": "executive",
+            "name": "presidential"
+        }
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Location: /api/v2/offices/{office_id}/edit
+
+    + Body
+
+            {
+                "message": "office updated successfully!"
+            }
+
+#### Delete One office [DELETE]
+
++ Response 200 (application/json)
+
+    + Headers
+    
+            Location: /api/v2/offices/{office_id}/delete
+
+    + Body
+    
+            {
+                "message": "office deleted"
+            }
+
+
+
+### Parties [/api/v2/parties]
+
+#### Create party [POST]
+
++ Request (application/json)
+
+        {
+            "name": "executive",
+            "hqAddress": "presidential",
+            "logoUrl": "https://www.w3schools.com"
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /api/v2/parties
+
+    + Body
+
+            {
+                "message": "party created successfully!"
+            }
+            
+#### Get all parties  [GET]
+
++ Response 200 (application/json)
+
+        {
+            "message": "success",
+            "parties": [
+                {
+                    "name": "executive",
+                    "hqAddress": "presidential",
+                    "logoUrl": "https://www.w3schools.com"
+                    "party_id": 1
+                }
+            ]
+        }
+
+
+
+
+### Specific Party [/api/v2/parties/{party_id}]
+
++ Parameters
+    + party_id (number)
+
+#### Get One party  [GET]
+
++ Response 200 (application/json)
+    
+    + Body
+
+            {
+                "message": "success",
+                "parties": [
+                    {
+                        "name": "executive",
+                        "hqAddress": "presidential",
+                        "logoUrl": "https://www.w3schools.com"
+                        "party_id": 1
+                    }
+                ]
+            }
+            
+#### Edit party [PUT]
+
++ Request (application/json)
+
+        {
+            "name": "executive",
+            "hqAddress": "presidential",
+            "logoUrl": "https://www.w3schools.com"
+        }
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Location: /api/v2/parties/{party_id}/edit
+
+    + Body
+
+            {
+                "message": "party updated successfully!"
+            }
+
+#### Delete One party [DELETE]
+
++ Response 200 (application/json)
+
+    + Headers
+    
+            Location: /api/v2/parties/{party_id}/delete
+
+    + Body
+    
+            {
+                "message": "party deleted"
+            }
