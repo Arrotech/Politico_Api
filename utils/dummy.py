@@ -295,6 +295,11 @@ user_login = {
 "password": "1234567890"
 }
 
+user_login2 = {
+"email": "email@gmail.co.ke",
+"password": "12345678"
+}
+
 passport_value = {
 "firstname" : "firstname",
 "lastname" : "lastname",

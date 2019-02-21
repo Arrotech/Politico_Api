@@ -2,7 +2,7 @@ import unittest
 import json
 from app.api.v2.views.auth_views import Register
 from app.api.v2.models.users_model import UsersModel
-from utils.dummy import create_account, account_keys, email_value, passport_value, new_account, phone_value, firstname_value, lastname_value, othername_value, role_value, user_login, unregistered_user,  email_exists, phone_exists, passport_exists
+from utils.dummy import create_account, user_login2, account_keys, email_value, passport_value, new_account, phone_value, firstname_value, lastname_value, othername_value, role_value, user_login, unregistered_user,  email_exists, phone_exists, passport_exists
 from .base_test import BaseTest
 
 class TestUsersAccount(BaseTest):
@@ -35,6 +35,15 @@ class TestUsersAccount(BaseTest):
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'], 'phoneNumber already exists!')
 		assert response.status_code == 400
+
+	def test_login_wrong_password(self):
+		"""Tesr that the password in the db is the same as the password the user enters/"""
+
+		response = self.client.post(
+			'/api/v2/auth/login', data=json.dumps(user_login2), content_type='application/json', headers=self.get_token())
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'], 'Invalid email or password', msg='not allowed')
+		assert response.status_code == 401
 
 	def test_passportUrl_exists(self):
 		"""Test create a new account."""

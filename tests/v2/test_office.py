@@ -56,6 +56,16 @@ class TestOffice(BaseTest):
 			"success")
 		assert response.status_code == 200
 
+	def test_get_office(self):
+		"""Test fetching all offices that have been created."""
+    
+		response = self.client.get(
+			'/api/v2/offices/1', content_type='application/json', headers=self.get_token())
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'],
+			"success")
+		assert response.status_code == 200
+
 	def test_unexisting_offices(self):
 		"""Test fetching all offices that have been created."""
 
