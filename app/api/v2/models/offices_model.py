@@ -29,10 +29,8 @@ class OfficesModel(Database):
 	def get_offices(self):
 		"""Fetch all offices"""
 
-		self.curr.execute(''' SELECT * FROM offices''')
-		offices = self.curr.fetchall()
-		self.conn.commit()
-		self.curr.close()
+		query = "SELECT * FROM offices"
+		offices = Database().fetch(query)
 		return json.dumps(offices, default=str)
 
 	def get_office_by_id(self, office_id):

@@ -1,6 +1,7 @@
 import psycopg2
 import os
 from psycopg2.extras import RealDictCursor
+import json
 
 class Database:
     """Initialization."""
@@ -115,3 +116,12 @@ class Database:
             self.curr.close()
         except Exception as e:
             return e
+
+    def fetch(self, query):
+        """Manipulate query."""
+
+        self.curr.execute(query)
+        fetch_all = self.curr.fetchall()
+        self.conn.commit()
+        self.curr.close()
+        return fetch_all

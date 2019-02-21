@@ -51,10 +51,8 @@ class UsersModel(Database):
 	def get_users(self):
 		"""Fetch all users"""
 
-		self.curr.execute(''' SELECT * FROM users''')
-		users = self.curr.fetchall()
-		self.conn.commit()
-		self.curr.close()
+		query = "SELECT * from users"
+		users = Database().fetch(query)
 		return json.dumps(users, default=str)
 
 	def get_email(self, email):

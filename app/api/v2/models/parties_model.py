@@ -30,12 +30,10 @@ class PartiesModel(Database):
 		return party
 
 	def get_parties(self):
-		"""Fetch all parties"""
+		"""Fetch all parties."""
 
-		self.curr.execute(''' SELECT * FROM parties''')
-		parties = self.curr.fetchall()
-		self.conn.commit()
-		self.curr.close()
+		query = "SELECT * from parties"
+		parties = Database().fetch(query)
 		return json.dumps(parties, default=str)
 
 	def get_party(self, party_id):
