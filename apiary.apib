@@ -270,3 +270,75 @@ Politico is a simple API allowing users vote in their candidates of choice.
             {
                 "message": "party deleted"
             }
+            
+### Candidates [/api/v2/candidates/register]
+
+#### Promote User [POST]
+
++ Request (application/json)
+
+        {
+            "office": "1",
+            "candidate": "1",
+            "party": "1"
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /api/v2/candidates/register
+
+    + Body
+
+            {
+                "message": "user promoted successfully"
+            }
+            
+### User Vote [/api/v2/voters]
+
+#### Vote [POST]
+
++ Request (application/json)
+
+        {
+            "createdBy": "1",
+            "office": "1",
+            "candidate": "1"
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /api/v2/voters
+
+    + Body
+
+            {
+                "message": "voted successfully"
+            }
+            
+### File Petitions [/api/v2/petitions]
+
+#### Petitions [POST]
+
++ Request (application/json)
+
+        {
+            "createdBy": "Harun",
+            "office": "Presidential",
+            "body": "This was a fraud"
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /api/v2/petitions
+
+    + Body
+
+            {
+                "message": "petition filed successfully"
+            }
