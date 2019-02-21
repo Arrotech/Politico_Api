@@ -63,7 +63,7 @@ class UsersModel(Database):
 		self.curr.execute(''' SELECT * FROM users WHERE email=%s''',(email, ))
 		user = self.curr.fetchone()
 		self.conn.commit()
-		self.curr.close()
+		# self.curr.close()
 		return user
 
 	def get_phoneNumber(self, phoneNumber):

@@ -59,18 +59,16 @@ class Login:
         """Sign In a user"""
 
         details = request.get_json()
-
         email = details['email']
         password = details['password']
-
         user = UsersModel().get_email(email)
-
         if user:
-            token = create_access_token(identity=email)
-            return make_response(jsonify({
-                "message" : f"successfully logged in {email}",
-                "token" : token
-            }), 200)
-        return make_response(jsonify({
-            "status": "not found"
-            }), 404)
+            password_db = user['password']
+            if check_password_hash(password_db, password):
+                token = create_access_token(identity=email)
+                return make_response(jsonify({
+                    "message" : f"successfully logged in {email}",
+                    "token" : token
+                }), 200)
+            return raise_error(401, "Invalid email or password")
+        return raise_error(401, "Invalid email or password")

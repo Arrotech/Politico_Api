@@ -325,14 +325,9 @@ new_candidate = {
 }
 
 new_candidate2 = {
-"office" : "office",
-"user" : "john"
-}
-
-
-candidate_office_value2 = {
-"office" : "offic 2461e",
-"user" : "john"
+"office" : "1",
+"party" : "1",
+"candidate" : "1"
 }
 
 candidate_office_value = {
@@ -341,16 +336,34 @@ candidate_office_value = {
 "candidate" : "candidate"
 }
 
+candidate_office_value2 = {
+"office" : "offic",
+"party" : "2",
+"candidate" : "2"
+}
+
 candidate_party_value = {
 "office" : "office",
 "party" : "parjafg0681 6ty",
 "candidate" : "candidate"
 }
 
+candidate_party_value2 = {
+"office" : "2",
+"party" : "uyi",
+"candidate" : "2"
+}
+
 candidate_name_value = {
 "office" : "office",
 "party" : "party",
 "candidate" : "candi76826 date"
+}
+
+candidate_candidate_value2 = {
+"office" : "2",
+"party" : "2",
+"candidate" : "candi76826"
 }
 
 candidate_user_value = {
@@ -377,11 +390,23 @@ new_vote = {
 "candidate" : "candidate"
 }
 
+new_vote2 = {
+"createdBy" : "1",
+"office" : "1",
+"candidate" : "1"
+}
+
 vote_keys = {
 "createdOn" : "27-08-2018",
 "createdBy" : "createdBy",
 "office" : "office",
 "cadate" : "candidate"
+}
+
+vote_keys2 = {
+"createdBy" : "1",
+"office" : "1",
+"cadate" : "1"
 }
 
 voters_createdOn_value = {
@@ -398,6 +423,12 @@ voters_office_value = {
 "candidate" : "candidate"
 }
 
+voters_office_value2 = {
+"createdBy" : "1",
+"office" : "offi8734 ce",
+"candidate" : "1"
+}
+
 voters_candidate_value = {
 "createdOn" : "27-08-2018",
 "createdBy" : "createdBy",
@@ -405,11 +436,24 @@ voters_candidate_value = {
 "candidate" : "can 6837946didate"
 }
 
+voters_candidate_value2 = {
+"createdBy" : "1",
+"office" : "1",
+"candidate" : "can 6837946didate"
+}
+
+
 voters_createdBy_value = {
 "createdOn" : "27-08-2018",
 "createdBy" : "crea77250 tedBy",
 "office" : "office",
 "candidate" : "candidate"
+}
+
+voters_createdBy_value2 = {
+"createdBy" : "crea77250 tedBy",
+"office" : "1",
+"candidate" : "1"
 }
 
 new_petition = {

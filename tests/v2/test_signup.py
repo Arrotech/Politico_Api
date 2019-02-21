@@ -63,8 +63,8 @@ class TestUsersAccount(BaseTest):
 		response = self.client.post(
 			'/api/v2/auth/login', data=json.dumps(unregistered_user), content_type='application/json', headers=self.get_token())
 		result = json.loads(response.data.decode())
-		self.assertEqual(result['status'], 'not found', msg='not allowed')
-		assert response.status_code == 404
+		self.assertEqual(result['message'], 'Invalid email or password', msg='not allowed')
+		assert response.status_code == 401
 
 	def test_account_keys(self):
 		"""Test account json keys."""

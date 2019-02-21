@@ -97,16 +97,4 @@ class TestOffice(BaseTest):
 		self.assertEqual(result['message'], 'The name of the office is in wrong format!')
 		assert response.status_code == 400
 
-	def test_delete_office(self):
-		"""Test deleting a specific office by id."""
-
-		response1 = self.client.post(
-			'/api/v2/offices', data=json.dumps(create_office2), content_type='application/json', headers=self.get_token())
-		response = self.client.delete(
-			'/api/v2/offices/1/delete', content_type='application/json', headers=self.get_token())
-		result = json.loads(response.data.decode())
-		self.assertEqual(result['message'],
-			'office deleted')
-		assert response.status_code == 200
-
 

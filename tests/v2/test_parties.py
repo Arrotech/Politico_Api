@@ -61,19 +61,6 @@ class TestOffice(BaseTest):
 			'not found')
 		assert response1.status_code == 404
 
-
-	def test_delete_party(self):
-		"""Test deleting a specific party by id."""
-
-		response1 = self.client.post(
-			'/api/v2/parties', data=json.dumps(create_party2), content_type='application/json', headers=self.get_token())
-		response = self.client.delete(
-			'/api/v2/parties/1/delete', content_type='application/json', headers=self.get_token())
-		result = json.loads(response.data.decode())
-		self.assertEqual(result['message'],
-			'party deleted')
-		assert response.status_code == 200
-
 	def test_party_keys(self):
 		"""Test party json keys"""
 

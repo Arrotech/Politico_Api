@@ -26,6 +26,16 @@ def admin_required(func):
             return {"message": e}
     return wrapper_function
 
+def convert_to_int(id):
+
+    try:
+        value = int(id)
+        if value > 0:
+            return value
+        return raise_error(400, "cannot be a negative number")
+    except Exception as e:
+        return {"message": e}
+
 def check_party_keys(request):
     """Check if the key values are correct."""
 
