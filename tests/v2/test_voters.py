@@ -2,7 +2,7 @@ import unittest
 import json
 from app.api.v2.views.vote import Vote
 from app.api.v2.models.voters_model import VotersModel
-from utils.dummy import new_vote2, vote_keys2, create_account, user_login, voters_createdOn_value, voters_office_value2, voters_candidate_value2, voters_createdBy_value2
+from utils.dummy import new_vote2, new_vote3, vote_keys2, create_account, user_login, voters_createdOn_value, voters_office_value2, voters_candidate_value2, voters_createdBy_value2
 from .base_test import BaseTest
 
 class TestVote(BaseTest):

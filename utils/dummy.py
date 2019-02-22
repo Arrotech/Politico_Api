@@ -35,6 +35,19 @@ party_hqAddress_value = {
 "logoUrl": "https://www.welco.com"
 }
 
+party_logoUrl_value = {
+"name": "shoppers",
+"hqAddress": "highwaytowers",
+"logoUrl": "jaudhj"
+}
+
+edit_party = {
+"name": "paradise",
+"hqAddress": "towers",
+"logoUrl": "https://www.facebook.co.ke"
+}
+
+
 party_name_exists = {
 "name": "ORM",
 "hqAddress": "Nakuru",
@@ -148,8 +161,18 @@ office_category = {
 }
 
 office_name = {
-"category": "Local",
+"category": "local",
 "name": "Presidenti  56876$%&$5al"
+}
+
+edit_office = {
+"category": "state",
+"name": "governor"
+}
+
+category_name = {
+"category": "Locc786 al",
+"name": "Presidential"
 }
 
 get_office = {
@@ -161,6 +184,11 @@ get_office = {
 office_keys = {
 "catry": "Executive",
 "name": "Presidential"
+}
+
+office_name_keys = {
+"category": "local",
+"ne": "Presidential"
 }
 
 create_account = {
@@ -399,6 +427,12 @@ new_vote2 = {
 "createdBy" : "2",
 "office" : "2",
 "candidate" : "2"
+}
+
+new_vote3 = {
+"createdBy" : "1",
+"office" : "1",
+"candidate" : "1"
 }
 
 vote_keys = {
