@@ -418,7 +418,13 @@ Politico is a simple API allowing users vote in their candidates of choice.
     + Body
 
             {
-                "message": "user promoted successfully"
+                "candidate": {
+                    "candidate": 2,
+                    "office": 3,
+                    "party": 2
+                },
+                "message": "user promoted successfully",
+                "status": "201"
             }
             
 ### User Vote [/api/v2/voters]
