@@ -1,24 +1,30 @@
 from flask import make_response, jsonify, request, Blueprint
 from app.api.v2.models.users_model import UsersModel
-from utils.validations import check_role_key, role_restrictions, admin_restrictions, raise_error, check_register_keys, is_valid_email, is_valid_url, is_valid_phone, check_candidates_keys2
+from utils.validations import check_role_key,\
+    role_restrictions, admin_restrictions,\
+    raise_error, check_register_keys,\
+    is_valid_email, is_valid_url,\
+    is_valid_phone, check_candidates_keys2, check_password
 import json
 from utils.authorization import admin_required
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_jwt_extended import create_access_token
-          
-signup = Blueprint('signup',__name__)
+import re
+
+auth = Blueprint('auth', __name__)
+
 
 class Register:
     """A user can create a new account."""
     
-    @signup.route('/signup', methods=['POST'])
+    @auth.route('/auth/signup', methods=['POST'])
     def create_account():
         """Create new account."""
 
         errors = check_register_keys(request)
         if errors:
-            return raise_error(400,"Invalid {} key".format(', '.join(errors)))
+            return raise_error(400, "Invalid {} key".format(', '.join(errors)))
         details = request.get_json()
         firstname = details['firstname']
         lastname = details['lastname']
@@ -28,18 +34,26 @@ class Register:
         passportUrl = details['passportUrl']
         role = details['role']
 
+        # a_alpha = re.search("[a-z]", password)
+        # A_alpha = re.search("[A-Z]", password)
+        # num = re.search("[0-9]", password)
+
         if not is_valid_email(email):
-            return raise_error(400,"Email is in the wrong format")
+            return raise_error(400, "Email is in the wrong format")
         if not is_valid_phone(phoneNumber):
-            return raise_error(400,"phone number is in the wrong format")
+            return raise_error(400, "phone number is in the wrong format")
         if details['firstname'].isalpha()== False:
-            return raise_error(400,"firstname is in wrong format")
+            return raise_error(400, "firstname is in wrong format")
         if details['lastname'].isalpha()== False:
-            return raise_error(400,"lastname is in wrong format")
+            return raise_error(400, "lastname is in wrong format")
         if details['role'].isalpha()== False:
-            return raise_error(400,"role is in wrong format")
+            return raise_error(400, "role is in wrong format")
         if not is_valid_url(passportUrl):
-            return raise_error(400,"passportUrl is in the wrong format")
+            return raise_error(400, "passportUrl is in the wrong format")
+        if details['password'] == "":
+            return raise_error(400, "password required")
+        if len(details['password']) < 8:
+            return raise_error(400, "length of password should be atleast eight characters")
         if UsersModel().get_email(email):
             return raise_error(400, "Email already exists!")
         if UsersModel().get_phoneNumber(phoneNumber):
@@ -47,19 +61,20 @@ class Register:
         if UsersModel().get_passportUrl(passportUrl):
             return raise_error(400, "passportUrl already in use!")
 
-        user = UsersModel().save(firstname, lastname, email, password, phoneNumber, passportUrl, role)
+        user = UsersModel().save(firstname,
+                lastname,
+                email,
+                password,
+                phoneNumber,
+                passportUrl,
+                role)
         return make_response(jsonify({
             "status": "201",
             "message": "Account created successfully",
             "user": user
             }), 201)
 
-login = Blueprint('login', __name__)
-
-class Login:
-    """A user can sign in to their account."""
-
-    @login.route('/login', methods=['POST'])
+    @auth.route('/auth/login', methods=['POST'])
     def user_login():
         """Sign In a user"""
 
@@ -79,13 +94,7 @@ class Login:
             return raise_error(401, "Invalid email or password")
         return raise_error(401, "Invalid email or password")
 
-
-users_v2 = Blueprint('users_v2', __name__)
-
-class Users:
-    """Docstring for class users."""
-
-    @users_v2.route('/users', methods=['GET'])
+    @auth.route('/users', methods=['GET'])
     @jwt_required
     @admin_required
     def get_all_users():
@@ -97,7 +106,7 @@ class Users:
             "users": json.loads(UsersModel().get_users())
             }), 200)
 
-    @users_v2.route('/users/<int:user_id>', methods=['GET'])
+    @auth.route('/users/<int:user_id>', methods=['GET'])
     @jwt_required
     @admin_required
     def get_user(user_id):
@@ -116,7 +125,7 @@ class Users:
             "message": "user not found"
             }), 404)
 
-    @users_v2.route('/users/<int:user_id>', methods=['PUT'])
+    @auth.route('/users/<int:user_id>', methods=['PUT'])
     @jwt_required
     @admin_required
     def put(user_id):
@@ -129,7 +138,7 @@ class Users:
         role = details['role']
 
         if(admin_restrictions(role) is False):
-            return raise_error(400,"please select admin as the role")
+            return raise_error(400, "please select admin as the role")
 
         user = UsersModel().edit_role(role, user_id)
         if user:
@@ -142,4 +151,5 @@ class Users:
             "status": "404",
             "message": "user not found"
             }), 404)
+
 
