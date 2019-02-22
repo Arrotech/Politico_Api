@@ -76,6 +76,17 @@ def edit_party_logoUrl_keys(request):
             errors.append(key)
     return errors
 
+def check_role_key(request):
+    """Check if the key value is correct."""
+
+    res_keys = ['role']
+    errors = []
+    for key in res_keys:
+        if not key in request.json:
+            errors.append(key)
+    return errors
+
+
 def check_petitions_keys(request):
     """Check if the key values are correct."""
 
@@ -160,7 +171,7 @@ def raise_error(status, msg):
     """Handles error messages."""
   
     return make_response(jsonify({
-            "status": "error",
+            "status": "400",
             "message": msg
         }), status)
 
@@ -210,4 +221,19 @@ def office_restrictions(data):
   if data not in office:
     return False
   return True
+
+def role_restrictions(data):
+  """Restrict user inputs in a list."""
+
+  user_role = ["user"]
+  if data not in user_role:
+    return False
+  return True
   
+def admin_restrictions(data):
+  """Restrict user inputs in a list."""
+
+  admin_role = ["admin"]
+  if data not in admin_role:
+    return False
+  return True

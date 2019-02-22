@@ -41,6 +41,39 @@ class Candidates:
                 candidate = CandidatesModel().save(office, candidate, party)
                 if "error" in candidate:
                     return raise_error(400, "Please check your input and try again!")
-                return on_success(201, "user promoted successfully")
+                return make_response(jsonify({
+                    "status": "201",
+                    "message": "user promoted successfully",
+                    "candidate": candidate
+                    }))
             return raise_error(400, "user does not exist")
         return raise_error(400, "office does not exist")
+
+    @candidate_v2.route('/candidates', methods=['GET'])
+    @jwt_required
+    def get_all_candidates():
+        '''Fetch all the existing candidates.'''
+
+        return make_response(jsonify({
+            "status": "200",
+            "message": "success",
+            "users": json.loads(CandidatesModel().get_candidates())
+            }), 200)
+
+    @candidate_v2.route('/candidates/<int:candidate_id>', methods=['GET'])
+    @jwt_required
+    def get_candidate(candidate_id):
+        """Fetch a specific candidate."""
+
+        candidate = CandidatesModel().get_candidate_by_id(candidate_id)
+        candidate = json.loads(candidate)
+        if candidate:
+            return make_response(jsonify({
+                "status": "200",
+                "message": "success",
+                "candidate": candidate
+                }), 200)
+        return make_response(jsonify({
+            "status": "404",
+            "message": "candidate not found"
+            }), 404)

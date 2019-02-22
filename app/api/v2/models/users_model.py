@@ -45,7 +45,7 @@ class UsersModel(Database):
 		user = self.curr.fetchone()
 		self.conn.commit()
 		self.curr.close()
-		return user
+		return json.dumps(user, default=str)
 
 
 	def get_users(self):
@@ -81,3 +81,15 @@ class UsersModel(Database):
 		self.conn.commit()
 		self.curr.close()
 		return user
+
+	def edit_role(self, user_id, role):
+		"""Admin can promote a user to be an admin."""
+
+		self.curr.execute("""UPDATE users\
+			SET role='{}'\
+			WHERE user_id={} RETURNING role"""\
+			.format(user_id,role))
+		role = self.curr.fetchone()
+		self.conn.commit()
+		self.curr.close()
+		return role

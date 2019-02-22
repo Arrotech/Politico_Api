@@ -28,4 +28,8 @@ class Petition:
                 or details['createdBy'].isalpha() is False:
             return raise_error(400, "input is in wrong format")
         petition = PetitionsModel().save(createdBy, office, body)
-        return on_success(201, "petition filed successfully")
+        return make_response(jsonify({
+            "status": "201",
+            "message": "petition filed successfully",
+            "petition": petition
+            }), 201)

@@ -2,7 +2,7 @@ import unittest
 import json
 from app.api.v2.views.party_views import Party
 from app.api.v2.models.parties_model import PartiesModel
-from utils.dummy import party_hqAddress_value, get_party2, party_name_exists, create_party3, create_party2, create_account, user_login, party_name_keys, party_name_value
+from utils.dummy import party_hqAddress_exists, party_logoUrl_exists,  party_hqAddress_value, get_party2, party_name_exists, create_party3, create_party2, create_account, user_login, party_name_keys, party_name_value
 from .base_test import BaseTest
 
 
@@ -18,6 +18,51 @@ class TestOffice(BaseTest):
 		access_token = json.loads(resp.get_data(as_text=True))['token']
 		auth_header = {'Authorization': 'Bearer {}'.format(access_token)}
 		return auth_header
+
+	def test_create_party(self):
+		"""Test the vote json keys."""
+
+		response = self.client.post(
+			'/api/v2/parties', data=json.dumps(create_party2), content_type='application/json', headers=self.get_token())
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'], 'party created successfully!')
+		assert response.status_code == 201
+
+	def test_party_name_exists(self):
+		"""Test the vote json keys."""
+
+		response = self.client.post(
+			'/api/v2/parties', data=json.dumps(create_party2), content_type='application/json', headers=self.get_token())
+		return response
+		response = self.client.post(
+			'/api/v2/parties', data=json.dumps(party_name_exists), content_type='application/json', headers=self.get_token())
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'], 'Party with that name already exists!')
+		assert response.status_code == 400
+
+	def test_party_hqAddress_exists(self):
+		"""Test the vote json keys."""
+
+		response = self.client.post(
+			'/api/v2/parties', data=json.dumps(create_party2), content_type='application/json', headers=self.get_token())
+		return response
+		response = self.client.post(
+			'/api/v2/parties', data=json.dumps(party_hqAddress_exists), content_type='application/json', headers=self.get_token())
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'], 'Party with that hqAddress already exists!')
+		assert response.status_code == 400
+
+	def test_party_logoUrl_exists(self):
+		"""Test the vote json keys."""
+
+		response = self.client.post(
+			'/api/v2/parties', data=json.dumps(create_party2), content_type='application/json', headers=self.get_token())
+		return response
+		response = self.client.post(
+			'/api/v2/parties', data=json.dumps(party_logoUrl_exists), content_type='application/json', headers=self.get_token())
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'], 'Party with that logoUrl already exists!')
+		assert response.status_code == 400
 
 	def test_unexisting_officeUrl(self):
 		"""Test when unexisting url is provided."""
@@ -57,8 +102,8 @@ class TestOffice(BaseTest):
 		response1 = self.client.get(
 			'/api/v2/parties/100', content_type='application/json', headers=self.get_token())
 		result = json.loads(response1.data.decode())
-		self.assertEqual(result['status'],
-			'not found')
+		self.assertEqual(result['message'],
+			'party not found')
 		assert response1.status_code == 404
 
 	def test_party_keys(self):
@@ -74,7 +119,7 @@ class TestOffice(BaseTest):
 		"""Test party json keys"""
 
 		response = self.client.put(
-			'/api/v2/parties/1/edit', data=json.dumps(party_name_keys), content_type='application/json', headers=self.get_token())
+			'/api/v2/parties/1', data=json.dumps(party_name_keys), content_type='application/json', headers=self.get_token())
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'], 'Invalid name key')
 		assert response.status_code == 400

@@ -33,7 +33,9 @@ class Office:
 
         res = OfficesModel().save(category, name)
         return jsonify({
+            "status": "201",
             "message": "office created successfully!",
+            "office": res
             }), 201
 
     @office_v2.route('/offices', methods=['GET'])
@@ -42,6 +44,7 @@ class Office:
         '''Fetch all the existing offices.'''
 
         return make_response(jsonify({
+            "status": "200",
             "message": "success",
             "offices": json.loads(OfficesModel().get_offices())
             }), 200)
@@ -55,14 +58,16 @@ class Office:
         office = json.loads(office)
         if office:
             return make_response(jsonify({
+                "status": "200",
                 "message": "success",
                 "office": office
                 }), 200)
         return make_response(jsonify({
-            "status": "not found"
+            "status": "404",
+            "message": "office not found"
             }), 404)
 
-    @office_v2.route('/offices/<int:office_id>/delete', methods=['DELETE'])
+    @office_v2.route('/offices/<int:office_id>', methods=['DELETE'])
     @jwt_required
     @admin_required
     def delete(office_id):
@@ -71,10 +76,16 @@ class Office:
         office = OfficesModel().get_office_by_id(office_id)
         if office:
             OfficesModel().delete(office_id)
-            return on_success(200, "office deleted")
-        return raise_error(404, "not found")
+            return make_response(jsonify({
+                "status": "200",
+                "message": "office deleted"
+                }), 200)
+        return make_response(jsonify({
+            "status": "404",
+            "message": "office not found"
+            }), 404)
 
-    @office_v2.route('/offices/<int:office_id>/edit', methods=['PUT'])
+    @office_v2.route('/offices/<int:office_id>', methods=['PUT'])
     @jwt_required
     @admin_required
     def put(office_id):
@@ -94,5 +105,12 @@ class Office:
 
         office = OfficesModel().edit_office(category, name, office_id)
         if office:
-            return on_success(201, "office updated successfully!")
-        return raise_error(404, "not found")
+            return make_response(jsonify({
+                "status": "200",
+                "message": "office updated successfully",
+                "new_office": office
+                }), 200)
+        return make_response(jsonify({
+            "status": "404",
+            "message": "office not found"
+            }), 404)
