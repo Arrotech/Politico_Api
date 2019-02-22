@@ -427,7 +427,7 @@ Politico is a simple API allowing users vote in their candidates of choice.
                 "status": "201"
             }
             
-### User Vote [/api/v2/voters]
+### User Vote [/api/v2/vote]
 
 #### Vote [POST]
 
@@ -444,7 +444,7 @@ Politico is a simple API allowing users vote in their candidates of choice.
     + Headers
 
             Authorization: Bearer Token
-            Location: /api/v2/voters
+            Location: /api/v2/vote
 
     + Body
 
@@ -464,17 +464,18 @@ Politico is a simple API allowing users vote in their candidates of choice.
 
     + Headers
 
-            Location: /api/v2/voters/candidate
+            Location: /api/v2/vote/results
             
     + Body
 
-            {
-                "message": "success",
-                "office": {
-                    "candidate": 1,
-                    "count": 2
+                {
+                    "message": "success",
+                    "office": {
+                        "candidate": 1,
+                        "count": 1
+                    },
+                    "status": "200"
                 }
-            }
             
 ### File Petitions [/api/v2/petitions]
 
