@@ -237,3 +237,8 @@ def admin_restrictions(data):
   if data not in admin_role:
     return False
   return True
+
+def check_password(password):
+  """Check passwrod."""
+
+  
