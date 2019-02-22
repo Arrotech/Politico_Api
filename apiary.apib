@@ -252,7 +252,12 @@ Politico is a simple API allowing users vote in their candidates of choice.
     + Body
 
             {
-                "message": "office updated successfully!"
+                "message": "office updated successfully",
+                "new_office": {
+                    "category": "federal",
+                    "name": "mca"
+                },
+                "status": "200"
             }
 
 #### Delete One office [DELETE]
@@ -267,7 +272,8 @@ Politico is a simple API allowing users vote in their candidates of choice.
     + Body
     
             {
-                "message": "office deleted"
+                "message": "office deleted",
+                "status": "200"
             }
 
 
