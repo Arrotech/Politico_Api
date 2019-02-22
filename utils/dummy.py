@@ -396,9 +396,9 @@ new_vote = {
 }
 
 new_vote2 = {
-"createdBy" : "1",
-"office" : "1",
-"candidate" : "1"
+"createdBy" : "2",
+"office" : "2",
+"candidate" : "2"
 }
 
 vote_keys = {

@@ -19,6 +19,27 @@ class TestOffice(BaseTest):
 		auth_header = {'Authorization': 'Bearer {}'.format(access_token)}
 		return auth_header
 
+	def test_create_office(self):
+		"""Test the vote json keys."""
+
+		response = self.client.post(
+			'/api/v2/offices', data=json.dumps(create_office2), content_type='application/json', headers=self.get_token())
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'], 'office created successfully!')
+		assert response.status_code == 201
+
+	def test_name_exists(self):
+		"""Test the vote json keys."""
+
+		response = self.client.post(
+			'/api/v2/offices', data=json.dumps(create_office2), content_type='application/json', headers=self.get_token())
+		return response
+		response1 = self.client.post(
+			'/api/v2/offices', data=json.dumps(name_exists), content_type='application/json', headers=self.get_token())
+		result = json.loads(response1.data.decode())
+		self.assertEqual(result['message'], 'office with that name already exists!')
+		assert response1.status_code == 400
+
 	def test_wrong_category_value(self):
 		"""Test create a new office."""
 
@@ -96,7 +117,7 @@ class TestOffice(BaseTest):
 			'/api/v2/offices/500', content_type='application/json', headers=self.get_token())
 		result = json.loads(response.data.decode())
 		assert response.status_code == 404
-		assert result['status'] == "not found"
+		assert result['message'] == "office not found"
 
 	def test_office_nameValue(self):
 		"""Test name json values."""

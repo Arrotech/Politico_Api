@@ -93,7 +93,7 @@ class Database:
         """Create a deafult admin user."""
 
         query = "INSERT INTO users(firstname,lastname,email,password,phoneNumber,passportUrl,role)\
-        VALUES('Harun','Gachanja','admin@admin.com','Harun20930988','0722985471','https://www.pivotaltracker.com/n/projects/2284574','admin')"
+        VALUES('Harun','Gachanja','admin@admin.com','pbkdf2:sha256:50000$7CNfLstB$543e786df1eafa03b81bb9788beb7e50f27f1334c748f2d7cbb23c04f02fd8ff','0722985471','https://www.pivotaltracker.com/n/projects/2284574','admin')"
 
         self.curr.execute(query)
         self.conn.commit()

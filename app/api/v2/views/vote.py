@@ -12,7 +12,7 @@ vote_v2= Blueprint('votes_v2', __name__)
 class Vote:
     """A user can vote his/her candidate of choice."""
 
-    @vote_v2.route('/voters', methods=['POST'])
+    @vote_v2.route('/vote', methods=['POST'])
     @jwt_required
     def post():
         """A user can vote his/her candidate of choice."""
@@ -36,14 +36,18 @@ class Vote:
             return raise_error(400, "only positive integer is accepted")
         if UsersModel().get_user_by_id(createdBy):
             if OfficesModel().get_office_by_id(office):
-                voter = VotersModel().save(createdBy, office, candidate)
-                if "error" in voter:
+                vote = VotersModel().save(createdBy, office, candidate)
+                if "error" in vote:
                     return raise_error(400, "Please check your input and try again!")
-                return on_success(201, "voted successfully")
+                return make_response(jsonify({
+                    "status": "201",
+                    "message": "voted successfully",
+                    "vote": vote
+                    }))
             return raise_error(400, "office does not exist")
         return raise_error(400, "user does not exist")
 
-    @vote_v2.route('/voters/candidate', methods=['GET'])
+    @vote_v2.route('/vote/results', methods=['GET'])
     @jwt_required
     def get_results():
         """Fetch results."""
@@ -52,9 +56,11 @@ class Vote:
         results = json.loads(results)
         if results:
             return make_response(jsonify({
+                "status": "200",
                 "message": "success",
                 "office": results
                 }), 200)
         return make_response(jsonify({
-            "status": "not found"
+            "status": "404",
+            "message": "no results found"
             }), 404)

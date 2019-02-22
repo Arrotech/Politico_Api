@@ -18,6 +18,15 @@ class TestUsersAccount(BaseTest):
 		auth_header = {'Authorization': 'Bearer {}'.format(access_token)}
 		return auth_header
 
+	def test_create_account(self):
+		"""Test the vote json keys."""
+
+		response = self.client.post(
+			'/api/v2/auth/signup', data=json.dumps(new_account), content_type='application/json', headers=self.get_token())
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'], 'Account created successfully')
+		assert response.status_code == 201
+
 	def test_email_exists(self):
 		"""Test create a new account."""
 

@@ -1,7 +1,8 @@
-from flask import make_response, jsonify, request, abort, Blueprint
+from flask import make_response, jsonify, request, Blueprint
 from app.api.v2.models.users_model import UsersModel
-from utils.validations import raise_error, check_register_keys, is_valid_email, is_valid_url, on_success, is_valid_phone, check_candidates_keys2
+from utils.validations import check_role_key, role_restrictions, admin_restrictions, raise_error, check_register_keys, is_valid_email, is_valid_url, is_valid_phone, check_candidates_keys2
 import json
+from utils.authorization import admin_required
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_jwt_extended import create_access_token
@@ -12,7 +13,7 @@ class Register:
     """A user can create a new account."""
     
     @signup.route('/signup', methods=['POST'])
-    def post():
+    def create_account():
         """Create new account."""
 
         errors = check_register_keys(request)
@@ -47,7 +48,11 @@ class Register:
             return raise_error(400, "passportUrl already in use!")
 
         user = UsersModel().save(firstname, lastname, email, password, phoneNumber, passportUrl, role)
-        return on_success(201,"Account created successfully")
+        return make_response(jsonify({
+            "status": "201",
+            "message": "Account created successfully",
+            "user": user
+            }), 201)
 
 login = Blueprint('login', __name__)
 
@@ -55,7 +60,7 @@ class Login:
     """A user can sign in to their account."""
 
     @login.route('/login', methods=['POST'])
-    def post():
+    def user_login():
         """Sign In a user"""
 
         details = request.get_json()
@@ -67,8 +72,74 @@ class Login:
             if check_password_hash(password_db, password):
                 token = create_access_token(identity=email)
                 return make_response(jsonify({
-                    "message" : f"successfully logged in {email}",
-                    "token" : token
+                    "status": "200",
+                    "message": f"successfully logged in {email}",
+                    "token": token
                 }), 200)
             return raise_error(401, "Invalid email or password")
         return raise_error(401, "Invalid email or password")
+
+
+users_v2 = Blueprint('users_v2', __name__)
+
+class Users:
+    """Docstring for class users."""
+
+    @users_v2.route('/users', methods=['GET'])
+    @jwt_required
+    @admin_required
+    def get_all_users():
+        '''Fetch all the existing users.'''
+
+        return make_response(jsonify({
+            "status": "200",
+            "message": "success",
+            "users": json.loads(UsersModel().get_users())
+            }), 200)
+
+    @users_v2.route('/users/<int:user_id>', methods=['GET'])
+    @jwt_required
+    @admin_required
+    def get_user(user_id):
+        """Fetch a specific user."""
+
+        user = UsersModel().get_user_by_id(user_id)
+        user = json.loads(user)
+        if user:
+            return make_response(jsonify({
+                "status": "200",
+                "message": "success",
+                "user": user
+                }), 200)
+        return make_response(jsonify({
+            "status": "404",
+            "message": "user not found"
+            }), 404)
+
+    @users_v2.route('/users/<int:user_id>', methods=['PUT'])
+    @jwt_required
+    @admin_required
+    def put(user_id):
+        """Promote user to be an admin."""
+
+        errors = check_role_key(request)
+        if errors:
+            return raise_error(400, "Invalid {} key".format(', '.join(errors)))
+        details = request.get_json()
+        role = details['role']
+
+        if(admin_restrictions(role) is False):
+            return raise_error(400,"please select admin as the role")
+
+        user = UsersModel().edit_role(role, user_id)
+        if user:
+            return make_response(jsonify({
+                "status": "200",
+                "message": "user successfully promoted to be an admin",
+                "new_role": user
+                }), 200)
+        return make_response(jsonify({
+            "status": "404",
+            "message": "user not found"
+            }), 404)
+

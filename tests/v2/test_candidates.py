@@ -20,6 +20,15 @@ class TestCandidates(BaseTest):
 		auth_header = {'Authorization': 'Bearer {}'.format(access_token)}
 		return auth_header
 
+	def test_create_wrong_candidate(self):
+		"""Test the vote json keys."""
+
+		response = self.client.post(
+			'/api/v2/candidates/register', data=json.dumps(new_candidate2), content_type='application/json', headers=self.get_token())
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'], 'Please check your input and try again!')
+		assert response.status_code == 400
+
 	def test_office_value(self):
 		"""Test the format of the office's name json value."""
 

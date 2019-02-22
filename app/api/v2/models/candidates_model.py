@@ -46,13 +46,20 @@ class CandidatesModel(Database):
 		except psycopg2.IntegrityError:
 			return "error"
 
+	def get_candidate_by_id(self, candidate_id):
+		"""Get candidate with specific id."""
+
+		self.curr.execute(''' SELECT * FROM candidates WHERE candidate_id=%s''',(candidate_id, ))
+		candidate = self.curr.fetchone()
+		self.conn.commit()
+		self.curr.close()
+		return json.dumps(candidate, default=str)
 
 
-	# def convert_to_int(id):
+	def get_candidates(self):
+		"""Fetch all candidates."""
 
- #    try:
- #        value = int(id)
- #        return value
- #    except Exception as e:
- #        return {"message": e}
+		query = "SELECT * from candidates"
+		candidates = Database().fetch(query)
+		return json.dumps(candidates, default=str)
 	
