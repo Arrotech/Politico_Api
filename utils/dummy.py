@@ -202,6 +202,39 @@ create_account = {
 "role" : "admin"
 }
 
+edit_account = {
+"role": "admin"
+}
+
+role_value2 = {
+"role": "user"
+}
+
+wrong_role_value = {
+"roe": "admin"
+}
+
+empty_password = {
+"firstname" : "firstname",
+"lastname" : "lastname",
+"email" : "dad@gmail.co.ke",
+"password": "",
+"phoneNumber" : "0720930942",
+"passportUrl" : "https://www.dad.com",
+"role" : "admin"
+}
+
+password_length = {
+"firstname" : "firstname",
+"lastname" : "lastname",
+"email" : "mum@gmail.co.ke",
+"password": "mum",
+"phoneNumber" : "0720710942",
+"passportUrl" : "https://www.mum.com",
+"role" : "admin"
+}
+
+
 phone_exists = {
 "firstname" : "firstname",
 "lastname" : "lastname",
@@ -427,6 +460,18 @@ new_vote2 = {
 "createdBy" : "2",
 "office" : "2",
 "candidate" : "2"
+}
+
+new_candidate3 = {
+"party" : "1",
+"office" : "1",
+"candidate" : "1"
+}
+
+vote2 = {
+"createdBy" : "1",
+"office" : "1",
+"candidate" : "1"
 }
 
 new_vote3 = {
