@@ -2,7 +2,7 @@ import unittest
 import json
 from app.api.v2.views.office import Office
 from app.api.v2.models.offices_model import OfficesModel
-from utils.dummy import create_office2, office_keys, get_office, office_category, office_name, offices, delete_office, name_exists, category_restriction, create_account, user_login
+from utils.dummy import edit_office, category_name, office_name_keys, create_office2, office_keys, get_office, office_category, office_name, offices, delete_office, name_exists, category_restriction, create_account, user_login
 from .base_test import BaseTest
 
 
@@ -33,7 +33,6 @@ class TestOffice(BaseTest):
 
 		response = self.client.post(
 			'/api/v2/offices', data=json.dumps(create_office2), content_type='application/json', headers=self.get_token())
-		return response
 		response1 = self.client.post(
 			'/api/v2/offices', data=json.dumps(name_exists), content_type='application/json', headers=self.get_token())
 		result = json.loads(response1.data.decode())
@@ -69,23 +68,15 @@ class TestOffice(BaseTest):
 
 	def test_get_offices(self):
 		"""Test fetching all offices that have been created."""
-    
-		response = self.client.get(
-			'/api/v2/offices', content_type='application/json', headers=self.get_token())
-		result = json.loads(response.data.decode())
-		self.assertEqual(result['message'],
-			"success")
-		assert response.status_code == 200
 
-	def test_get_office(self):
-		"""Test fetching all offices that have been created."""
-    
-		response = self.client.get(
-			'/api/v2/offices/1', content_type='application/json', headers=self.get_token())
-		result = json.loads(response.data.decode())
+		response = self.client.post(
+			'/api/v2/offices', data=json.dumps(create_office2), content_type='application/json', headers=self.get_token())
+		response1 = self.client.get(
+			'/api/v2/offices', content_type='application/json', headers=self.get_token())
+		result = json.loads(response1.data.decode())
 		self.assertEqual(result['message'],
 			"success")
-		assert response.status_code == 200
+		assert response1.status_code == 200
 
 	def test_unexisting_offices(self):
 		"""Test fetching all offices that have been created."""
@@ -102,7 +93,6 @@ class TestOffice(BaseTest):
 
 		response1 = self.client.post(
 			'/api/v2/offices', data=json.dumps(create_office2), content_type='application/json', headers=self.get_token())
-		return response1
 		response = self.client.get(
 			'/api/v2/offices/1', content_type='application/json', headers=self.get_token())
 		result = json.loads(response.data.decode())
@@ -127,5 +117,59 @@ class TestOffice(BaseTest):
 		result = json.loads(response.data.decode())
 		self.assertEqual(result['message'], 'The name of the office is in wrong format!')
 		assert response.status_code == 400
+
+	def test_edit_office_name(self):
+		"""Test name json values."""
+
+		response1 = self.client.post(
+			'/api/v2/offices', data=json.dumps(create_office2), content_type='application/json', headers=self.get_token())
+		response = self.client.put(
+			'/api/v2/offices/1', data=json.dumps(office_name), content_type='application/json', headers=self.get_token())
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'], 'The name of the office is in wrong format!')
+		assert response.status_code == 400
+
+	def test_edit_office_category(self):
+		"""Test name json values."""
+
+		response1 = self.client.post(
+			'/api/v2/offices', data=json.dumps(create_office2), content_type='application/json', headers=self.get_token())
+		response = self.client.put(
+			'/api/v2/offices/1', data=json.dumps(category_name), content_type='application/json', headers=self.get_token())
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'], 'The category of the office is in wrong format!')
+		assert response.status_code == 400
+
+	def test_delete_office(self):
+		"""Test getting a specific party by id."""
+
+		response = self.client.post(
+			'/api/v2/offices', data=json.dumps(create_office2), content_type='application/json', headers=self.get_token())
+		response1 = self.client.delete(
+			'/api/v2/offices/1', content_type='application/json', headers=self.get_token())
+		result = json.loads(response1.data.decode())
+		self.assertEqual(result['message'],
+			'office deleted')
+		assert response1.status_code == 200
+
+	def test_edit_office_keys(self):
+		"""Test party json keys"""
+
+		response = self.client.put(
+			'/api/v2/offices/1', data=json.dumps(office_name_keys), content_type='application/json', headers=self.get_token())
+		result = json.loads(response.data.decode())
+		self.assertEqual(result['message'], 'Invalid name key')
+		assert response.status_code == 400
+
+	def test_edit_party(self):
+		"""Test party json keys"""
+
+		response = self.client.post(
+			'/api/v2/offices', data=json.dumps(create_office2), content_type='application/json', headers=self.get_token())
+		response1 = self.client.put(
+			'/api/v2/offices/1', data=json.dumps(edit_office), content_type='application/json', headers=self.get_token())
+		result = json.loads(response1.data.decode())
+		self.assertEqual(result['message'], 'office updated successfully')
+		assert response1.status_code == 200
 
 

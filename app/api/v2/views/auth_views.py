@@ -34,10 +34,6 @@ class Register:
         passportUrl = details['passportUrl']
         role = details['role']
 
-        # a_alpha = re.search("[a-z]", password)
-        # A_alpha = re.search("[A-Z]", password)
-        # num = re.search("[0-9]", password)
-
         if not is_valid_email(email):
             return raise_error(400, "Email is in the wrong format")
         if not is_valid_phone(phoneNumber):
