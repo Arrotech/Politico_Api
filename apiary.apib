@@ -73,7 +73,94 @@ Politico is a simple API allowing users vote in their candidates of choice.
                 "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTA4MDEyMTgsIm5iZiI6MTU1MDgwMTIxOCwianRpIjoiNTEyMmMzNDktZTEwNS00ODNkLTg0NmItNGI0OTE2MTg3NmJkIiwiZXhwIjoxNTUwODAyMTE4LCJpZGVudGl0eSI6InBldGVyQGdtYWlsLmNvbSIsImZyZXNoIjpmYWxzZSwidHlwZSI6ImFjY2VzcyJ9.JD8FGlNBTWlxSdZsorddNLc5KmbLI5MSkDsXuaEPk7Y"
             }
             
+### Get all Users [/api/v2/users]    
+            
+#### Get Users  [GET]
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Authorization: Bearer Token
+            Location: /api/v2/users
+            
+    + Body
+
+            {
+                "message": "success",
+                "status": "200",
+                "users": [
+                    {
+                        "date": null,
+                        "email": "peter@gmail.com",
+                        "firstname": "Peter",
+                        "lastname": "Gitundu",
+                        "passporturl": "https://www.peter.com",
+                        "password": "pbkdf2:sha256:50000$KgzDWp19$900f65b32441686bc954a319a6dadfeb166eab9bb20632d53cc9c160d1dbf15d",
+                        "phonenumber": "0720930981",
+                        "role": "user",
+                        "user_id": 1
+                    }
+                ]
+            }
+            
+### Specific User [/api/v2/users/{user_id}]
+
++ Parameters
+    + user_id (number)
+
+#### Get User  [GET]
+
++ Response 200 (application/json)
+
+    + Headers
     
+            Authorization: Bearer Token
+            Location: /api/v2/users/{user_id}
+    
+    + Body
+
+            {
+                "message": "success",
+                "status": "200",
+                "user": {
+                    "date": null,
+                    "email": "peter@gmail.com",
+                    "firstname": "Peter",
+                    "lastname": "Gitundu",
+                    "passporturl": "https://www.peter.com",
+                    "password": "pbkdf2:sha256:50000$KgzDWp19$900f65b32441686bc954a319a6dadfeb166eab9bb20632d53cc9c160d1dbf15d",
+                    "phonenumber": "0720930981",
+                    "role": "user",
+                    "user_id": 1
+                }
+            }
+            
+#### Make Admin [PUT]
+
++ Request (application/json)
+
+        {
+            "role": "admin"
+        }
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Authorization: Bearer Token
+            Location: /api/v2/users/{user_id}
+
+    + Body
+
+            {
+                "message": "user successfully promoted to be an admin",
+                "new_role": {
+                    "role": "admin"
+                },
+                "status": "200"
+            }
+        
 
 ### Offices [/api/v2/offices]
 
@@ -96,30 +183,31 @@ Politico is a simple API allowing users vote in their candidates of choice.
     + Body
 
             {
-                "message": "office created successfully!"
+                "message": "office created successfully!",
+                "office": {
+                    "category": "federal",
+                    "name": "womenrep"
+                },
+                "status": "201"
             }
             
-
-
-            {
-                "id": 1,
-                "message": "party created successfully!"
-            }
-
 #### Get all offices  [GET]
 
 + Response 200 (application/json)
 
-        {
-            "message": "success",
-            "offices": [
-                {
-                    "category": "executive",
-                    "name": "presidential",
-                    "office_id": 1
-                }
-            ]
-        }
+            {
+                "message": "success",
+                "offices": [
+                    {
+                        "category": "federal",
+                        "name": "womenrep",
+                        "office_id": 1
+                    }
+                ],
+                "status": "200"
+            }
+        
+
 
 
 
@@ -137,13 +225,12 @@ Politico is a simple API allowing users vote in their candidates of choice.
 
             {
                 "message": "success",
-                "offices": [
-                    {
-                        "category": "executive",
-                        "name": "presidential",
-                        "office_id": 1
-                    }
-                ]
+                "office": {
+                    "category": "federal",
+                    "name": "womenrep",
+                    "office_id": 1
+                },
+                "status": "200"
             }
             
 #### Edit office [PUT]
@@ -160,7 +247,7 @@ Politico is a simple API allowing users vote in their candidates of choice.
     + Headers
 
             Authorization: Bearer Token
-            Location: /api/v2/offices/{office_id}/edit
+            Location: /api/v2/offices/{office_id}
 
     + Body
 
@@ -267,7 +354,7 @@ Politico is a simple API allowing users vote in their candidates of choice.
     + Headers
 
             Authorization: Bearer Token
-            Location: /api/v2/parties/{party_id}/edit
+            Location: /api/v2/parties/{party_id}
 
     + Body
 
@@ -282,7 +369,7 @@ Politico is a simple API allowing users vote in their candidates of choice.
     + Headers
     
             Authorization: Bearer Token
-            Location: /api/v2/parties/{party_id}/delete
+            Location: /api/v2/parties/{party_id}
 
     + Body
     
