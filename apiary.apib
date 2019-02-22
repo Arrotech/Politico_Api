@@ -427,6 +427,59 @@ Politico is a simple API allowing users vote in their candidates of choice.
                 "status": "201"
             }
             
+#### Get all candidates  [GET]
+
++ Response 200 (application/json)
+
+    + Headers
+    
+            Authorization: Bearer Token
+            Location: /api/v2/candidates
+    
+    + Body
+
+            {
+                "message": "success",
+                "status": "200",
+                "users": [
+                    {
+                        "candidate": 2,
+                        "candidate_id": 1,
+                        "office": 3,
+                        "party": 2
+                    }
+                ]
+            }
+            
+### Specific Candidate [/api/v2/candidates/{candidate_id}]
+
++ Parameters
+    + candidate_id (number)            
+
+#### Get One Candidate  [GET]
+
++ Response 200 (application/json)
+
+    + Headers
+    
+            Authorization: Bearer Token
+            Location: /api/v2/candidates
+    
+    + Body
+
+            {
+                "candidate": {
+                    "candidate": 2,
+                    "candidate_id": 1,
+                    "office": 3,
+                    "party": 2
+                },
+                "message": "success",
+                "status": "200"
+            }
+            
+            
+            
 ### User Vote [/api/v2/vote]
 
 #### Vote [POST]
