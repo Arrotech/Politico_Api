@@ -1,7 +1,8 @@
-from flask import make_response, jsonify, request, abort, Blueprint
-from app.api.v1.models.candidates_model import CandidatesModel, candidates
+from flask import request, Blueprint
+
+from app.api.v1.models.candidates_model import CandidatesModel
 from utils.validations import raise_error, check_candidates_keys, on_success
-import json
+
 candidate = Blueprint('candidates', __name__)
 
 

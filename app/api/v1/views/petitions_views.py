@@ -1,8 +1,9 @@
-from flask import make_response, jsonify, request, abort, Blueprint
-from app.api.v1.models.petitions_model import PetitionsModel, petitions
+from flask import request, Blueprint
+
+from app.api.v1.models.petitions_model import PetitionsModel
 from utils.validations import raise_error, \
     check_petitions_keys, on_success, is_valid_date
-import json
+
 petition = Blueprint('petitions', __name__)
 
 

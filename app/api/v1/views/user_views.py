@@ -1,9 +1,10 @@
-from flask import make_response, jsonify, request, abort, Blueprint
-from app.api.v1.models.users_model import UsersModel, users
+from flask import request, Blueprint
+
+from app.api.v1.models.users_model import UsersModel
 from utils.validations import raise_error, \
     check_register_keys, is_valid_email, \
     is_valid_url, on_success, is_valid_phone
-import json
+
 user = Blueprint('users', __name__)
 
 

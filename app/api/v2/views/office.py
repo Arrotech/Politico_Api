@@ -1,9 +1,11 @@
-from flask import make_response, jsonify, request, abort, Blueprint
-from app.api.v2.models.offices_model import OfficesModel
-from utils.validations import raise_error, check_office_keys, on_success, office_restrictions
-from utils.authorization import admin_required
 import json
-from flask_jwt_extended import jwt_required, get_jwt_identity
+
+from flask import make_response, jsonify, request, Blueprint
+from flask_jwt_extended import jwt_required
+
+from app.api.v2.models.offices_model import OfficesModel
+from utils.authorization import admin_required
+from utils.validations import raise_error, check_office_keys, office_restrictions
 
 office_v2 = Blueprint('office_v2', __name__)
 
@@ -26,7 +28,7 @@ class Office:
 
         if details['name'].isalpha() is False:
             return raise_error(400, "The name of the office is in wrong format!")
-        if(office_restrictions(category) is False):
+        if (office_restrictions(category) is False):
             return raise_error(400, "select from state, local, federal or legislative")
         if OfficesModel().get_name(name):
             return raise_error(400, "office with that name already exists!")
@@ -36,7 +38,7 @@ class Office:
             "status": "201",
             "message": "office created successfully!",
             "office": res
-            }), 201
+        }), 201
 
     @office_v2.route('/offices', methods=['GET'])
     @jwt_required
@@ -47,7 +49,7 @@ class Office:
             "status": "200",
             "message": "success",
             "offices": json.loads(OfficesModel().get_offices())
-            }), 200)
+        }), 200)
 
     @office_v2.route('/offices/<int:office_id>', methods=['GET'])
     @jwt_required
@@ -61,11 +63,11 @@ class Office:
                 "status": "200",
                 "message": "success",
                 "office": office
-                }), 200)
+            }), 200)
         return make_response(jsonify({
             "status": "404",
             "message": "office not found"
-            }), 404)
+        }), 404)
 
     @office_v2.route('/offices/<int:office_id>', methods=['DELETE'])
     @jwt_required
@@ -79,11 +81,11 @@ class Office:
             return make_response(jsonify({
                 "status": "200",
                 "message": "office deleted"
-                }), 200)
+            }), 200)
         return make_response(jsonify({
             "status": "404",
             "message": "office not found"
-            }), 404)
+        }), 404)
 
     @office_v2.route('/offices/<int:office_id>', methods=['PUT'])
     @jwt_required
@@ -109,8 +111,8 @@ class Office:
                 "status": "200",
                 "message": "office updated successfully",
                 "new_office": office
-                }), 200)
+            }), 200)
         return make_response(jsonify({
             "status": "404",
             "message": "office not found"
-            }), 404)
+        }), 404)

@@ -1,6 +1,7 @@
-from utils.dummy import create_party
 import unittest
+
 from app import electoral_app
+
 
 class BaseTest(unittest.TestCase):
     """Class to setup the app and tear down the data model."""
@@ -17,4 +18,3 @@ class BaseTest(unittest.TestCase):
         """Tear down the data models after the tests run."""
 
         self.app_context.push()
-            

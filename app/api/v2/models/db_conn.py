@@ -1,59 +1,60 @@
-import psycopg2
 import os
+
+import psycopg2
 from psycopg2.extras import RealDictCursor
-import json
+
 
 class Database:
     """Initialization."""
 
     def __init__(self):
-    	self.db_name = os.getenv('DB_NAME')
-    	self.db_host = os.getenv('DB_HOST')
-    	self.db_user = os.getenv('DB_USER')
-    	self.db_password = os.getenv('DB_PASSWORD')
-    	self.conn = psycopg2.connect(database=self.db_name,host=self.db_host,user=self.db_user,password=self.db_password)
-    	self.curr = self.conn.cursor(cursor_factory=RealDictCursor)
+        self.db_name = os.getenv('DB_NAME')
+        self.db_host = os.getenv('DB_HOST')
+        self.db_user = os.getenv('DB_USER')
+        self.db_password = os.getenv('DB_PASSWORD')
+        self.conn = psycopg2.connect(database=self.db_name, host=self.db_host, user=self.db_user,
+                                     password=self.db_password)
+        self.curr = self.conn.cursor(cursor_factory=RealDictCursor)
 
     def create_table(self):
         """Create tables."""
 
         queries = [
-        	"""
-	        CREATE TABLE IF NOT EXISTS users(
-				user_id serial PRIMARY KEY,
-				firstname varchar NOT NULL,
+            """
+            CREATE TABLE IF NOT EXISTS users(
+                user_id serial PRIMARY KEY,
+                firstname varchar NOT NULL,
                 lastname varchar NOT NULL,
-				email varchar NOT NULL,
+                email varchar NOT NULL,
                 password varchar NOT NULL,
-				phoneNumber varchar NOT NULL,
+                phoneNumber varchar NOT NULL,
                 passportUrl varchar NOT NULL,
                 role varchar NOT NULL,
                 date TIMESTAMP
-			)""",
-
-            	"""
-	        CREATE TABLE IF NOT EXISTS offices(
-				office_id serial PRIMARY KEY,
-				category varchar NOT NULL,
-                name varchar NOT NULL
-			)""",
-
-
-            	"""
-	        CREATE TABLE IF NOT EXISTS petitions(
-				petition_id serial PRIMARY KEY,
-                createdBy varchar NOT NULL,
-                office varchar NOT NULL,
-                body varchar NOT NULL
-			)""",
-
-                """
-            CREATE TABLE IF NOT EXISTS parties(
-                party_id serial PRIMARY KEY,
-                name varchar NOT NULL,
-                hqAddress varchar NOT NULL,
-                logoUrl varchar NOT NULL
             )""",
+
+            """
+        CREATE TABLE IF NOT EXISTS offices(
+            office_id serial PRIMARY KEY,
+            category varchar NOT NULL,
+            name varchar NOT NULL
+        )""",
+
+            """
+        CREATE TABLE IF NOT EXISTS petitions(
+            petition_id serial PRIMARY KEY,
+            createdBy varchar NOT NULL,
+            office varchar NOT NULL,
+            body varchar NOT NULL
+        )""",
+
+            """
+        CREATE TABLE IF NOT EXISTS parties(
+            party_id serial PRIMARY KEY,
+            name varchar NOT NULL,
+            hqAddress varchar NOT NULL,
+            logoUrl varchar NOT NULL
+        )""",
 
             """
             CREATE TABLE IF NOT EXISTS candidates(
@@ -68,22 +69,22 @@ class Database:
                 );
             """,
 
-                """
-            CREATE TABLE IF NOT EXISTS voters(
-                voter_id serial UNIQUE,
-                createdBy integer NOT NULL,
-                office integer NOT NULL,
-                candidate integer NOT NULL,
-                CONSTRAINT createdBy_fk FOREIGN KEY(createdBy) REFERENCES users(user_id),
-                CONSTRAINT office_fk FOREIGN KEY(office) REFERENCES offices(office_id),
-                CONSTRAINT candidate_fk FOREIGN KEY(candidate) REFERENCES candidates(candidate_id),
-                CONSTRAINT office_composite_key PRIMARY KEY(createdBy,office,candidate)
-            )"""
+            """
+        CREATE TABLE IF NOT EXISTS voters(
+            voter_id serial UNIQUE,
+            createdBy integer NOT NULL,
+            office integer NOT NULL,
+            candidate integer NOT NULL,
+            CONSTRAINT createdBy_fk FOREIGN KEY(createdBy) REFERENCES users(user_id),
+            CONSTRAINT office_fk FOREIGN KEY(office) REFERENCES offices(office_id),
+            CONSTRAINT candidate_fk FOREIGN KEY(candidate) REFERENCES candidates(candidate_id),
+            CONSTRAINT office_composite_key PRIMARY KEY(createdBy,office,candidate)
+        )"""
 
         ]
         try:
             for query in queries:
-            	self.curr.execute(query)
+                self.curr.execute(query)
             self.conn.commit()
             self.curr.close()
         except Exception as e:

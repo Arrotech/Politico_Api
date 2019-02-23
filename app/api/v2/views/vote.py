@@ -1,12 +1,15 @@
-from flask import make_response, jsonify, request, abort, Blueprint
-from app.api.v2.models.voters_model import VotersModel
-from app.api.v2.models.users_model import UsersModel
-from app.api.v2.models.offices_model import OfficesModel
-from utils.validations import raise_error, \
-    check_voters_keys2, on_success, is_valid_date, convert_to_int
 import json
-from flask_jwt_extended import jwt_required, get_jwt_identity
-vote_v2= Blueprint('votes_v2', __name__)
+
+from flask import make_response, jsonify, request, Blueprint
+from flask_jwt_extended import jwt_required
+
+from app.api.v2.models.offices_model import OfficesModel
+from app.api.v2.models.users_model import UsersModel
+from app.api.v2.models.voters_model import VotersModel
+from utils.validations import raise_error, \
+    check_voters_keys2, convert_to_int
+
+vote_v2 = Blueprint('votes_v2', __name__)
 
 
 class Vote:
@@ -43,7 +46,7 @@ class Vote:
                     "status": "201",
                     "message": "voted successfully",
                     "vote": vote
-                    }))
+                }), 201)
             return raise_error(400, "office does not exist")
         return raise_error(400, "user does not exist")
 
@@ -51,7 +54,7 @@ class Vote:
     @jwt_required
     def get_results():
         """Fetch results."""
-        
+
         results = VotersModel().get_candidate()
         results = json.loads(results)
         if results:
@@ -59,8 +62,8 @@ class Vote:
                 "status": "200",
                 "message": "success",
                 "office": results
-                }), 200)
+            }), 200)
         return make_response(jsonify({
             "status": "404",
             "message": "no results found"
-            }), 404)
+        }), 404)

@@ -1,6 +1,8 @@
 import unittest
+
 from app import electoral_app
 from app.api.v2.models.db_conn import Database
+
 
 class BaseTest(unittest.TestCase):
     """Class to setup the app and tear down the data model."""
@@ -20,5 +22,3 @@ class BaseTest(unittest.TestCase):
 
         self.app_context.push()
         Database().destroy_table()
-
-            
