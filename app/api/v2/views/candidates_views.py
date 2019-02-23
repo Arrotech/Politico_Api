@@ -1,11 +1,13 @@
-from flask import make_response, jsonify, request, abort, Blueprint
-from app.api.v2.models.candidates_model import CandidatesModel
-from app.api.v2.models.users_model import UsersModel
-from app.api.v2.models.offices_model import OfficesModel
-from utils.validations import raise_error, check_candidates_keys, on_success, convert_to_int
-from utils.authorization import admin_required
 import json
-from flask_jwt_extended import jwt_required, get_jwt_identity
+
+from flask import make_response, jsonify, request, Blueprint
+from flask_jwt_extended import jwt_required
+
+from app.api.v2.models.candidates_model import CandidatesModel
+from app.api.v2.models.offices_model import OfficesModel
+from app.api.v2.models.users_model import UsersModel
+from utils.authorization import admin_required
+from utils.validations import raise_error, check_candidates_keys, convert_to_int
 
 candidate_v2 = Blueprint('candidates_v2', __name__)
 
@@ -36,7 +38,7 @@ class Candidates:
             return raise_error(400, "only positive integer is accepted")
         if type(value3) is not int:
             return raise_error(400, "only positive integer is accepted")
-        if OfficesModel().get_office_by_id(office): 
+        if OfficesModel().get_office_by_id(office):
             if UsersModel().get_user_by_id(candidate):
                 candidate = CandidatesModel().save(office, candidate, party)
                 if "error" in candidate:
@@ -45,9 +47,9 @@ class Candidates:
                     "status": "201",
                     "message": "user promoted successfully",
                     "candidate": candidate
-                    }))
-            return raise_error(400, "user does not exist")
-        return raise_error(400, "office does not exist")
+                }), 201)
+            return raise_error(400, "Please check your input and try again!")
+        return raise_error(400, "Please check your input and try again!")
 
     @candidate_v2.route('/candidates', methods=['GET'])
     @jwt_required
@@ -58,7 +60,7 @@ class Candidates:
             "status": "200",
             "message": "success",
             "users": json.loads(CandidatesModel().get_candidates())
-            }), 200)
+        }), 200)
 
     @candidate_v2.route('/candidates/<int:candidate_id>', methods=['GET'])
     @jwt_required
@@ -72,8 +74,8 @@ class Candidates:
                 "status": "200",
                 "message": "success",
                 "candidate": candidate
-                }), 200)
+            }), 200)
         return make_response(jsonify({
             "status": "404",
             "message": "candidate not found"
-            }), 404)
+        }), 404)

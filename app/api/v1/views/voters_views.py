@@ -1,8 +1,9 @@
-from flask import make_response, jsonify, request, abort, Blueprint
-from app.api.v1.models.voters_model import VotersModel, voters
+from flask import request, Blueprint
+
+from app.api.v1.models.voters_model import VotersModel
 from utils.validations import raise_error, \
     check_voters_keys, on_success, is_valid_date
-import json
+
 vote = Blueprint('votes', __name__)
 
 

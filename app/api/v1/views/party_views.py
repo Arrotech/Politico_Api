@@ -1,8 +1,13 @@
-import json
-from flask import make_response, jsonify, request, abort, Blueprint
+from flask import make_response, jsonify, request, Blueprint
 from app.api.v1.models.parties_model import PartiesModel, parties
 from utils.validations import raise_error, \
     check_party_keys, is_valid_url, on_success
+from flask import make_response, jsonify, request, Blueprint
+
+from app.api.v1.models.parties_model import PartiesModel, parties
+from utils.validations import raise_error, \
+    check_party_keys, is_valid_url, on_success
+
 party = Blueprint('parties', __name__)
 
 
@@ -34,7 +39,7 @@ class Party:
         return jsonify({
             "message": "party created successfully!",
             "party_id": len(parties)
-            }), 201
+        }), 201
 
     @party.route('/parties', methods=['GET'])
     def get_parties():
@@ -43,7 +48,7 @@ class Party:
         return make_response(jsonify({
             "message": "success",
             "parties": PartiesModel().get_all_parties()
-            }), 200)
+        }), 200)
 
     @party.route('/parties/<int:party_id>', methods=['GET'])
     def get_party(party_id):
@@ -54,10 +59,10 @@ class Party:
             return make_response(jsonify({
                 "message": "success",
                 "party": party
-                }), 200)
+            }), 200)
         return make_response(jsonify({
             "status": "not found"
-            }), 404)
+        }), 404)
 
     @party.route('/parties/<int:party_id>/delete', methods=['DELETE'])
     def delete_party(party_id):
@@ -69,7 +74,7 @@ class Party:
             return on_success(200, "party deleted")
         return make_response(jsonify({
             "status": "not found"
-            }), 404)
+        }), 404)
 
     @party.route('/parties/<int:party_id>/edit', methods=['PATCH'])
     def edit_party(party_id):
@@ -81,4 +86,4 @@ class Party:
             return on_success(200, "party updated successfully")
         return make_response(jsonify({
             "status": "not found"
-            }), 404)
+        }), 404)

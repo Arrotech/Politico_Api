@@ -1,10 +1,13 @@
 import json
-from flask import make_response, jsonify, request, abort, Blueprint
+
+from flask import make_response, jsonify, request, Blueprint
+from flask_jwt_extended import jwt_required
+
 from app.api.v2.models.parties_model import PartiesModel
 from utils.authorization import admin_required
 from utils.validations import raise_error, \
-    check_party_keys, is_valid_url, on_success, edit_party_name_keys, edit_party_hqAddress_keys, edit_party_logoUrl_keys
-from flask_jwt_extended import jwt_required, get_jwt_identity
+    check_party_keys, is_valid_url
+
 party_v2 = Blueprint('parties_v2', __name__)
 
 
@@ -54,7 +57,7 @@ class Party:
             "status": "200",
             "message": "success",
             "parties": json.loads(PartiesModel().get_parties())
-            }), 200)
+        }), 200)
 
     @party_v2.route('/parties/<int:party_id>', methods=['GET'])
     @jwt_required
@@ -68,11 +71,11 @@ class Party:
                 "status": "200",
                 "message": "success",
                 "party": party
-                }), 200)
+            }), 200)
         return make_response(jsonify({
             "status": "404",
             "message": "party not found"
-            }), 404)
+        }), 404)
 
     @party_v2.route('/parties/<int:party_id>', methods=['DELETE'])
     @jwt_required
@@ -86,11 +89,11 @@ class Party:
             return make_response(jsonify({
                 "status": "200",
                 "message": "party deleted"
-                }), 200)
+            }), 200)
         return make_response(jsonify({
             "status": "404",
             "message": "party not found"
-            }), 404)
+        }), 404)
 
     @party_v2.route('/parties/<int:party_id>', methods=['PUT'])
     @jwt_required
@@ -118,8 +121,8 @@ class Party:
                 "status": "200",
                 "message": "party updated successfully",
                 "new_party": party
-                }), 200)
+            }), 200)
         return make_response(jsonify({
             "status": "404",
             "message": "party not found"
-            }), 404)
+        }), 404)

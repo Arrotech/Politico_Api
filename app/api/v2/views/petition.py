@@ -1,9 +1,9 @@
-from flask import make_response, jsonify, request, abort, Blueprint
+from flask import make_response, jsonify, request, Blueprint
+from flask_jwt_extended import jwt_required
+
 from app.api.v2.models.petitions_model import PetitionsModel
 from utils.validations import raise_error, \
-    check_petitions_keys2, on_success, is_valid_date
-import json
-from flask_jwt_extended import jwt_required, get_jwt_identity
+    check_petitions_keys2
 
 petition_v2 = Blueprint('petitions_v2', __name__)
 
@@ -32,4 +32,4 @@ class Petition:
             "status": "201",
             "message": "petition filed successfully",
             "petition": petition
-            }), 201)
+        }), 201)

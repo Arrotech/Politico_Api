@@ -1,7 +1,8 @@
-from flask import make_response, jsonify, request, abort, Blueprint
+from flask import make_response, jsonify, request, Blueprint
+
 from app.api.v1.models.offices_model import OfficesModel, offices
-from utils.validations import raise_error, check_office_keys, on_success, office_restrictions
-import json
+from utils.validations import raise_error, check_office_keys, office_restrictions
+
 office = Blueprint('office', __name__)
 
 
@@ -25,14 +26,14 @@ class Office:
                 is False or details['name'].isalpha() \
                 is False:
             return raise_error(400, "input is in wrong format")
-        if(office_restrictions(category) is False):
+        if (office_restrictions(category) is False):
             return raise_error(400, "select from state, local, federal or legislative")
 
         res = OfficesModel().save(category, name)
         return jsonify({
             "message": "office created successfully!",
             "office_id": len(offices)
-            }), 201
+        }), 201
 
     @office.route('/offices', methods=['GET'])
     def get_offices():
@@ -41,7 +42,7 @@ class Office:
         return make_response(jsonify({
             "message": "success",
             "offices": OfficesModel().get_all_offices()
-            }), 200)
+        }), 200)
 
     @office.route('/offices/<int:office_id>', methods=['GET'])
     def get_office(office_id):
@@ -52,10 +53,10 @@ class Office:
             return make_response(jsonify({
                 "message": "success",
                 "office": office
-                }), 200)
+            }), 200)
         return make_response(jsonify({
             "status": "not found"
-            }), 404)
+        }), 404)
 
     @office.route('/offices/<int:office_id>/delete', methods=['DELETE'])
     def delete(office_id):
@@ -66,10 +67,10 @@ class Office:
             offices.remove(office)
             return make_response(jsonify({
                 "message": "office deleted"
-                }), 200)
+            }), 200)
         return make_response(jsonify({
             "status": "not found"
-            }), 404)
+        }), 404)
 
     @office.route('/offices/<int:office_id>/edit', methods=['PATCH'])
     def edit_office(office_id):
@@ -80,7 +81,7 @@ class Office:
         if office:
             return make_response(jsonify({
                 "message": "office updated successfully"
-                }), 200)
+            }), 200)
         return make_response(jsonify({
             "status": "not found"
-            }), 404)
+        }), 404)

@@ -1,23 +1,24 @@
-from flask import make_response, jsonify, request, Blueprint
-from app.api.v2.models.users_model import UsersModel
-from utils.validations import check_role_key,\
-    role_restrictions, admin_restrictions,\
-    raise_error, check_register_keys,\
-    is_valid_email, is_valid_url,\
-    is_valid_phone, check_candidates_keys2, check_password
 import json
-from utils.authorization import admin_required
-from flask_jwt_extended import jwt_required, get_jwt_identity
-from werkzeug.security import check_password_hash, generate_password_hash
+
+from flask import make_response, jsonify, request, Blueprint
 from flask_jwt_extended import create_access_token
-import re
+from flask_jwt_extended import jwt_required
+from werkzeug.security import check_password_hash, generate_password_hash
+
+from app.api.v2.models.users_model import UsersModel
+from utils.authorization import admin_required
+from utils.validations import check_role_key, \
+    admin_restrictions, \
+    raise_error, check_register_keys, \
+    is_valid_email, is_valid_url, \
+    is_valid_phone
 
 auth = Blueprint('auth', __name__)
 
 
 class Register:
     """A user can create a new account."""
-    
+
     @auth.route('/auth/signup', methods=['POST'])
     def create_account():
         """Create new account."""
@@ -38,11 +39,11 @@ class Register:
             return raise_error(400, "Email is in the wrong format")
         if not is_valid_phone(phoneNumber):
             return raise_error(400, "phone number is in the wrong format")
-        if details['firstname'].isalpha()== False:
+        if details['firstname'].isalpha() == False:
             return raise_error(400, "firstname is in wrong format")
-        if details['lastname'].isalpha()== False:
+        if details['lastname'].isalpha() == False:
             return raise_error(400, "lastname is in wrong format")
-        if details['role'].isalpha()== False:
+        if details['role'].isalpha() == False:
             return raise_error(400, "role is in wrong format")
         if not is_valid_url(passportUrl):
             return raise_error(400, "passportUrl is in the wrong format")
@@ -58,17 +59,17 @@ class Register:
             return raise_error(400, "passportUrl already in use!")
 
         user = UsersModel().save(firstname,
-                lastname,
-                email,
-                password,
-                phoneNumber,
-                passportUrl,
-                role)
+                                 lastname,
+                                 email,
+                                 password,
+                                 phoneNumber,
+                                 passportUrl,
+                                 role)
         return make_response(jsonify({
             "status": "201",
             "message": "Account created successfully",
             "user": user
-            }), 201)
+        }), 201)
 
     @auth.route('/auth/login', methods=['POST'])
     def user_login():
@@ -100,7 +101,7 @@ class Register:
             "status": "200",
             "message": "success",
             "users": json.loads(UsersModel().get_users())
-            }), 200)
+        }), 200)
 
     @auth.route('/users/<int:user_id>', methods=['GET'])
     @jwt_required
@@ -115,11 +116,11 @@ class Register:
                 "status": "200",
                 "message": "success",
                 "user": user
-                }), 200)
+            }), 200)
         return make_response(jsonify({
             "status": "404",
             "message": "user not found"
-            }), 404)
+        }), 404)
 
     @auth.route('/users/<int:user_id>', methods=['PUT'])
     @jwt_required
@@ -133,7 +134,7 @@ class Register:
         details = request.get_json()
         role = details['role']
 
-        if(admin_restrictions(role) is False):
+        if (admin_restrictions(role) is False):
             return raise_error(400, "please select admin as the role")
 
         user = UsersModel().edit_role(role, user_id)
@@ -142,10 +143,8 @@ class Register:
                 "status": "200",
                 "message": "user successfully promoted to be an admin",
                 "new_role": user
-                }), 200)
+            }), 200)
         return make_response(jsonify({
             "status": "404",
             "message": "user not found"
-            }), 404)
-
-
+        }), 404)
