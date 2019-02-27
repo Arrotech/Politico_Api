@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, make_response
 from flask_jwt_extended import JWTManager
+from flask_cors import CORS
 
 from app.api.v1.views.candidates_views import candidate
 from app.api.v1.views.office_views import office
@@ -56,6 +57,7 @@ def electoral_app(config_name):
     """Create app."""
 
     app = Flask(__name__)
+    CORS(app)
 
     app.config.from_pyfile('config.py')
     app.config["SECRET_KEY"] = 'thisisarrotech'
