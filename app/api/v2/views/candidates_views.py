@@ -15,7 +15,7 @@ candidate_v2 = Blueprint('candidates_v2', __name__)
 class Candidates:
     """Candidates enpoint to show interest in running for an office."""
 
-    @candidate_v2.route('/candidates/register', methods=['POST'])
+    @candidate_v2.route('/candidates', methods=['POST'])
     @jwt_required
     @admin_required
     def post():

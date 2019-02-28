@@ -50,7 +50,7 @@ class Vote:
             return raise_error(400, "office does not exist")
         return raise_error(400, "user does not exist")
 
-    @vote_v2.route('/vote/results', methods=['GET'])
+    @vote_v2.route('/vote', methods=['GET'])
     @jwt_required
     def get_results():
         """Fetch results."""
