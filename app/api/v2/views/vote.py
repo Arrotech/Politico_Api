@@ -3,6 +3,7 @@ import json
 from flask import make_response, jsonify, request, Blueprint
 from flask_jwt_extended import jwt_required
 
+
 from app.api.v2.models.offices_model import OfficesModel
 from app.api.v2.models.users_model import UsersModel
 from app.api.v2.models.voters_model import VotersModel

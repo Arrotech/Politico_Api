@@ -23,7 +23,7 @@ class TestVote(BaseTest):
         response = self.client.post(
             '/api/v2/vote', data=json.dumps(vote2), content_type='application/json', headers=self.get_token())
         response1 = self.client.get(
-            '/api/v2/vote/results', content_type='application/json', headers=self.get_token())
+            '/api/v2/vote', content_type='application/json', headers=self.get_token())
         result = json.loads(response1.data.decode())
         self.assertEqual(result['message'],
                          "no results found")

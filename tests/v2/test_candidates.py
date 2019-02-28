@@ -30,7 +30,7 @@ class TestCandidates(BaseTest):
             '/api/v2/parties', data=json.dumps(create_party2), content_type='application/json',
             headers=self.get_token())
         response4 = self.client.post(
-            '/api/v2/candidates/register', data=json.dumps(new_candidate3), content_type='application/json',
+            '/api/v2/candidates', data=json.dumps(new_candidate3), content_type='application/json',
             headers=self.get_token())
         result = json.loads(response4.data.decode())
         self.assertEqual(result['message'], 'user promoted successfully')
@@ -40,7 +40,7 @@ class TestCandidates(BaseTest):
         """Test the vote json keys."""
 
         response = self.client.post(
-            '/api/v2/candidates/register', data=json.dumps(new_candidate2), content_type='application/json',
+            '/api/v2/candidates', data=json.dumps(new_candidate2), content_type='application/json',
             headers=self.get_token())
         result = json.loads(response.data.decode())
         self.assertEqual(result['message'], 'Please check your input and try again!')
@@ -50,7 +50,7 @@ class TestCandidates(BaseTest):
         """Test fetching all offices that have been created."""
 
         response = self.client.post(
-            '/api/v2/candidates/register', data=json.dumps(new_candidate3), content_type='application/json',
+            '/api/v2/candidates', data=json.dumps(new_candidate3), content_type='application/json',
             headers=self.get_token())
         response1 = self.client.get(
             '/api/v2/candidates', content_type='application/json', headers=self.get_token())
@@ -63,7 +63,7 @@ class TestCandidates(BaseTest):
         """Test getting a specific office by id."""
 
         response1 = self.client.post(
-            '/api/v2/candidates/register', data=json.dumps(new_candidate3), content_type='application/json',
+            '/api/v2/candidates', data=json.dumps(new_candidate3), content_type='application/json',
             headers=self.get_token())
         response = self.client.get(
             '/api/v2/candidates/1', content_type='application/json', headers=self.get_token())
@@ -76,7 +76,7 @@ class TestCandidates(BaseTest):
         """Test the format of the office's name json value."""
 
         response = self.client.post(
-            '/api/v2/candidates/register', data=json.dumps(candidate_office_value2), content_type='application/json',
+            '/api/v2/candidates', data=json.dumps(candidate_office_value2), content_type='application/json',
             headers=self.get_token())
         result = json.loads(response.data.decode())
         self.assertEqual(result['message'], 'only positive integer is accepted')
@@ -86,7 +86,7 @@ class TestCandidates(BaseTest):
         """Test the format of the party's name json value."""
 
         response = self.client.post(
-            '/api/v2/candidates/register', data=json.dumps(candidate_party_value2), content_type='application/json',
+            '/api/v2/candidates', data=json.dumps(candidate_party_value2), content_type='application/json',
             headers=self.get_token())
         result = json.loads(response.data.decode())
         self.assertEqual(result['message'], 'only positive integer is accepted')
@@ -96,7 +96,7 @@ class TestCandidates(BaseTest):
         """Test the format of the candidate's name json value."""
 
         response = self.client.post(
-            '/api/v2/candidates/register', data=json.dumps(candidate_candidate_value2), content_type='application/json',
+            '/api/v2/candidates', data=json.dumps(candidate_candidate_value2), content_type='application/json',
             headers=self.get_token())
         result = json.loads(response.data.decode())
         self.assertEqual(result['message'], 'only positive integer is accepted')
@@ -106,7 +106,7 @@ class TestCandidates(BaseTest):
         """Test candidates json keys."""
 
         response = self.client.post(
-            '/api/v2/candidates/register', data=json.dumps(candidate_keys), content_type='application/json',
+            '/api/v2/candidates', data=json.dumps(candidate_keys), content_type='application/json',
             headers=self.get_token())
         result = json.loads(response.data.decode())
         self.assertEqual(result['message'], 'Invalid party key')
