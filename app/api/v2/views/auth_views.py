@@ -86,7 +86,8 @@ class Register:
                 return make_response(jsonify({
                     "status": "200",
                     "message": f"successfully logged in {email}",
-                    "token": token
+                    "token": token,
+                    "user": user
                 }), 200)
             return raise_error(401, "Invalid email or password")
         return raise_error(401, "Invalid email or password")
